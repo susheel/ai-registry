@@ -1,0 +1,15 @@
+{
+  "$comment": "Closed category vocabulary for model entries (entry-core.v1.schema.json's `category`, internal project documentation Section 3.6). A model's category is the genomic or health research task it addresses, not its ML architecture; architecture-level detail belongs in pipeline_tag/tags/library_name (internal project documentation Section 3.5.1).",
+  "categories": [
+    { "id": "variant-effect-prediction", "name": "Variant effect prediction" },
+    { "id": "genomic-foundation-model", "name": "Genomic foundation model" },
+    { "id": "clinical-nlp", "name": "Clinical text and note extraction" },
+    { "id": "phenotype-prediction", "name": "Phenotype prediction" },
+    { "id": "population-genomics", "name": "Population genomics" },
+    { "id": "protein-structure", "name": "Protein structure and function" },
+    { "id": "medical-imaging", "name": "Medical and genomic imaging" },
+    { "id": "multimodal", "name": "Multimodal genomic or health model" },
+    { "id": "drug-discovery", "name": "Drug discovery and target identification" },
+    { "id": "other", "name": "Other genomic or health research use case" }
+  ]
+}

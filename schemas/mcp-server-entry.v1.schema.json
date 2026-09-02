@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/mcp-server-entry.v1.schema.json",
+  "title": "GA4GH AI Registry: MCP server entry (v1)",
+  "description": "The common entry core plus an embedded, verbatim, valid server.json document, validated against schemas/vendor/server.schema.json (internal project documentation Section 3.5.4). All GA4GH additions live inside server._meta['org.ga4gh/ai-registry'], the upstream schema's own sanctioned extension point, so the embedded server document remains lift-out-able: stripping that one key MUST leave a valid, unmodified server.json publishable to registry.modelcontextprotocol.io. server.packages[] and server.remotes[] already cover any externally hosted distribution mechanism (an npm/PyPI/OCI/NuGet registry package, a direct-download URL, or a remote streamable-http/SSE endpoint), so this schema adds no separate hosting field.",
+  "allOf": [
+    { "$ref": "entry-core.v1.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "type": { "const": "mcp-server" },
+        "server": {
+          "allOf": [
+            { "$ref": "vendor/server.schema.json#/definitions/ServerDetail" },
+            {
+              "type": "object",
+              "required": ["_meta"],
+              "properties": {
+                "_meta": {
+                  "type": "object",
+                  "required": ["org.ga4gh/ai-registry"],
+                  "properties": {
+                    "org.ga4gh/ai-registry": {
+                      "type": "object",
+                      "description": "The sole GA4GH extension point inside the embedded server.json document (internal project documentation Section 3.5.4). Every GA4GH addition lives here, never as a sibling key on the server document itself.",
+                      "required": ["ga4gh_standards"],
+                      "properties": {
+                        "ga4gh_standards": {
+                          "type": "array",
+                          "description": "Which GA4GH API specification(s) this server implements, and at what version, e.g. \"trs@2.0.1\".",
+                          "items": { "type": "string" },
+                          "minItems": 1
+                        },
+                        "safety_classification": {
+                          "type": "array",
+                          "description": "Same shape as the common core's safety_classification[] (internal project documentation Section 3.3).",
+                          "items": { "$ref": "entry-core.v1.schema.json#/$defs/SafetyClassification" }
+                        },
+                        "duo": {
+                          "type": "array",
+                          "description": "Optional Data Use Ontology / consent metadata associated with data this server exposes.",
+                          "items": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": ["server"]
+    }
+  ],
+  "unevaluatedProperties": false
+}

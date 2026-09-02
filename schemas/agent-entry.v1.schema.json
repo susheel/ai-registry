@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/agent-entry.v1.schema.json",
+  "title": "GA4GH AI Registry: agent entry (v1)",
+  "description": "The common entry core plus a pointer to the agent's live agent-info endpoint and a cached snapshot of its registry-relevant fields, mirrored verbatim under the endpoint's own field names (internal project documentation Section 3.5.2). An agent's source code location is external and covered by the common core's `repository` field (any git host, including GitHub); its live runtime location is external and covered by `agent_info_uri`, which may point at any publicly reachable {agent_base_url}/service-info endpoint regardless of where the agent is actually deployed. Nothing about this entry requires GA4GH to host the agent's code or runtime.",
+  "allOf": [
+    { "$ref": "entry-core.v1.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "type": { "const": "agent" },
+        "agent_info_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Required. The agent's live {agent_base_url}/service-info endpoint. The registry mirrors only the fields the endpoint's own anonymous-tier disclosure would show a public, unauthenticated caller."
+        },
+        "alignment_card_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional. Link to the agent's alignment card or equivalent behavioural documentation, if published."
+        },
+        "agent_info_snapshot": {
+          "type": "object",
+          "description": "A cache of the agent's live endpoint, stamped by record.last_verified and this block's own last_synced. MUST be rendered as a cache, never as live status (internal project documentation Section 3.5.2).",
+          "required": ["protocol_version", "agent_type", "trust_level", "enrichment"],
+          "properties": {
+            "protocol_version": {
+              "type": "string",
+              "description": "The agent runtime protocol version the endpoint implements, e.g. \"0.5.0\"."
+            },
+            "agent_type": {
+              "type": "string",
+              "description": "The live endpoint's own agent-type classification for this agent."
+            },
+            "trust_level": {
+              "type": "string",
+              "description": "The live endpoint's own trust-level field, verbatim, distinct from enrichment.trust_tier."
+            },
+            "auo_capabilities": {
+              "type": "array",
+              "description": "Autonomous-use-operation capabilities the agent declares.",
+              "items": { "type": "string" }
+            },
+            "guardrails_enabled": {
+              "type": "array",
+              "description": "Runtime guardrails the agent reports as enabled.",
+              "items": { "type": "string" }
+            },
+            "delegation_support": {
+              "type": "object",
+              "properties": {
+                "max_depth": { "type": "integer", "minimum": 0 },
+                "attenuated_minting": { "type": "boolean" },
+                "supported_credential_types": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              },
+              "unevaluatedProperties": false
+            },
+            "dependencies": {
+              "type": "object",
+              "properties": {
+                "agents": { "type": "array", "items": { "type": "string" } },
+                "tools": { "type": "array", "items": { "type": "string" } }
+              },
+              "unevaluatedProperties": false
+            },
+            "trace_endpoint": {
+              "type": "string",
+              "format": "uri",
+              "description": "Optional. Where audit traces for this agent can be retrieved, if publicly disclosed."
+            },
+            "audit_retention_days": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "last_synced": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When this agent_info_snapshot block was last refreshed from agent_info_uri. Rendered prominently so a reader is never left thinking a stale mirror is a live read (internal project documentation Section 3.5.2)."
+            },
+            "enrichment": {
+              "type": "object",
+              "description": "The live endpoint's own agent-registry enrichment block, verbatim.",
+              "required": ["gasl_level"],
+              "properties": {
+                "trust_score": { "type": "integer", "minimum": 0, "maximum": 1000 },
+                "trust_tier": {
+                  "type": "string",
+                  "enum": ["untrusted", "probationary", "registered", "controlled", "clinical"]
+                },
+                "gasl_level": {
+                  "type": "integer",
+                  "description": "The live endpoint's own range, verbatim, 0-4. Also projected into safety_classification[] as {scheme: \"ga4gh-agent-runtime-risk\", level: \"<n>\", source: \"synced-from-endpoint\"} (internal project documentation Section 3.3). This field follows the agent-registry enrichment block's 0-4 range.",
+                  "minimum": 0,
+                  "maximum": 4
+                },
+                "last_audit_date": { "type": "string", "format": "date" },
+                "dependency_count": { "type": "integer", "minimum": 0 },
+                "guardrail_coverage": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+              },
+              "unevaluatedProperties": false
+            }
+          },
+          "unevaluatedProperties": false
+        }
+      },
+      "required": ["agent_info_uri", "agent_info_snapshot"]
+    }
+  ],
+  "unevaluatedProperties": false
+}

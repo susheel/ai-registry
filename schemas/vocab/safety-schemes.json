@@ -1,0 +1,17 @@
+{
+  "$comment": "Closed scheme enumeration for safety_classification[].scheme (internal project documentation Section 3.3, Section 3.6). Extensible by adding a value, never by editing an existing one's meaning. Kept as a standalone vocab file, distinct from the enum baked into entry-core.v1.schema.json, because scripts/validate.ts and the site's facet UI both read it directly; the schema enum and this file MUST be kept in lockstep by hand when a value is added.",
+  "schemes": [
+    {
+      "id": "ga4gh-gase",
+      "name": "GA4GH Safety Certification Level",
+      "description": "A three-plus-one-level (GASL-1, GASL-2, GASL-3, GASL-3E), post-hoc certification scale.",
+      "levels": ["GASL-1", "GASL-2", "GASL-3", "GASL-3E"]
+    },
+    {
+      "id": "ga4gh-agent-runtime-risk",
+      "name": "GA4GH Runtime Safety Tier",
+      "description": "A five-level (0-4), live operational risk tier governing runtime isolation.",
+      "levels": ["0", "1", "2", "3", "4"]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$comment": "Closed category vocabulary for skill entries (entry-core.v1.schema.json's `category`, internal project documentation Section 3.6), drawn from Project #24's stated scope (internal project documentation Section 4.1): scientific writing, consent review, and governance support, plus adjacent certifiable-skill domains.",
+  "categories": [
+    { "id": "scientific-writing", "name": "Scientific writing" },
+    { "id": "consent-review", "name": "Consent review" },
+    { "id": "governance-support", "name": "Governance support" },
+    { "id": "data-curation", "name": "Data curation" },
+    { "id": "variant-interpretation", "name": "Variant interpretation" },
+    { "id": "literature-extraction", "name": "Literature extraction" },
+    { "id": "regulatory-compliance", "name": "Regulatory compliance" },
+    { "id": "other", "name": "Other genomic or health research use case" }
+  ]
+}

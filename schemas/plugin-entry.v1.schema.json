@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/plugin-entry.v1.schema.json",
+  "title": "GA4GH AI Registry: coding-harness plugin entry (v1)",
+  "description": "The common entry core plus an embedded, verbatim Claude Code plugin.json document, validated against schemas/vendor/plugin.schema.json, plus a ga4gh sibling object recording which coding harnesses the plugin targets and how to install it for each (internal project documentation Section 3.5.5). The vendored plugin.schema.json places no additionalProperties restriction at its root (Claude Code documents that it ignores unrecognised top-level fields), so the ga4gh object sits alongside plugin's own fields without invalidating it; stripping ga4gh MUST leave a valid, unmodified plugin.json.",
+  "allOf": [
+    { "$ref": "entry-core.v1.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "type": { "const": "plugin" },
+        "plugin": { "$ref": "vendor/plugin.schema.json" },
+        "ga4gh": {
+          "type": "object",
+          "required": ["harnesses"],
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "items": { "type": "string" },
+              "uniqueItems": true
+            },
+            "category": {
+              "type": "string",
+              "description": "Free text in v1 (internal project documentation Section 3.6): a closed enumeration is premature at roughly two dozen packages."
+            },
+            "harnesses": {
+              "type": "array",
+              "description": "The field none of the six surveyed plugin ecosystems (Claude Code, Codex, Gemini CLI, opencode, VS Code, JetBrains) expresses natively, because each targets exactly one harness by construction. A single ga4gh-plugins package routinely ships both a Cordis plugin and a standalone MCP server usable by any MCP-capable harness, so this array must be able to express more than one target.",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["harness", "installCommand"],
+                "properties": {
+                  "harness": {
+                    "type": "string",
+                    "description": "Closed enumeration, backed by schemas/vocab/harnesses.json.",
+                    "enum": ["claude-code", "codex", "gemini-cli", "opencode", "mcp-generic"]
+                  },
+                  "installCommand": {
+                    "type": "string",
+                    "description": "Exact copy-to-clipboard command or configuration snippet for this harness."
+                  },
+                  "manifestPath": {
+                    "type": "string",
+                    "description": "Optional path to a harness-specific manifest within the plugin's repository."
+                  },
+                  "compatibility": {
+                    "type": "object",
+                    "description": "JetBrains-style compatibility range: set a lower bound, generally omit the upper bound so the plugin is not needlessly pinned.",
+                    "required": ["minVersion"],
+                    "properties": {
+                      "minVersion": { "type": "string" },
+                      "maxVersion": { "type": "string" }
+                    },
+                    "unevaluatedProperties": false
+                  }
+                },
+                "unevaluatedProperties": false
+              }
+            }
+          },
+          "unevaluatedProperties": false
+        }
+      },
+      "required": ["plugin", "ga4gh"]
+    }
+  ],
+  "unevaluatedProperties": false
+}
