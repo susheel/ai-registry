@@ -27,9 +27,10 @@
                       "properties": {
                         "ga4gh_standards": {
                           "type": "array",
-                          "description": "Which GA4GH API specification(s) this server implements, and at what version, e.g. \"trs@2.0.1\".",
-                          "items": { "type": "string" },
-                          "minItems": 1
+                          "description": "Which GA4GH API specification(s) this server implements, and at what version, e.g. \"trs@2.0.1\". A bare kebab-case identifier with an optional @version suffix whose version part starts with a digit, so \"trs@v2.0.1\" is not a second spelling of \"trs@2.0.1\". This is the precise implementation claim; the common core's ga4gh_standards[] is the coarse, version-free browse facet. scripts/validate.ts enforces that stripping the @version suffix from every item here yields a subset of the common core array.",
+                          "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*(@[0-9][0-9A-Za-z.-]*)?$" },
+                          "minItems": 1,
+                          "uniqueItems": true
                         },
                         "safety_classification": {
                           "type": "array",
@@ -50,7 +51,7 @@
           ]
         }
       },
-      "required": ["server"]
+      "required": ["server", "ga4gh_standards"]
     }
   ],
   "unevaluatedProperties": false

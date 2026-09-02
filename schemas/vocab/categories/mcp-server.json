@@ -11,7 +11,8 @@
     { "id": "gks", "name": "Genomic Knowledge Standards (GKS)" },
     { "id": "passport", "name": "Passport" },
     { "id": "refget", "name": "refget" },
-    { "id": "service-registry", "name": "Service Registry / service-info" },
+    { "id": "service-info", "name": "Service Info" },
+    { "id": "service-registry", "name": "Service Registry" },
     { "id": "other", "name": "Other GA4GH-standard or genomics/health data source" }
   ]
 }
