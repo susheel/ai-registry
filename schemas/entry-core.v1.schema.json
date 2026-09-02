@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/entry-core.v1.schema.json",
+  "title": "GA4GH AI Registry: common entry core (v1)",
+  "description": "Fields carried by every entry regardless of type (internal project documentation Section 3.2). Composed via allOf by each of the five per-type schemas (model-entry, agent-entry, skill-entry, mcp-server-entry, plugin-entry). This schema deliberately does not set unevaluatedProperties or additionalProperties: false, so it can be safely allOf-composed; each per-type schema closes the composed shape itself.",
+  "type": "object",
+  "$comment": "processing_directives is reserved for a future BREP-Lite field (see internal research notes D7/R4, internal project documentation Section 3.4, internal project documentation Section 6.8). Do not define this property until the Workstream reconciles ADR-008's directive vocabulary against Model Card Section 6.8a's vocabulary.",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "summary",
+    "description",
+    "homepage",
+    "repository",
+    "license",
+    "maintainers",
+    "version",
+    "keywords",
+    "category",
+    "safety_classification",
+    "certification_tier",
+    "record"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Registry slug, unique within its type. Used as the filename stem (data/<type>/<id>.json) and in machine-readable output keys.",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "minLength": 2,
+      "maxLength": 100
+    },
+    "type": {
+      "type": "string",
+      "description": "The content type this entry belongs to. Closed enumeration in v1 (internal project documentation Section 4.2, internal project documentation Section 3.2): expanding it is a schema minor-version bump, not a v1 concern.",
+      "enum": ["model", "agent", "skill", "mcp-server", "plugin"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name.",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "summary": {
+      "type": "string",
+      "description": "Single line, used in listings and search results.",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Markdown, unbounded, rendered on the detail page.",
+      "minLength": 1
+    },
+    "homepage": {
+      "type": "string",
+      "description": "Project or product homepage.",
+      "format": "uri"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Source code repository URL.",
+      "format": "uri"
+    },
+    "license": {
+      "type": "string",
+      "description": "An SPDX licence identifier present in schemas/vocab/licenses.json, or the literal string \"other\" paired with a required license_url. Allow-list membership is enforced by scripts/validate.ts, not by this schema, so the allow-list can grow without a schema change.",
+      "minLength": 1
+    },
+    "license_url": {
+      "type": "string",
+      "description": "Required when license is \"other\"; a URL to the full licence text.",
+      "format": "uri"
+    },
+    "maintainers": {
+      "type": "array",
+      "description": "At least one maintainer, used for CODEOWNERS-style attribution and submitter-authorisation review (internal project documentation Section 7).",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "github"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "github": {
+            "type": "string",
+            "description": "GitHub username, without a leading @.",
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$"
+          },
+          "affiliation": { "type": "string" },
+          "orcid": {
+            "type": "string",
+            "description": "ORCID iD, if the maintainer has one.",
+            "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]$"
+          }
+        },
+        "unevaluatedProperties": false
+      }
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of the underlying model, agent, skill, server, or plugin that this entry indexes.",
+      "minLength": 1
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Free-text search facet terms. May be empty.",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "category": {
+      "type": "string",
+      "description": "A single value from the per-type category vocabulary (schemas/vocab/categories/<type>.json). Plugin entries use free text in v1 per internal project documentation Section 3.6.",
+      "minLength": 1
+    },
+    "ga4gh_standards": {
+      "type": "array",
+      "description": "Optional. Which GA4GH API specification(s) this entry touches, e.g. trs, drs, beacon, htsget. Open-ended in v1: no closed vocab file backs this field (internal project documentation Section 3.6 lists only licenses, categories, harnesses, and safety-schemes as closed vocabularies).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "safety_classification": {
+      "type": "array",
+      "description": "Scheme-qualified safety classifications (internal project documentation Section 3.3). May be empty: an entry MAY carry zero, one, or both schemes. Never a bare level: every rendered entry MUST show its scheme alongside its level.",
+      "items": { "$ref": "#/$defs/SafetyClassification" }
+    },
+    "certification_tier": {
+      "type": "string",
+      "description": "ADR-003's three-tier certification model, verbatim. Defaults to unsigned; a submission arriving with any other value MUST be rejected at Workflow 1 (internal project documentation Section 3.2). Only a maintainer-authored edit against an existing entry may raise it.",
+      "enum": ["platform_verified", "community_signed", "unsigned"],
+      "default": "unsigned"
+    },
+    "record": {
+      "type": "object",
+      "description": "Provenance block shown on every detail page (internal project documentation Section 5.2).",
+      "required": ["created", "updated", "last_verified"],
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this entry was first merged to data/."
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The merge date of the most recent accepted change (internal project documentation Section 5.5)."
+        },
+        "last_verified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When a maintainer last confirmed this entry's claims, independent of a content edit."
+        },
+        "source_issue": {
+          "type": "integer",
+          "description": "The GitHub issue number that produced this entry via the submission pipeline. Omitted for entries authored directly by a maintainer through a pull request that never passed through an issue (internal project documentation Section 6, Workflow 3).",
+          "minimum": 1
+        }
+      },
+      "unevaluatedProperties": false
+    }
+  },
+  "$defs": {
+    "SafetyClassification": {
+      "type": "object",
+      "description": "One safety or certification claim, scheme-qualified per internal project documentation Section 3.3. The registry represents the source scale; it does not adjudicate between different schemes' scales.",
+      "required": ["scheme", "level", "source"],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "description": "The issuing scheme. Closed enumeration, backed by schemas/vocab/safety-schemes.json; extensible by adding a value, never by editing an existing one's meaning.",
+          "enum": ["ga4gh-gase", "ga4gh-agent-runtime-risk"]
+        },
+        "level": {
+          "type": "string",
+          "description": "The level, in the issuing scheme's own notation: e.g. \"GASL-2\" or \"GASL-3E\" for ga4gh-gase; \"0\" through \"4\" for ga4gh-agent-runtime-risk. Never normalised or cross-mapped to the other scheme.",
+          "minLength": 1
+        },
+        "certifying_body": {
+          "type": "string",
+          "description": "Who issued or performed the certification, if known."
+        },
+        "evaluation_date": {
+          "type": "string",
+          "format": "date",
+          "description": "When the classification was evaluated."
+        },
+        "valid_until": {
+          "type": "string",
+          "format": "date",
+          "description": "When the classification expires, if it does."
+        },
+        "evidence_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to the certification record or evaluation report."
+        },
+        "source": {
+          "type": "string",
+          "description": "How this classification entered the registry.",
+          "enum": ["submitter-attested", "maintainer-verified", "synced-from-endpoint"]
+        }
+      },
+      "unevaluatedProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "license": { "const": "other" } },
+        "required": ["license"]
+      },
+      "then": {
+        "required": ["license_url"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$comment": "Closed harness enumeration for plugin-entry.v1.schema.json's ga4gh.harnesses[].harness (internal project documentation Section 3.5.5, Section 3.6).",
+  "harnesses": [
+    { "id": "claude-code", "name": "Claude Code" },
+    { "id": "codex", "name": "Codex" },
+    { "id": "gemini-cli", "name": "Gemini CLI" },
+    { "id": "opencode", "name": "opencode" },
+    { "id": "mcp-generic", "name": "Any MCP-capable harness (generic)" }
+  ]
+}

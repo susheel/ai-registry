@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/skill-entry.v1.schema.json",
+  "title": "GA4GH AI Registry: skill entry (v1)",
+  "description": "The common entry core plus an embedded SKILL.md-style frontmatter object and the fields Project #24 specifies as required for a certifiable skill: defined inputs, outputs, provenance logging, human oversight requirements, and evaluation criteria (internal project documentation Section 3.5.3, internal project documentation Section 6.4). source.repository is shaped to match agentregistry's Skill kind so a future integration is a mapping exercise, not a schema rework; its url is any externally hosted git repository, not limited to a GA4GH-controlled host.",
+  "allOf": [
+    { "$ref": "entry-core.v1.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "type": { "const": "skill" },
+        "skill": {
+          "type": "object",
+          "description": "Embedded SKILL.md-style frontmatter. Ecosystem-specific frontmatter fields beyond name/description are preserved as-is (additionalProperties intentionally open, mirroring Claude Code's own tolerance of unrecognised SKILL.md frontmatter keys).",
+          "required": ["name", "description"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "description": { "type": "string", "minLength": 1 }
+          }
+        },
+        "source": {
+          "type": "object",
+          "required": ["repository"],
+          "properties": {
+            "repository": {
+              "type": "object",
+              "required": ["url"],
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Source repository for the skill, on any git hosting service (GitHub, GitLab, self-hosted, or other)."
+                },
+                "subfolder": {
+                  "type": "string",
+                  "description": "Optional relative path from the repository root to the skill, for a skill living in a monorepo or a nested package structure."
+                }
+              },
+              "unevaluatedProperties": false
+            }
+          },
+          "unevaluatedProperties": false
+        },
+        "inputs": {
+          "type": "array",
+          "description": "Defined inputs the skill accepts, per Project #24's certification requirements.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "type": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "unevaluatedProperties": false
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "description": "Defined outputs the skill produces, per Project #24's certification requirements.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "type": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "unevaluatedProperties": false
+          }
+        },
+        "human_oversight": {
+          "type": "string",
+          "enum": ["required", "recommended", "none"]
+        },
+        "provenance_logging": {
+          "type": "boolean"
+        },
+        "evaluation_criteria_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Pointer to the skill's evaluation criteria document."
+        },
+        "auo_capabilities": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "host_runtimes": {
+          "type": "array",
+          "description": "Coding harnesses or runtimes this skill has been verified to run under.",
+          "items": { "type": "string" }
+        }
+      },
+      "required": [
+        "skill",
+        "source",
+        "inputs",
+        "outputs",
+        "human_oversight",
+        "provenance_logging",
+        "evaluation_criteria_uri"
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

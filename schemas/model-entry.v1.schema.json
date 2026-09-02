@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/model-entry.v1.schema.json",
+  "title": "GA4GH AI Registry: model entry (v1)",
+  "description": "The common entry core (entry-core.v1.schema.json) plus a required pointer to a full GA4GH Genomic AI Model Card and a small index projection mirrored from the Model Card and from Hugging Face's own listing conventions (internal project documentation Section 3.5.1). Models are referenced, never embedded: the Model Card remains the single authoritative document. hosting_location + access_uri are the fields that let this entry point at a model hosted anywhere: Hugging Face, GitHub, a container registry, a self-hosted endpoint, or a gated-request-only source.",
+  "allOf": [
+    { "$ref": "entry-core.v1.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "type": { "const": "model" },
+        "model_card_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Required. URI to a full GA4GH Genomic AI Model Card (internal project documentation Section 3.5.1, targeting Model Card v0.6.0). This is the deep-dive link the detail page renders prominently; no other Model Card content is duplicated into this entry."
+        },
+        "pipeline_tag": {
+          "type": "string",
+          "description": "Mirrored from Hugging Face / Model Card Section 5's pipeline tag vocabulary, e.g. \"text-generation\", \"variant-effect-prediction\"."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Mirrored from Hugging Face / Model Card Section 5.",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "library_name": {
+          "type": "string",
+          "description": "Mirrored from Hugging Face / Model Card Section 5, e.g. \"transformers\", \"pytorch\"."
+        },
+        "base_model": {
+          "type": "string",
+          "description": "Mirrored from Hugging Face / Model Card Section 5: the base or foundation model this model was fine-tuned or derived from, if any."
+        },
+        "intended_domain": {
+          "type": "string",
+          "description": "Model Card Section 5.3 fallback for genomic tasks with no accepted Hugging Face pipeline_tag."
+        },
+        "developed_by": {
+          "type": "string",
+          "description": "Mirrored from Model Card Section 6.1."
+        },
+        "release_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Mirrored from Model Card Section 6.1."
+        },
+        "hosting_location": {
+          "type": "string",
+          "description": "Where the model itself (weights, container, or gated-access endpoint) is hosted, distinct from where its source repository lives. This is what makes an externally hosted model addressable: a Hugging Face Hub model, a model published only as a GitHub release artefact, a container image, a self-hosted inference endpoint, or a gated-request-only model with no public download.",
+          "enum": ["huggingface", "github", "docker", "self-hosted", "gated-request", "other"]
+        },
+        "access_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Where to access or request the model, appropriate to hosting_location, e.g. a Hugging Face Hub URL (https://huggingface.co/<org>/<model>), a GitHub Releases URL, a container registry reference, or a gated-access request form URL."
+        },
+        "install_command": {
+          "type": "string",
+          "description": "Copy-paste string to install or load the model, Ollama-style, e.g. a Hugging Face `pip install` and load snippet. Omitted where no meaningful install action exists (internal project documentation Section 5.3)."
+        },
+        "recommended_version": {
+          "type": "string",
+          "description": "MLflow-alias-shaped pointer to the version a visitor should use by default, when this entry tracks more than one published version."
+        },
+        "last_synced": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last mirror refresh of any fields on this entry sourced from an external listing (e.g. Hugging Face Hub metadata)."
+        },
+        "registry_enrichment": {
+          "type": "object",
+          "description": "Mirrored verbatim from Model Card Section 6.8b. Documentation-completeness oriented; MUST NOT be merged with an agent entry's trust-and-behaviour-oriented agent_info_snapshot.enrichment (internal project documentation Section 3.5.1).",
+          "properties": {
+            "completeness_score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "genomic_quality_score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "compliance_indicators": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "last_validated": { "type": "string", "format": "date-time" }
+          },
+          "unevaluatedProperties": false
+        }
+      },
+      "required": ["model_card_uri"]
+    }
+  ],
+  "unevaluatedProperties": false
+}
