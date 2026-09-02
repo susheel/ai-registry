@@ -114,7 +114,7 @@
     },
     "ga4gh_standards": {
       "type": "array",
-      "description": "Optional. Which GA4GH API specification(s) this entry touches, e.g. trs, drs, beacon, htsget. Open-ended in v1: no closed vocab file backs this field (internal project documentation Section 3.6 lists only licenses, categories, harnesses, and safety-schemes as closed vocabularies).",
+      "description": "Optional. The coarse, version-free browse and search facet for which GA4GH API specification(s) this entry touches, e.g. trs, drs, beacon, htsget. Values are bare kebab-case identifiers and MUST NOT carry a version suffix, because a versioned facet value splits one standard across multiple buckets and breaks filtering. A version-qualified implementation claim belongs in the type-specific block instead (for mcp-server entries, server._meta['org.ga4gh/ai-registry'].ga4gh_standards[]). Open-ended in v1: no closed vocab file backs this field (internal project documentation Section 3.6 lists only licenses, categories, harnesses, and safety-schemes as closed vocabularies).",
       "items": {
         "type": "string",
         "pattern": "^[a-z][a-z0-9-]*$"
