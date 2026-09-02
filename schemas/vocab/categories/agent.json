@@ -1,0 +1,13 @@
+{
+  "$comment": "Closed category vocabulary for agent entries (entry-core.v1.schema.json's `category`, internal project documentation Section 3.6). Categorises the agent's task domain, distinct from agent_info_snapshot.agent_type, which is the live endpoint's own classification mirrored verbatim from the live endpoint.",
+  "categories": [
+    { "id": "variant-interpretation", "name": "Variant interpretation" },
+    { "id": "literature-curation", "name": "Literature curation and extraction" },
+    { "id": "clinical-decision-support", "name": "Clinical decision support" },
+    { "id": "data-access-governance", "name": "Data access and governance" },
+    { "id": "research-assistant", "name": "Research assistant" },
+    { "id": "workflow-orchestration", "name": "Workflow orchestration" },
+    { "id": "regulatory-compliance", "name": "Regulatory compliance" },
+    { "id": "other", "name": "Other genomic or health research use case" }
+  ]
+}

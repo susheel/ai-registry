@@ -1,0 +1,22 @@
+{
+  "$comment": "The SPDX licence allow-list for entry-core.v1.schema.json's `license` field (internal project documentation Section 3.6). scripts/validate.ts MUST reject a submission whose `license` is neither the literal string \"other\" nor an `id` present here. This is a starting curated set, not an exhaustive SPDX mirror: extend it by adding an entry, never by relaxing the check to accept an arbitrary SPDX identifier unchecked. An entry whose licence is not on this list MUST use `license: \"other\"` plus a required `license_url`, so it is still discoverable and its licence is still honestly stated, just not machine-verified against SPDX.",
+  "licenses": [
+    { "id": "Apache-2.0", "name": "Apache License 2.0" },
+    { "id": "MIT", "name": "MIT License" },
+    { "id": "BSD-2-Clause", "name": "BSD 2-Clause \"Simplified\" License" },
+    { "id": "BSD-3-Clause", "name": "BSD 3-Clause \"New\" or \"Revised\" License" },
+    { "id": "ISC", "name": "ISC License" },
+    { "id": "GPL-2.0-only", "name": "GNU General Public License v2.0 only" },
+    { "id": "GPL-3.0-only", "name": "GNU General Public License v3.0 only" },
+    { "id": "LGPL-2.1-only", "name": "GNU Lesser General Public License v2.1 only" },
+    { "id": "LGPL-3.0-only", "name": "GNU Lesser General Public License v3.0 only" },
+    { "id": "AGPL-3.0-only", "name": "GNU Affero General Public License v3.0 only" },
+    { "id": "MPL-2.0", "name": "Mozilla Public License 2.0" },
+    { "id": "CC0-1.0", "name": "Creative Commons Zero v1.0 Universal" },
+    { "id": "CC-BY-4.0", "name": "Creative Commons Attribution 4.0 International" },
+    { "id": "CC-BY-SA-4.0", "name": "Creative Commons Attribution-ShareAlike 4.0 International" },
+    { "id": "CC-BY-NC-4.0", "name": "Creative Commons Attribution-NonCommercial 4.0 International" },
+    { "id": "Unlicense", "name": "The Unlicense" },
+    { "id": "OFL-1.1", "name": "SIL Open Font License 1.1" }
+  ]
+}
