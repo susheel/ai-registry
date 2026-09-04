@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-refget",
+  "type": "plugin",
+  "name": "GA4GH refget Server",
+  "summary": "GA4GH refget v2.0 sequence-metadata lookup, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+  "description": "GA4GH refget v2.0 sequence-metadata lookup by checksum, as a Cordis plugin, a bundled skill, and a standalone MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "refget",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "refget"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "refget",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-refget",
+    "version": "0.1.0-rc.5",
+    "description": "GA4GH refget v2.0 sequence-metadata lookup, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "refget",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-refget": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-refget"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "refget",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "refget",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-refget -- npx -y @deepseek-ai/dsh-ga4gh-refget"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-refget -- npx -y @deepseek-ai/dsh-ga4gh-refget"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-refget npx -y @deepseek-ai/dsh-ga4gh-refget"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-refget\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-refget\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-refget\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-refget\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

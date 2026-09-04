@@ -1,0 +1,233 @@
+name: Submit a model
+description: Submit a genomic or health AI model to the GA4GH AI Registry
+title: "[Model] "
+labels: ["registry-submission", "type:model"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting a model to the GA4GH AI Registry. Automation will check this form's
+        contents (schema conformance, licence eligibility, link resolution) and comment back with
+        any errors; a maintainer then decides whether the entry belongs in the catalogue. See
+        `internal project documentation` Section 5.4 for the full review process.
+
+        **Field conventions used throughout this form:**
+        - A comma-separated field takes multiple values on one line, e.g. `trs, drs`.
+        - A multi-line field takes one row per item, each row itself comma-separated in the exact
+          column order stated in that field's own description.
+
+  - type: input
+    id: id
+    attributes:
+      label: Registry slug (id)
+      description: Lowercase letters, digits, and hyphens only, e.g. "genomic-variant-classifier". Must be unique among model entries.
+      placeholder: genomic-variant-classifier
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary
+      description: Maximum 200 characters. Shown in listings and search results.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Markdown. Rendered on the entry's detail page.
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage URL
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: Licence
+      description: Choose "other" if your licence is not listed, and fill in the licence URL field below.
+      options:
+        - Apache-2.0
+        - MIT
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - GPL-2.0-only
+        - GPL-3.0-only
+        - LGPL-2.1-only
+        - LGPL-3.0-only
+        - AGPL-3.0-only
+        - MPL-2.0
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+        - CC-BY-NC-4.0
+        - Unlicense
+        - OFL-1.1
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: license_url
+    attributes:
+      label: Licence URL (required only if licence is "other")
+      description: A link to the full licence text.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The version of the model this entry indexes.
+    validations:
+      required: true
+
+  - type: input
+    id: keywords
+    attributes:
+      label: Keywords
+      description: "Comma-separated free-text search terms, e.g.: variant-effect-prediction, pathogenicity, genomics"
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: The genomic or health research task this model addresses.
+      options:
+        - variant-effect-prediction
+        - genomic-foundation-model
+        - clinical-nlp
+        - phenotype-prediction
+        - population-genomics
+        - protein-structure
+        - medical-imaging
+        - multimodal
+        - drug-discovery
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_standards
+    attributes:
+      label: GA4GH standards touched (optional)
+      description: "Comma-separated, e.g.: trs, drs. Leave blank if this model does not directly implement a GA4GH API."
+
+  - type: textarea
+    id: maintainers
+    attributes:
+      label: Maintainers
+      description: "One per line: name, github-username[, affiliation[, orcid]]. At least one row required."
+      placeholder: |
+        Ada Researcher, ada-researcher, Example Genomics Institute
+        Grace Hopper, grace-hopper
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety_classification
+    attributes:
+      label: Safety classification (optional)
+      description: >
+        One per line: scheme, level, source[, certifying_body[, evaluation_date[, valid_until[, evidence_uri]]]].
+        scheme is "ga4gh-gase" or "ga4gh-agent-runtime-risk"; source is "submitter-attested", "maintainer-verified", or
+        "synced-from-endpoint". Leave blank if no safety classification applies yet.
+      placeholder: ga4gh-gase, GASL-2, submitter-attested
+
+  - type: input
+    id: model_card_uri
+    attributes:
+      label: Model Card URI
+      description: URI to the full GA4GH Genomic AI Model Card (v0.6.0) for this model.
+    validations:
+      required: true
+
+  - type: input
+    id: pipeline_tag
+    attributes:
+      label: Pipeline tag (optional)
+      description: Mirrored from Hugging Face / Model Card Section 5, e.g. "variant-effect-prediction".
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags (optional)
+      description: Comma-separated, mirrored from Hugging Face / Model Card Section 5.
+
+  - type: input
+    id: library_name
+    attributes:
+      label: Library name (optional)
+      description: e.g. "transformers", "pytorch".
+
+  - type: input
+    id: base_model
+    attributes:
+      label: Base model (optional)
+
+  - type: input
+    id: intended_domain
+    attributes:
+      label: Intended domain (optional)
+      description: Model Card Section 5.3 fallback for genomic tasks with no accepted Hugging Face pipeline_tag.
+
+  - type: input
+    id: developed_by
+    attributes:
+      label: Developed by (optional)
+
+  - type: input
+    id: release_date
+    attributes:
+      label: Release date (optional)
+      description: ISO 8601 date, e.g. 2026-05-01.
+
+  - type: dropdown
+    id: hosting_location
+    attributes:
+      label: Hosting location (optional)
+      options:
+        - huggingface
+        - github
+        - docker
+        - self-hosted
+        - gated-request
+        - other
+
+  - type: input
+    id: access_uri
+    attributes:
+      label: Access URI (optional)
+      description: Where to access or request the model.
+
+  - type: input
+    id: install_command
+    attributes:
+      label: Install command (optional)
+      description: Copy-paste string to install or load the model, Ollama-style.
+
+  - type: input
+    id: recommended_version
+    attributes:
+      label: Recommended version (optional)

@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-drs",
+  "type": "skill",
+  "name": "ga4gh-drs skill",
+  "summary": "Fetch a GA4GH Data Repository Service (DRS) object's metadata (https://github.com/ga4gh/data-repository-service-schemas) by object id from a configured DRS endpoint, and download the object bytes from",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Data Repository Service (DRS), shipped alongside the `@deepseek-ai/dsh-ga4gh-drs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Fetch a GA4GH Data Repository Service (DRS) object's metadata (https://github.com/ga4gh/data-repository-service-schemas) by object id from a configured DRS endpoint, and download the object bytes from an https access URL. Use when the user asks to look up, resolve, fetch, or download a DRS object id, or mentions GA4GH DRS interoperability.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/drs",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "drs",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "drs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.662Z",
+    "updated": "2026-09-04T11:00:07.662Z",
+    "last_verified": "2026-09-04T11:00:07.662Z"
+  },
+  "skill": {
+    "name": "ga4gh-drs",
+    "description": "Fetch a GA4GH Data Repository Service (DRS) object's metadata (https://github.com/ga4gh/data-repository-service-schemas) by object id from a configured DRS endpoint, and download the object bytes from an https access URL. Use when the user asks to look up, resolve, fetch, or download a DRS object id, or mentions GA4GH DRS interoperability.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/drs"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/drs"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/drs/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

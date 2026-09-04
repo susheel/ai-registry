@@ -1,0 +1,40 @@
+{
+  "id": "variant-triage-agent",
+  "type": "agent",
+  "name": "Variant Triage Agent",
+  "summary": "Agent that triages candidate variants for clinical review, exposing a live agent-info endpoint.",
+  "description": "An autonomous agent that reads a VCF, ranks candidate variants against curated evidence sources, and hands off a prioritised shortlist for human review under runtime guardrails.",
+  "homepage": "https://example.org/variant-triage-agent",
+  "repository": "https://github.com/example-org/variant-triage-agent",
+  "license": "MIT",
+  "maintainers": [{ "name": "Grace Hopper", "github": "grace-hopper" }],
+  "version": "0.4.0",
+  "keywords": ["variant-triage", "clinical-genomics"],
+  "category": "variant-interpretation",
+  "safety_classification": [
+    { "scheme": "ga4gh-agent-runtime-risk", "level": "2", "source": "synced-from-endpoint" }
+  ],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-15T00:00:00Z",
+    "last_verified": "2026-08-15T00:00:00Z",
+    "source_issue": 102
+  },
+  "agent_info_uri": "https://agent.example.org/service-info",
+  "agent_info_snapshot": {
+    "protocol_version": "0.5.0",
+    "agent_type": "variant-triage",
+    "trust_level": "registered",
+    "auo_capabilities": ["variant-annotation"],
+    "guardrails_enabled": ["human-in-the-loop"],
+    "last_synced": "2026-08-15T00:00:00Z",
+    "enrichment": {
+      "trust_score": 720,
+      "trust_tier": "registered",
+      "gasl_level": 2,
+      "dependency_count": 1,
+      "guardrail_coverage": 0.8
+    }
+  }
+}

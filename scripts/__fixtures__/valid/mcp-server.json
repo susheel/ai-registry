@@ -1,0 +1,33 @@
+{
+  "id": "trs-tools-mcp",
+  "type": "mcp-server",
+  "name": "TRS Tools MCP Server",
+  "summary": "MCP server exposing GA4GH TRS tool listings to any MCP-capable harness.",
+  "description": "Wraps a GA4GH Tool Registry Service instance and exposes its tool listings as MCP resources and tools.",
+  "homepage": "https://example.org/trs-tools-mcp",
+  "repository": "https://github.com/example-org/trs-tools-mcp",
+  "license": "Apache-2.0",
+  "maintainers": [{ "name": "Thomas Conner", "github": "thomas-conner" }],
+  "version": "1.0.0",
+  "keywords": ["trs", "tool-registry"],
+  "category": "trs",
+  "ga4gh_standards": ["trs"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z",
+    "source_issue": 104
+  },
+  "server": {
+    "name": "org.ga4gh/trs-tools-mcp",
+    "description": "MCP server exposing GA4GH TRS-compatible tool listings.",
+    "version": "1.0.0",
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["trs@2.0.1"]
+      }
+    }
+  }
+}

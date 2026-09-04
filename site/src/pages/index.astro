@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { COLLECTION_KEYS, TYPE_META } from "../lib/registry-types.js";
+import { withBase } from "../lib/url.js";
+
+const counts = Object.fromEntries(
+  await Promise.all(COLLECTION_KEYS.map(async (key) => [key, (await getCollection(key)).length] as const)),
+);
+---
+
+<Base
+  title="Home"
+  description="A catalogue of GA4GH-relevant AI models, agents, skills, MCP servers, and coding-harness plugins for genomics and health research."
+>
+  <h1>GA4GH AI Registry</h1>
+  <p class="page-intro">
+    A community-submitted, human-reviewed catalogue of AI models, agents, skills, MCP servers, and coding-harness
+    plugins relevant to genomics and health research, published by the GA4GH AI Workstream.
+  </p>
+
+  <ul class="type-grid">
+    {
+      COLLECTION_KEYS.map((key) => {
+        const meta = TYPE_META[key];
+        return (
+          <li>
+            <a class="type-card" href={withBase(`/${key}/`)}>
+              <span class="type-card__count" aria-hidden="true">
+                {counts[key]}
+              </span>
+              <p class="type-card__label">
+                {meta.label}{" "}
+                <span class="visually-hidden">({counts[key]} {counts[key] === 1 ? "entry" : "entries"})</span>
+              </p>
+              <p class="type-card__description">{meta.description}</p>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Base>

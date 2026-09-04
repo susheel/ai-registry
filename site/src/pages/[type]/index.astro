@@ -1,0 +1,250 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import CertificationBadge from "../../components/CertificationBadge.astro";
+import SafetyBadges from "../../components/SafetyBadges.astro";
+import { COLLECTION_KEYS, TYPE_META, type CollectionKey } from "../../lib/registry-types.js";
+import { categoriesForCollection, categoryLabel, harnessLabel, HARNESSES, SAFETY_SCHEMES } from "../../lib/vocab.js";
+import { withBase } from "../../lib/url.js";
+
+export async function getStaticPaths() {
+  return Promise.all(
+    COLLECTION_KEYS.map(async (key) => ({
+      params: { type: key },
+      props: { entries: await getCollection(key) },
+    })),
+  );
+}
+
+interface Props {
+  entries: CollectionEntry<CollectionKey>[];
+}
+
+const { type } = Astro.params as { type: CollectionKey };
+const { entries } = Astro.props;
+const meta = TYPE_META[type];
+
+function harnessesFor(entry: CollectionEntry<CollectionKey>): string[] {
+  const ga4gh = (entry.data as { ga4gh?: { harnesses?: Array<{ harness?: string }> } }).ga4gh;
+  return (ga4gh?.harnesses ?? []).map((h) => h.harness).filter((h): h is string => typeof h === "string");
+}
+
+const standardsInUse = Array.from(new Set(entries.flatMap((e) => (e.data.ga4gh_standards as string[] | undefined) ?? []))).sort();
+const keywordsInUse = Array.from(new Set(entries.flatMap((e) => (e.data.keywords as string[] | undefined) ?? []))).sort();
+const harnessesInUse = type === "plugins" ? Array.from(new Set(entries.flatMap((e) => harnessesFor(e)))).sort() : [];
+const categories = categoriesForCollection(type);
+---
+
+<Base title={meta.label} description={meta.description}>
+  <h1>{meta.label}</h1>
+  <p class="page-intro">{meta.description}</p>
+  <p class="entry-count" id="visible-count" aria-live="polite">{entries.length} of {entries.length} entries shown</p>
+
+  <div class="browse-layout" data-browse-root>
+    <form class="facet-panel" aria-label={`Filter ${meta.label.toLowerCase()}`} data-facet-form data-pagefind-ignore>
+      {
+        categories.length > 0 && (
+          <fieldset class="facet-group">
+            <legend>Category</legend>
+            {categories.map((c) => (
+              <label class="facet-option">
+                <input type="checkbox" name="category" value={c.id} />
+                {c.name}
+              </label>
+            ))}
+          </fieldset>
+        )
+      }
+
+      {
+        standardsInUse.length > 0 && (
+          <fieldset class="facet-group">
+            <legend>GA4GH standard</legend>
+            {standardsInUse.map((s) => (
+              <label class="facet-option">
+                <input type="checkbox" name="standard" value={s} />
+                {s}
+              </label>
+            ))}
+          </fieldset>
+        )
+      }
+
+      {
+        keywordsInUse.length > 0 && (
+          <fieldset class="facet-group">
+            <legend>Keyword</legend>
+            {keywordsInUse.map((k) => (
+              <label class="facet-option">
+                <input type="checkbox" name="keyword" value={k} />
+                {k}
+              </label>
+            ))}
+          </fieldset>
+        )
+      }
+
+      <fieldset class="facet-group">
+        <legend>Certification tier</legend>
+        {
+          ["platform_verified", "community_signed", "unsigned"].map((tier) => (
+            <label class="facet-option">
+              <input type="checkbox" name="tier" value={tier} />
+              {tier.replace("_", " ")}
+            </label>
+          ))
+        }
+      </fieldset>
+
+      {
+        harnessesInUse.length > 0 && (
+          <fieldset class="facet-group">
+            <legend>Harness</legend>
+            {harnessesInUse.map((h) => (
+              <label class="facet-option">
+                <input type="checkbox" name="harness" value={h} />
+                {harnessLabel(h)}
+              </label>
+            ))}
+          </fieldset>
+        )
+      }
+
+      {
+        SAFETY_SCHEMES.map((scheme) => (
+          <fieldset class="facet-group">
+            <legend>{scheme.name}</legend>
+            {scheme.levels.map((level) => (
+              <label class="facet-option">
+                <input type="checkbox" name={`safety-${scheme.id}`} value={level} />
+                {level}
+              </label>
+            ))}
+          </fieldset>
+        ))
+      }
+
+      <button type="button" class="facet-panel__reset" data-facet-reset>Clear filters</button>
+    </form>
+
+    <div>
+      <ul class="entry-list" data-entry-list data-pagefind-ignore>
+        {
+          entries.map((entry) => {
+            const data = entry.data as Record<string, unknown>;
+            const harnesses = type === "plugins" ? harnessesFor(entry) : [];
+            const safety = (data.safety_classification as Array<{ scheme: string; level: string }>) ?? [];
+            return (
+              <li
+                class="entry-card"
+                data-entry
+                data-category={String(data.category ?? "")}
+                data-keywords={((data.keywords as string[] | undefined) ?? []).join("|")}
+                data-standards={((data.ga4gh_standards as string[] | undefined) ?? []).join("|")}
+                data-tier={String(data.certification_tier ?? "unsigned")}
+                data-harnesses={harnesses.join("|")}
+                data-safety={safety.map((s) => `${s.scheme}::${s.level}`).join("|")}
+              >
+                <h2 class="entry-card__title">
+                  <a href={withBase(`/${type}/${entry.id}/`)}>{String(data.name)}</a>
+                </h2>
+                <p class="entry-card__summary">{String(data.summary)}</p>
+                <div class="entry-card__meta">
+                  <CertificationBadge tier={String(data.certification_tier ?? "unsigned")} />
+                  <SafetyBadges classifications={safety} compact />
+                  {categories.length > 0 && (
+                    <span class="badge badge--keyword">{categoryLabel(type, String(data.category ?? ""))}</span>
+                  )}
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <p class="empty-state" data-empty-state hidden data-pagefind-ignore>
+        No {meta.label.toLowerCase()} match the selected filters.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const root = document.querySelector<HTMLElement>("[data-browse-root]");
+    const form = root?.querySelector<HTMLFormElement>("[data-facet-form]");
+    const list = root?.querySelector<HTMLElement>("[data-entry-list]");
+    const emptyState = document.querySelector<HTMLElement>("[data-empty-state]");
+    const countEl = document.getElementById("visible-count");
+    const resetButton = root?.querySelector<HTMLButtonElement>("[data-facet-reset]");
+    if (!form || !list || !countEl) {
+      // no filters or no entries rendered for this type; nothing to wire up.
+    } else {
+      const cards = Array.from(list.querySelectorAll<HTMLElement>("[data-entry]"));
+      const total = cards.length;
+
+      function selectedByName(name: string): string[] {
+        return Array.from(form!.querySelectorAll<HTMLInputElement>(`input[name="${name}"]:checked`)).map((i) => i.value);
+      }
+
+      function matches(card: HTMLElement): boolean {
+        const category = selectedByName("category");
+        if (category.length > 0 && !category.includes(card.dataset.category ?? "")) return false;
+
+        const standard = selectedByName("standard");
+        if (standard.length > 0) {
+          const values = (card.dataset.standards ?? "").split("|").filter(Boolean);
+          if (!standard.some((s) => values.includes(s))) return false;
+        }
+
+        const keyword = selectedByName("keyword");
+        if (keyword.length > 0) {
+          const values = (card.dataset.keywords ?? "").split("|").filter(Boolean);
+          if (!keyword.some((k) => values.includes(k))) return false;
+        }
+
+        const tier = selectedByName("tier");
+        if (tier.length > 0 && !tier.includes(card.dataset.tier ?? "")) return false;
+
+        const harness = selectedByName("harness");
+        if (harness.length > 0) {
+          const values = (card.dataset.harnesses ?? "").split("|").filter(Boolean);
+          if (!harness.some((h) => values.includes(h))) return false;
+        }
+
+        // Safety facets are scheme-scoped: each "safety-<scheme>" group is
+        // its own independent within-scheme filter (internal project documentation Section
+        // 4.2), never combined into a single cross-scheme control.
+        const safetyValues = (card.dataset.safety ?? "").split("|").filter(Boolean);
+        const safetyGroupNames = Array.from(form!.querySelectorAll<HTMLInputElement>('input[name^="safety-"]')).map(
+          (i) => i.name,
+        );
+        for (const groupName of new Set(safetyGroupNames)) {
+          const scheme = groupName.replace(/^safety-/, "");
+          const levels = selectedByName(groupName);
+          if (levels.length === 0) continue;
+          const hasMatch = levels.some((level) => safetyValues.includes(`${scheme}::${level}`));
+          if (!hasMatch) return false;
+        }
+
+        return true;
+      }
+
+      function applyFilters() {
+        let visible = 0;
+        for (const card of cards) {
+          const show = matches(card);
+          card.hidden = !show;
+          if (show) visible += 1;
+        }
+        countEl!.textContent = `${visible} of ${total} entries shown`;
+        if (emptyState) emptyState.hidden = visible > 0;
+      }
+
+      form.addEventListener("change", applyFilters);
+      resetButton?.addEventListener("click", () => {
+        form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((i) => (i.checked = false));
+        applyFilters();
+      });
+
+      applyFilters();
+    }
+  </script>
+</Base>

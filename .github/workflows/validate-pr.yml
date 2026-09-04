@@ -1,0 +1,62 @@
+name: Validate PR
+
+# Workflow 3 (internal project documentation Section 6): re-runs the same validation as
+# Workflow 1 against the actually-committed files, on every PR regardless of
+# origin -- including a maintainer-authored PR that never passed through an
+# issue at all -- plus repository-standard checks and a full site build
+# proving the change renders. Uses `pull_request`, never
+# `pull_request_target`: this workflow checks out and runs contributor
+# code/config (schemas, scripts, site source) with no elevated token, which
+# is the whole point of the distinction (internal project documentation Section 6).
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so the binary-file check below can diff base.sha
+          # against head.sha directly; this repository is small enough
+          # (internal project documentation Section 10: tens to low hundreds of entries) that
+          # the cost of a full clone here is negligible.
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Every entry under data/ is re-validated, not just the files this PR
+      # touches: at this catalogue's expected scale (tens to low hundreds of
+      # entries, internal project documentation Section 10) a full re-validation is cheap, and
+      # it catches a change that breaks a *different* entry's cross-reference
+      # (e.g. a vocab-file edit) that a changed-files-only diff would miss.
+      - name: Validate every entry under data/
+        run: pnpm run validate
+
+      - name: Check data/ formatting
+        run: pnpm run format:check
+
+      - name: Check for binary files under data/
+        run: |
+          if git diff --name-only --diff-filter=A "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- data/ \
+              | xargs -r file --mime-encoding \
+              | grep -v ': us-ascii$\|: utf-8$'; then
+            echo "::error::One or more files added under data/ are not plain-text (ASCII/UTF-8). Only JSON entry files belong under data/."
+            exit 1
+          fi
+
+      - name: Build the site (proves the change renders)
+        run: pnpm --filter site build

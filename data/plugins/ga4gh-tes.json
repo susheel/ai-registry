@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-tes",
+  "type": "plugin",
+  "name": "GA4GH Task Execution Service (TES) Server",
+  "summary": "Lists tasks known to a configured GA4GH Task Execution Service (TES) server and registers the bundled ga4gh-tes skill",
+  "description": "Lists tasks known to a configured GA4GH Task Execution Service (TES) server. Bundles the `ga4gh-tes` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "tes",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "tes"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.078Z",
+    "updated": "2026-09-03T19:00:06.078Z",
+    "last_verified": "2026-09-03T19:00:06.078Z"
+  },
+  "category": "tes",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-tes",
+    "version": "0.1.0-rc.5",
+    "description": "Lists tasks known to a configured GA4GH Task Execution Service (TES) server and registers the bundled ga4gh-tes skill",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "tes",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-tes": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-tes"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "tes",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "tes",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-tes -- npx -y @deepseek-ai/dsh-ga4gh-tes"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-tes -- npx -y @deepseek-ai/dsh-ga4gh-tes"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-tes npx -y @deepseek-ai/dsh-ga4gh-tes"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-tes\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-tes\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-tes\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-tes\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

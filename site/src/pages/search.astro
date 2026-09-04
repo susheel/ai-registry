@@ -1,0 +1,155 @@
+---
+import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url.js";
+
+const pagefindUrl = withBase("/pagefind/pagefind.js");
+---
+
+<Base
+  title="Search"
+  description="Full-text search across every model, agent, skill, MCP server, and plugin in the GA4GH AI Registry."
+>
+  <h1>Search</h1>
+  <p class="page-intro">
+    Search across every entry in the registry. Results are distinguishable by type, and filters operate within a
+    single safety-classification scheme at a time (no cross-scheme safety filter is offered).
+  </p>
+
+  <form class="search-form" role="search" data-search-form>
+    <label for="search-input" class="visually-hidden">Search the registry</label>
+    <input id="search-input" name="q" type="search" placeholder="Search by name, summary, description, or keyword" autocomplete="off" />
+    <button type="submit">Search</button>
+  </form>
+
+  <p class="search-status" role="status" aria-live="polite" data-search-status>Loading search index…</p>
+
+  <div class="browse-layout" data-search-layout hidden>
+    <div class="facet-panel" aria-label="Filter search results" data-facet-container></div>
+    <ul class="search-results" data-search-results></ul>
+  </div>
+
+  <script is:inline define:vars={{ pagefindUrl, baseUrl: withBase("/") }}>
+    // is:inline (implied anyway by define:vars, stated explicitly for clarity): this
+    // script MUST bypass Astro/Vite's bundling entirely. Vite's import-analysis plugin
+    // statically wraps any dynamic import() it can see with a preload helper referencing
+    // a build-time chunk manifest, even with /* @vite-ignore */ on the literal path --
+    // and pagefind.js is a runtime-only file the Pagefind CLI writes to dist/ *after*
+    // the Astro/Vite build finishes, so no such chunk exists and the wrapped call throws
+    // "__VITE_PRELOAD__ is not defined". A plain, unprocessed script has no build-time
+    // import graph to wrap, so the dynamic import below stays a normal native browser
+    // call. `pagefindUrl`/`baseUrl` are computed server-side via withBase() and injected
+    // here rather than hardcoded, since this deployment serves from a subpath
+    // (internal project documentation Section 5) and Pagefind's own search-result URLs need an explicit
+    // `baseUrl` option (defaulting to "/") to be prefixed correctly -- confirmed via
+    // Pagefind's own documentation, not assumed.
+    (function () {
+      var FRIENDLY_GROUP_LABELS = {
+        type: "Content type",
+        category: "Category",
+        keyword: "Keyword",
+        ga4gh_standards: "GA4GH standard",
+        certification_tier: "Certification tier",
+      };
+
+      function friendlyGroupLabel(group) {
+        if (FRIENDLY_GROUP_LABELS[group]) return FRIENDLY_GROUP_LABELS[group];
+        if (group.indexOf("safety-") === 0) return "Safety classification (" + group.slice("safety-".length) + ")";
+        return group;
+      }
+
+      async function main() {
+        var statusEl = document.querySelector("[data-search-status]");
+        var layout = document.querySelector("[data-search-layout]");
+        var facetContainer = document.querySelector("[data-facet-container]");
+        var resultsEl = document.querySelector("[data-search-results]");
+        var form = document.querySelector("[data-search-form]");
+        var input = document.getElementById("search-input");
+        if (!statusEl || !layout || !facetContainer || !resultsEl || !form || !input) return;
+
+        var pagefind;
+        try {
+          pagefind = await import(pagefindUrl);
+          await pagefind.options({ baseUrl: baseUrl });
+          await pagefind.init();
+        } catch (err) {
+          statusEl.textContent =
+            "Search index not available yet. Run `pnpm --filter site build` to generate it, then reload this page.";
+          return;
+        }
+
+        statusEl.textContent = "";
+        layout.hidden = false;
+
+        var filters = await pagefind.filters();
+        for (var group in filters) {
+          var fieldset = document.createElement("fieldset");
+          fieldset.className = "facet-group";
+          var legend = document.createElement("legend");
+          legend.textContent = friendlyGroupLabel(group);
+          fieldset.appendChild(legend);
+          var values = filters[group];
+          for (var value in values) {
+            var count = values[value];
+            var label = document.createElement("label");
+            label.className = "facet-option";
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = group;
+            checkbox.value = value;
+            label.appendChild(checkbox);
+            label.append(" " + value + " (" + count + ")");
+            fieldset.appendChild(label);
+          }
+          facetContainer.appendChild(fieldset);
+        }
+        facetContainer.addEventListener("change", function () {
+          runSearch();
+        });
+
+        function selectedFilters() {
+          var result = {};
+          var checked = facetContainer.querySelectorAll("input:checked");
+          for (var i = 0; i < checked.length; i++) {
+            var checkbox = checked[i];
+            (result[checkbox.name] = result[checkbox.name] || []).push(checkbox.value);
+          }
+          return result;
+        }
+
+        async function runSearch() {
+          var query = input.value.trim();
+          var response = await pagefind.search(query.length > 0 ? query : null, { filters: selectedFilters() });
+          var results = response.results;
+          resultsEl.innerHTML = "";
+          statusEl.textContent = results.length + " result" + (results.length === 1 ? "" : "s");
+          for (var i = 0; i < Math.min(results.length, 40); i++) {
+            var data = await results[i].data();
+            var li = document.createElement("li");
+            li.className = "entry-card";
+            var typeValue = (data.filters.type && data.filters.type[0]) || "";
+            li.innerHTML =
+              '<p class="entry-card__meta"><span class="badge badge--keyword">' +
+              typeValue +
+              '</span></p><h2 class="entry-card__title"><a href="' +
+              data.url +
+              '">' +
+              (data.meta.title || data.url) +
+              '</a></h2><p class="entry-card__summary">' +
+              data.excerpt +
+              "</p>";
+            resultsEl.appendChild(li);
+          }
+        }
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          runSearch();
+        });
+
+        await runSearch();
+      }
+
+      main();
+    })();
+  </script>
+</Base>

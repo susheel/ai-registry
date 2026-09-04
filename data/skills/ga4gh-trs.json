@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-trs",
+  "type": "skill",
+  "name": "ga4gh-trs skill",
+  "summary": "Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, se",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Tool Registry Service (TRS), shipped alongside the `@deepseek-ai/dsh-ga4gh-trs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, secondary descriptor files, test parameter files, file listing, and container build recipes. Use when the user asks to find a registered CWL/WDL/Nextflow tool or workflow, look up a tool's versions or descriptor types, or fetch a registered workflow's source or tests.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/trs",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "trs",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "trs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.661Z",
+    "updated": "2026-09-04T11:00:07.661Z",
+    "last_verified": "2026-09-04T11:00:07.661Z"
+  },
+  "skill": {
+    "name": "ga4gh-trs",
+    "description": "Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, secondary descriptor files, test parameter files, file listing, and container build recipes. Use when the user asks to find a registered CWL/WDL/Nextflow tool or workflow, look up a tool's versions or descriptor types, or fetch a registered workflow's source or tests.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/trs"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/trs"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/trs/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

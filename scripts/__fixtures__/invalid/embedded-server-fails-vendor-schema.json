@@ -1,0 +1,31 @@
+{
+  "id": "broken-server-mcp",
+  "type": "mcp-server",
+  "name": "Broken Server MCP",
+  "summary": "MCP server entry whose embedded server document fails the vendored server.schema.json.",
+  "description": "Used to test that mcp-server-entry.v1.schema.json's $ref to vendor/server.schema.json#/definitions/ServerDetail rejects an embedded server missing required fields (version, here) and using an invalid name pattern (no namespace slash).",
+  "homepage": "https://example.org/broken-server-mcp",
+  "repository": "https://github.com/example-org/broken-server-mcp",
+  "license": "Apache-2.0",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "trs",
+  "ga4gh_standards": ["trs"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "server": {
+    "name": "broken-server-no-namespace",
+    "description": "Missing version and an invalid reverse-DNS name.",
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["trs@2.0.1"]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "nucleotide-transformer",
+  "type": "model",
+  "name": "Nucleotide Transformer",
+  "summary": "DNA foundation language model family (500M-2.5B params) pretrained on 850+ genomes, including the human 1000 Genomes collection.",
+  "description": "The Nucleotide Transformers are a collection of foundational language models pretrained on DNA sequences from whole genomes across 850+ species, developed by InstaDeep in collaboration with NVIDIA and the Technical University of Munich. The models integrate information from multiple species during pretraining and are widely used as a base for downstream genomic tasks such as variant-effect and regulatory-element prediction.\n\n**Registry note on `model_card_uri`**: this points to the model's standard Hugging Face model card, not a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification; this entry is transparent about that gap rather than implying conformance that does not exist.",
+  "homepage": "https://huggingface.co/InstaDeepAI/nucleotide-transformer-2.5b-multi-species",
+  "repository": "https://github.com/instadeepai/nucleotide-transformer",
+  "license": "other",
+  "license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "2.5b-multi-species",
+  "keywords": ["dna", "genomics", "foundation-model", "multi-species", "language-model"],
+  "category": "genomic-foundation-model",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "InstaDeep, NVIDIA, Technical University of Munich",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/InstaDeepAI/nucleotide-transformer-2.5b-multi-species",
+  "model_card_uri": "https://huggingface.co/InstaDeepAI/nucleotide-transformer-2.5b-multi-species",
+  "last_synced": "2026-09-04T11:05:00.000Z",
+  "record": {
+    "created": "2026-09-04T11:05:00.000Z",
+    "updated": "2026-09-04T11:05:00.000Z",
+    "last_verified": "2026-09-04T11:05:00.000Z"
+  }
+}

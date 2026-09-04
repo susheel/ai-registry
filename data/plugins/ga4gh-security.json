@@ -1,0 +1,95 @@
+{
+  "id": "ga4gh-security",
+  "type": "plugin",
+  "name": "GA4GH Security Suite (Passport + Crypt4GH)",
+  "summary": "Mounts the ga4gh-passport and ga4gh-crypt4gh plugins together and reports which GA4GH security-domain standards the composition bundles",
+  "description": "Meta-server mounting the `ga4gh-passport` and `ga4gh-crypt4gh` plugins together, reporting which GA4GH security-domain standards the composition bundles.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "security",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "passport",
+    "crypt4gh"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.080Z",
+    "updated": "2026-09-03T19:00:06.080Z",
+    "last_verified": "2026-09-03T19:00:06.080Z"
+  },
+  "category": "security",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-security",
+    "version": "0.1.0-rc.5",
+    "description": "Mounts the ga4gh-passport and ga4gh-crypt4gh plugins together and reports which GA4GH security-domain standards the composition bundles",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "security",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-security": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-security"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "security",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "security",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-security -- npx -y @deepseek-ai/dsh-ga4gh-security"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-security -- npx -y @deepseek-ai/dsh-ga4gh-security"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-security npx -y @deepseek-ai/dsh-ga4gh-security"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-security\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-security\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-security\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-security\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+---
+/**
+ * The `certification_tier` trust badge (internal project documentation Section 5.2, Section 6.1).
+ * Colour is never the sole signal (internal project documentation Section 10): each tier also
+ * carries its own text label, so a reader who cannot distinguish the colours
+ * still gets the distinction from the words.
+ */
+interface Props {
+  tier: string;
+}
+
+const { tier } = Astro.props;
+
+const LABELS: Record<string, string> = {
+  platform_verified: "Platform verified",
+  community_signed: "Community signed",
+  unsigned: "Unsigned",
+};
+
+const label = LABELS[tier] ?? tier;
+---
+
+<span class={`badge badge--tier-${tier}`} data-pagefind-filter={`certification_tier:${tier}`}>
+  {label}
+</span>

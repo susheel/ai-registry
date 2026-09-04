@@ -1,0 +1,62 @@
+---
+/**
+ * Renders `safety_classification[]` (internal project documentation Section 3.3). Every badge
+ * MUST show its issuing scheme alongside the level (internal project documentation Section 5.2)
+ * so a reader never sees a bare safety level without knowing which
+ * specification issued it. Facet keys are scheme-scoped
+ * (`safety-<scheme>:<level>`), never a single cross-scheme facet, matching
+ * the within-scheme-only filtering rule (internal project documentation Section 4.2).
+ */
+import { safetySchemeLabel } from "../lib/vocab.js";
+
+interface SafetyClassification {
+  scheme: string;
+  level: string;
+  certifying_body?: string;
+  evaluation_date?: string;
+  source: string;
+}
+
+interface Props {
+  classifications: SafetyClassification[];
+  compact?: boolean;
+}
+
+const { classifications, compact = false } = Astro.props;
+---
+
+{
+  classifications.length === 0 ? (
+    compact ? null : <p class="page-intro">No safety classification has been submitted for this entry.</p>
+  ) : compact ? (
+    <span class="entry-card__meta">
+      {classifications.map((c) => (
+        <span
+          class="badge badge--safety"
+          data-pagefind-filter={`safety-${c.scheme}:${c.level}`}
+          title={`${safetySchemeLabel(c.scheme)}, level ${c.level}`}
+        >
+          {safetySchemeLabel(c.scheme)}: {c.level}
+        </span>
+      ))}
+    </span>
+  ) : (
+    <ul class="safety-list">
+      {classifications.map((c) => (
+        <li>
+          <span
+            class="badge badge--safety"
+            data-pagefind-filter={`safety-${c.scheme}:${c.level}`}
+          >
+            {safetySchemeLabel(c.scheme)}: {c.level}
+          </span>
+          <span class="page-intro" style="display:block;margin-top:0.25rem;">
+            Source: {c.source}
+            {c.certifying_body ? ` · Certifying body: ${c.certifying_body}` : ""}
+            {c.evaluation_date ? ` · Evaluated: ${c.evaluation_date}` : ""}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}

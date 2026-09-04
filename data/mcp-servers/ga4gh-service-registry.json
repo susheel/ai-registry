@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-service-registry",
+  "type": "mcp-server",
+  "name": "GA4GH Service Registry Server",
+  "summary": "Lists services registered with a configured GA4GH Service Registry and registers the bundled ga4gh-service-registry skill",
+  "description": "Lists services registered with a configured GA4GH Service Registry. Bundles the `ga4gh-service-registry` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-registry",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "service-registry",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "service-registry"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.078Z",
+    "updated": "2026-09-03T19:00:06.078Z",
+    "last_verified": "2026-09-03T19:00:06.078Z"
+  },
+  "category": "service-registry",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-service-registry",
+    "description": "Lists services registered with a configured GA4GH Service Registry",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-registry",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/service-registry"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-service-registry",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "service-registry"
+        ]
+      }
+    }
+  }
+}

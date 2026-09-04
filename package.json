@@ -1,0 +1,31 @@
+{
+  "name": "ai-registry",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "tsx scripts/validate.ts",
+    "generate:zod": "tsx scripts/build-zod-schemas.ts",
+    "build:index": "tsx scripts/build-index.ts",
+    "build:ai-catalog": "tsx scripts/build-ai-catalog.ts",
+    "build:mcp-docs": "tsx scripts/build-mcp-server-docs.ts",
+    "build:marketplace": "tsx scripts/build-marketplace.ts",
+    "test": "tsx --test scripts/**/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "format:check": "prettier --check --no-error-on-unmatched-pattern \"data/**/*.json\""
+  },
+  "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^16.0.1",
+    "@types/node": "^22.10.5",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "json-schema-to-zod": "^2.8.1",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "zod": "^4.5.4"
+  }
+}

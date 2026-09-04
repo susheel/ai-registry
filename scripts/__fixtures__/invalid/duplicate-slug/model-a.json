@@ -1,0 +1,22 @@
+{
+  "id": "duplicate-model-slug",
+  "type": "model",
+  "name": "Duplicate Slug Model A",
+  "summary": "First of two model entries sharing an id, to test slug uniqueness within a type.",
+  "description": "Used to test that scripts/validate.ts rejects a duplicate id within the same type.",
+  "homepage": "https://example.org/duplicate-model-slug-a",
+  "repository": "https://github.com/example-org/duplicate-model-slug-a",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "model_card_uri": "https://example.org/duplicate-model-slug-a/model-card.json"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "other-license-no-url-model",
+  "type": "model",
+  "name": "Other Licence Without URL Model",
+  "summary": "Model entry with license \"other\" but no license_url.",
+  "description": "Used to test entry-core.v1.schema.json's if/then: license \"other\" MUST require license_url.",
+  "homepage": "https://example.org/other-license-no-url-model",
+  "repository": "https://github.com/example-org/other-license-no-url-model",
+  "license": "other",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "model_card_uri": "https://example.org/other-license-no-url-model/model-card.json"
+}
