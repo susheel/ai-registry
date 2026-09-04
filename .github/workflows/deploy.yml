@@ -37,9 +37,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No explicit `version:` input: pnpm/action-setup@v4 reads the pinned
+      # version straight from package.json's `packageManager` field instead.
+      # A hard-coded version here previously conflicted with that field
+      # (`packageManager: "pnpm@11.7.0"` vs. this step's own `version: 9`),
+      # which pnpm/action-setup refuses to run past at all -- confirmed as a
+      # real CI failure on this project's first-ever GitHub Actions run
+      # (internal project documentation Phase 9), not a hypothetical.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
