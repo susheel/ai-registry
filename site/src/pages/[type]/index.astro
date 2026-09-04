@@ -6,6 +6,7 @@ import SafetyBadges from "../../components/SafetyBadges.astro";
 import { COLLECTION_KEYS, TYPE_META, type CollectionKey } from "../../lib/registry-types.js";
 import { categoriesForCollection, categoryLabel, harnessLabel, HARNESSES, SAFETY_SCHEMES } from "../../lib/vocab.js";
 import { withBase } from "../../lib/url.js";
+import { submitIssueUrl } from "../../lib/repo.js";
 
 export async function getStaticPaths() {
   return Promise.all(
@@ -38,6 +39,9 @@ const categories = categoriesForCollection(type);
 <Base title={meta.label} description={meta.description}>
   <h1>{meta.label}</h1>
   <p class="page-intro">{meta.description}</p>
+  <p class="browse-actions">
+    <a class="button button--primary" href={submitIssueUrl(meta.type)}>Submit a new {meta.singularLabel.toLowerCase()}</a>
+  </p>
   <p class="entry-count" id="visible-count" aria-live="polite">{entries.length} of {entries.length} entries shown</p>
 
   <div class="browse-layout" data-browse-root>
