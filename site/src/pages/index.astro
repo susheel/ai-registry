@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import { COLLECTION_KEYS, TYPE_META } from "../lib/registry-types.js";
 import { withBase } from "../lib/url.js";
+import { submitIssueUrl } from "../lib/repo.js";
 
 const counts = Object.fromEntries(
   await Promise.all(COLLECTION_KEYS.map(async (key) => [key, (await getCollection(key)).length] as const)),
@@ -34,6 +35,9 @@ const counts = Object.fromEntries(
                 <span class="visually-hidden">({counts[key]} {counts[key] === 1 ? "entry" : "entries"})</span>
               </p>
               <p class="type-card__description">{meta.description}</p>
+            </a>
+            <a class="type-card__submit" href={submitIssueUrl(meta.type)}>
+              Submit a {meta.singularLabel.toLowerCase()}
             </a>
           </li>
         );

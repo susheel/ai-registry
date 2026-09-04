@@ -1,13 +1,13 @@
-# TODO(Phase 9): the two URLs below use a placeholder org/repo path
-# ("REPLACE-ONCE-PUSHED/ai-registry"). This repository is local-only as of
-# Phase 4 (internal project documentation Phase 9's launch checklist); do not fill in a real
-# GitHub org/repo here until that decision is made, to avoid pointing
-# contributors at a URL that does not yet resolve to this project.
+# Points at a private, temporary testing repo (github.com/susheel/ai-registry),
+# created 2026-09-04 to exercise the GitHub Actions pipeline end-to-end -- NOT
+# the eventual GA4GH-org production home (internal project documentation Phase 9's repo-push
+# decision is still open; see internal project documentation and internal project documentation). Update
+# these two URLs again once a real, permanent org/repo decision is made.
 blank_issues_enabled: false
 contact_links:
   - name: Question about the registry
-    url: https://github.com/REPLACE-ONCE-PUSHED/ai-registry/discussions
+    url: https://github.com/susheel/ai-registry/discussions
     about: Ask a question about the GA4GH AI Registry before opening a submission.
   - name: Report a bug in the registry site or pipeline
-    url: https://github.com/REPLACE-ONCE-PUSHED/ai-registry/issues/new?labels=bug
+    url: https://github.com/susheel/ai-registry/issues/new?labels=bug
     about: File a bug against the site, schemas, or submission pipeline itself (not a catalogue entry).
