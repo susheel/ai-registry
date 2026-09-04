@@ -4,3 +4,8 @@ dist/
 *.log
 .env
 .env.local
+scripts/generated/
+scripts/.tmp-zod-test-*/
+site/src/generated/
+site/.astro/
+.playwright-mcp/

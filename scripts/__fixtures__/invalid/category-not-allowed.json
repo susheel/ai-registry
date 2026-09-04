@@ -1,0 +1,22 @@
+{
+  "id": "bad-category-model",
+  "type": "model",
+  "name": "Bad Category Model",
+  "summary": "Model entry whose category is not in schemas/vocab/categories/model.json.",
+  "description": "Used to test that scripts/validate.ts rejects a category value outside the closed per-type vocabulary (internal project documentation Section 3.6).",
+  "homepage": "https://example.org/bad-category-model",
+  "repository": "https://github.com/example-org/bad-category-model",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "not-a-real-category",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "model_card_uri": "https://example.org/bad-category-model/model-card.json"
+}

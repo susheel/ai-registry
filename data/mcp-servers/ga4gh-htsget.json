@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-htsget",
+  "type": "mcp-server",
+  "name": "GA4GH htsget Server",
+  "summary": "Requests GA4GH htsget tickets (byte-range URLs) and service-info documents, downloads their data blocks, from a configured htsget server, and registers the bundled ga4gh-htsget skill",
+  "description": "Requests GA4GH htsget tickets (byte-range URLs) and service-info documents from a configured htsget server, downloading their data blocks. Bundles the `ga4gh-htsget` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/htsget",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "htsget",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "htsget"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.076Z",
+    "updated": "2026-09-03T19:00:06.076Z",
+    "last_verified": "2026-09-03T19:00:06.076Z"
+  },
+  "category": "htsget",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-htsget",
+    "description": "Requests GA4GH htsget tickets and service-info documents from a configured htsget server",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/htsget",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/htsget"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-htsget",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "htsget"
+        ]
+      }
+    }
+  }
+}

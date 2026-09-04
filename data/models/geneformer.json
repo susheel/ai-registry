@@ -1,0 +1,28 @@
+{
+  "id": "geneformer",
+  "type": "model",
+  "name": "Geneformer",
+  "summary": "Single-cell transcriptome foundation model for context-aware network-biology predictions, from the Broad Institute / Theodoris lab.",
+  "description": "Geneformer is a foundational transformer model pretrained on a large-scale corpus of human single-cell transcriptomes (Genecorpus-30M, and now Genecorpus-104M for the V2 model), developed by the Theodoris lab at the Broad Institute. It enables context-aware predictions in network biology settings with limited data, including zero-shot in-silico perturbation and gene/cell-state classification, and is also listed on the Chan Zuckerberg Initiative's Virtual Cells Platform.\n\n**Registry note on `model_card_uri`**: this points to the model's standard Hugging Face model card (its README carries a `license: apache-2.0` YAML tag, confirmed directly), not a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification.",
+  "homepage": "https://huggingface.co/ctheodoris/Geneformer",
+  "repository": "https://huggingface.co/ctheodoris/Geneformer",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "V2 (Genecorpus-104M)",
+  "keywords": ["single-cell", "transcriptomics", "genomics", "foundation-model", "network-biology"],
+  "category": "genomic-foundation-model",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Theodoris lab, Broad Institute",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/ctheodoris/Geneformer",
+  "model_card_uri": "https://huggingface.co/ctheodoris/Geneformer",
+  "last_synced": "2026-09-04T11:05:00.000Z",
+  "record": {
+    "created": "2026-09-04T11:05:00.000Z",
+    "updated": "2026-09-04T11:05:00.000Z",
+    "last_verified": "2026-09-04T11:05:00.000Z"
+  }
+}

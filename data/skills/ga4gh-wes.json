@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-wes",
+  "type": "skill",
+  "name": "ga4gh-wes skill",
+  "summary": "Submit, monitor, inspect, and cancel workflow runs on a configured GA4GH Workflow Execution Service (WES) endpoint",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Workflow Execution Service (WES), shipped alongside the `@deepseek-ai/dsh-ga4gh-wes` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Submit, monitor, inspect, and cancel workflow runs on a configured GA4GH Workflow Execution Service (WES) endpoint. Use when the user wants to run a CWL or WDL workflow on a GA4GH-compliant execution service, asks about the status, logs, outputs, or tasks of submitted runs, wants to stop a running workflow, or needs to know which workflow types and engines an endpoint supports.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/wes",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "wes",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "wes"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.663Z",
+    "updated": "2026-09-04T11:00:07.663Z",
+    "last_verified": "2026-09-04T11:00:07.663Z"
+  },
+  "skill": {
+    "name": "ga4gh-wes",
+    "description": "Submit, monitor, inspect, and cancel workflow runs on a configured GA4GH Workflow Execution Service (WES) endpoint. Use when the user wants to run a CWL or WDL workflow on a GA4GH-compliant execution service, asks about the status, logs, outputs, or tasks of submitted runs, wants to stop a running workflow, or needs to know which workflow types and engines an endpoint supports.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/wes"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/wes"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/wes/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

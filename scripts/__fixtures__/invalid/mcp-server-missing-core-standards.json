@@ -1,0 +1,31 @@
+{
+  "id": "missing-core-standards-mcp",
+  "type": "mcp-server",
+  "name": "Missing Core Standards MCP",
+  "summary": "MCP server entry with no common-core ga4gh_standards, which D14 makes required for mcp-server entries specifically.",
+  "description": "Used to test mcp-server-entry.v1.schema.json's allOf[1].required, which lists both \"server\" and \"ga4gh_standards\".",
+  "homepage": "https://example.org/missing-core-standards-mcp",
+  "repository": "https://github.com/example-org/missing-core-standards-mcp",
+  "license": "Apache-2.0",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "trs",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "server": {
+    "name": "org.ga4gh/missing-core-standards-mcp",
+    "description": "Valid server document, but the entry omits the required common-core ga4gh_standards.",
+    "version": "1.0.0",
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["trs@2.0.1"]
+      }
+    }
+  }
+}

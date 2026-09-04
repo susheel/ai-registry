@@ -1,0 +1,32 @@
+{
+  "id": "standards-mismatch-mcp",
+  "type": "mcp-server",
+  "name": "Standards Mismatch MCP",
+  "summary": "MCP server entry whose _meta.ga4gh_standards claims a standard not present in the common core's ga4gh_standards.",
+  "description": "Schema-valid on its own (both arrays are well-formed), but violates the D14 cross-field subset rule scripts/validate.ts enforces: stripping @<version> from server._meta[\"org.ga4gh/ai-registry\"].ga4gh_standards[] must yield a subset of the common core's ga4gh_standards[]. Here the core only names \"trs\" but the server claims to implement \"beacon\" as well.",
+  "homepage": "https://example.org/standards-mismatch-mcp",
+  "repository": "https://github.com/example-org/standards-mismatch-mcp",
+  "license": "Apache-2.0",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "trs",
+  "ga4gh_standards": ["trs"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "server": {
+    "name": "org.ga4gh/standards-mismatch-mcp",
+    "description": "Claims to implement beacon without naming it in the core facet.",
+    "version": "1.0.0",
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["trs@2.0.1", "beacon@2.1.1"]
+      }
+    }
+  }
+}

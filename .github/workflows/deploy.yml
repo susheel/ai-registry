@@ -1,0 +1,77 @@
+name: Deploy
+
+# Workflow 4 (internal project documentation Section 5, Section 6): builds the site and every
+# machine-readable projection on push to main, and deploys the combined
+# output to GitHub Pages. `concurrency` matches GitHub's own documented
+# pattern for Pages deployments: a second push while one deploy is still
+# running queues rather than races it.
+#
+# **Not yet fully actionable** (internal project documentation Phase 5, Phase 9): this
+# workflow is written now, per internal project documentation Phase 4's checklist, but two
+# things it depends on are Phase 5/Phase 9 decisions, not Phase 4 ones:
+# (1) GitHub Pages must be enabled on the eventual GitHub remote (this
+# repository has none yet); (2) `site/astro.config.mjs`'s `site`/`base`
+# options are deliberately left unset as of Phase 3, so a first real
+# deployment will serve every asset path as if the site were at the domain
+# root -- set both once the actual Pages URL (a custom domain, or
+# `<org>.github.io/<repo>`) is decided, before relying on this workflow's
+# output being correctly linked.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Validate every entry (fail the deploy, not just warn, on a bad entry)
+        run: pnpm run validate
+
+      - name: Build the site (Astro + Pagefind)
+        run: pnpm --filter site build
+
+      - name: Build and embed the machine-readable projections (internal project documentation Section 7)
+        run: |
+          pnpm run build:index -- --out-dir site/dist
+          pnpm run build:ai-catalog -- --out-dir site/dist
+          pnpm run build:mcp-docs -- --out-dir site/dist
+          pnpm run build:marketplace -- --out-dir site/dist
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-drs",
+  "type": "plugin",
+  "name": "GA4GH Data Repository Service (DRS) Server",
+  "summary": "GA4GH Data Repository Service (DRS) Cordis plugin: fetch a DrsObject by id from a configured DRS endpoint as a model-facing tool and a standalone stdio MCP server",
+  "description": "Fetches a DrsObject by id from a configured GA4GH Data Repository Service (DRS) endpoint, as a model-facing tool and a standalone stdio MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/drs",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "drs",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "drs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.075Z",
+    "updated": "2026-09-03T19:00:06.075Z",
+    "last_verified": "2026-09-03T19:00:06.075Z"
+  },
+  "category": "drs",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-drs",
+    "version": "0.1.0-rc.5",
+    "description": "GA4GH Data Repository Service (DRS) Cordis plugin: fetch a DrsObject by id from a configured DRS endpoint as a model-facing tool and a standalone stdio MCP server",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/drs",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/drs",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "drs",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-drs": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-drs"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "drs",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "drs",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-drs -- npx -y @deepseek-ai/dsh-ga4gh-drs"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-drs -- npx -y @deepseek-ai/dsh-ga4gh-drs"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-drs npx -y @deepseek-ai/dsh-ga4gh-drs"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-drs\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-drs\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-drs\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-drs\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

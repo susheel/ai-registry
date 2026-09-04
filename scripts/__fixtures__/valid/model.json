@@ -1,0 +1,35 @@
+{
+  "id": "genomic-variant-classifier",
+  "type": "model",
+  "name": "Genomic Variant Classifier",
+  "summary": "Transformer-based classifier for pathogenicity prediction of coding variants.",
+  "description": "A fine-tuned genomic foundation model that predicts variant pathogenicity from sequence context. See the linked Model Card for full training, evaluation, and provenance detail.",
+  "homepage": "https://example.org/genomic-variant-classifier",
+  "repository": "https://github.com/example-org/genomic-variant-classifier",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Ada Researcher", "github": "ada-researcher", "affiliation": "Example Genomics Institute" }
+  ],
+  "version": "1.2.0",
+  "keywords": ["variant-effect-prediction", "pathogenicity", "genomics"],
+  "category": "variant-effect-prediction",
+  "ga4gh_standards": [],
+  "safety_classification": [
+    {
+      "scheme": "ga4gh-gase",
+      "level": "GASL-2",
+      "source": "submitter-attested"
+    }
+  ],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z",
+    "source_issue": 101
+  },
+  "model_card_uri": "https://example.org/genomic-variant-classifier/model-card.json",
+  "pipeline_tag": "variant-effect-prediction",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/example-org/genomic-variant-classifier"
+}

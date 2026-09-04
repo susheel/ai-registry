@@ -1,0 +1,39 @@
+# GA4GH AI Registry per-type review routing (internal project documentation Section 7,
+# internal project documentation Section 6). CODEOWNERS matches bottom-to-top precedence in the
+# usual GitHub sense: the LAST matching pattern in this file wins, so the
+# broadest rule is listed first and the most specific overrides follow.
+#
+# **Susheel Varma's handle (@susheel) is confirmed**, cross-checked against
+# multiple existing `github.com:susheel/...` remotes already configured for
+# other repositories in this workspace. **Marc Fiume's, Thomas Conner's, and
+# Megan Tsao's handles remain PLACEHOLDERS**: none could be found recorded
+# anywhere in this workspace, and the person running the session explicitly
+# asked only Marc Fiume and Susheel Varma be added this round (2026-09-03) --
+# Marc Fiume's own handle still could not be confirmed, so his line is left
+# as a placeholder rather than guessed. GitHub silently ignores a CODEOWNERS
+# line referencing an unknown username rather than erroring, so the lines
+# still carrying a `@REPLACE-WITH-...` placeholder have NO effect until a
+# real handle is substituted.
+#
+# **Known inconsistency between the two source documents, left unresolved
+# here for a human to reconcile, not resolved unilaterally**: internal project documentation
+# Section 7 states Thomas Conner holds topic-reviewer authority over BOTH
+# agent and mcp-server entries, but internal project documentation Section 6's own summary of
+# this same routing says only skills get a topic-reviewer carve-out ("the
+# remaining four types route to the general maintainer group") and does not
+# mention Thomas Conner's agent/mcp-server role at all. This file follows
+# internal project documentation Section 7, the more specific of the two statements.
+
+# Default: the two GA4GH AI Workstream co-chairs hold general maintainer
+# authority across all five content types (internal project documentation Section 7).
+*                    @REPLACE-WITH-MARC-FIUME-GITHUB-HANDLE @susheel
+data/                @REPLACE-WITH-MARC-FIUME-GITHUB-HANDLE @susheel
+
+# Topic reviewers (internal project documentation Section 7): Thomas Conner, Project #23
+# (Agentic Governance AppStore and SkillStore), for agent and mcp-server
+# entries; Megan Tsao, Project #24 (Certified Skills Library), for skill
+# entries. Neither has yet been confirmed to have agreed to this
+# responsibility (internal project documentation Section 10 item 6, internal project documentation Phase 9).
+data/agents/         @REPLACE-WITH-THOMAS-CONNER-GITHUB-HANDLE
+data/mcp-servers/    @REPLACE-WITH-THOMAS-CONNER-GITHUB-HANDLE
+data/skills/         @REPLACE-WITH-MEGAN-TSAO-GITHUB-HANDLE

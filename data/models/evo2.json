@@ -1,0 +1,28 @@
+{
+  "id": "evo2",
+  "type": "model",
+  "name": "Evo 2",
+  "summary": "Genome modeling and design foundation model spanning DNA, RNA, and protein, from the Arc Institute.",
+  "description": "Evo 2 is a genomic foundation model developed by the Arc Institute, trained across all domains of life for genome modeling and design spanning DNA, RNA, and protein sequence. It is released in multiple parameter sizes (1B, 7B, 20B, 40B) with base and standard variants, and its source repository is Apache-2.0 licensed (confirmed directly against the repository's own LICENSE file and GitHub-displayed licence badge).\n\n**Registry note on `model_card_uri`**: this points to the model's standard Hugging Face model card, not a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification.",
+  "homepage": "https://huggingface.co/arcinstitute/evo2_7b",
+  "repository": "https://github.com/ArcInstitute/evo2",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "evo2_7b",
+  "keywords": ["dna", "rna", "protein", "genomics", "foundation-model", "genome-design"],
+  "category": "genomic-foundation-model",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Arc Institute",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/arcinstitute/evo2_7b",
+  "model_card_uri": "https://huggingface.co/arcinstitute/evo2_7b",
+  "last_synced": "2026-09-04T11:05:00.000Z",
+  "record": {
+    "created": "2026-09-04T11:05:00.000Z",
+    "updated": "2026-09-04T11:05:00.000Z",
+    "last_verified": "2026-09-04T11:05:00.000Z"
+  }
+}

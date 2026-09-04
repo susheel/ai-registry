@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-vrs",
+  "type": "plugin",
+  "name": "GA4GH Variation Representation Specification (VRS) Server",
+  "summary": "Normalizes a genomic variation expression against a configured GA4GH Variation Representation Specification (VRS) normalization service and registers the bundled ga4gh-vrs skill",
+  "description": "Normalizes a genomic variation expression against a configured GA4GH VRS normalization service. Bundles the `ga4gh-vrs` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/vrs",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "vrs",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "vrs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "vrs",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-vrs",
+    "version": "0.1.0-rc.5",
+    "description": "Normalizes a genomic variation expression against a configured GA4GH Variation Representation Specification (VRS) normalization service and registers the bundled ga4gh-vrs skill",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/vrs",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/vrs",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "vrs",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-vrs": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-vrs"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "vrs",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "vrs",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-vrs -- npx -y @deepseek-ai/dsh-ga4gh-vrs"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-vrs -- npx -y @deepseek-ai/dsh-ga4gh-vrs"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-vrs npx -y @deepseek-ai/dsh-ga4gh-vrs"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-vrs\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-vrs\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-vrs\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-vrs\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

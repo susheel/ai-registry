@@ -1,0 +1,27 @@
+{
+  "id": "broken-plugin",
+  "type": "plugin",
+  "name": "Broken Plugin",
+  "summary": "Plugin entry whose embedded plugin.json fails the vendored plugin.schema.json.",
+  "description": "Used to test that plugin-entry.v1.schema.json's $ref to vendor/plugin.schema.json rejects an embedded plugin document missing its one required field, name.",
+  "homepage": "https://example.org/broken-plugin",
+  "repository": "https://github.com/example-org/broken-plugin",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "other",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "plugin": {
+    "description": "This plugin.json has no name field, which vendor/plugin.schema.json requires."
+  },
+  "ga4gh": {
+    "harnesses": [{ "harness": "claude-code", "installCommand": "/plugin install broken-plugin" }]
+  }
+}

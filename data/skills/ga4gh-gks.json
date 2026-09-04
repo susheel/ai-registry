@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-gks",
+  "type": "skill",
+  "name": "ga4gh-gks skill",
+  "summary": "Meta-skill for the GA4GH Genomic Knowledge Standards (GKS) suite — mounts the bundled ga4gh-vrs plugin and lists which GKS-family standards this suite currently bundles",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Genomic Knowledge Standards (GKS) suite, shipped alongside the `@deepseek-ai/dsh-ga4gh-gks` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Meta-skill for the GA4GH Genomic Knowledge Standards (GKS) suite — mounts the bundled ga4gh-vrs plugin and lists which GKS-family standards this suite currently bundles. Use when the user asks about GA4GH GKS, wants variant/knowledge-representation tooling across the GKS family, or asks which GKS standards this package composes.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "gks",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "variant-interpretation",
+  "ga4gh_standards": [
+    "vrs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.663Z",
+    "updated": "2026-09-04T11:00:07.663Z",
+    "last_verified": "2026-09-04T11:00:07.663Z"
+  },
+  "skill": {
+    "name": "ga4gh-gks",
+    "description": "Meta-skill for the GA4GH Genomic Knowledge Standards (GKS) suite — mounts the bundled ga4gh-vrs plugin and lists which GKS-family standards this suite currently bundles. Use when the user asks about GA4GH GKS, wants variant/knowledge-representation tooling across the GKS family, or asks which GKS standards this package composes.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/gks"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/gks"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/gks/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

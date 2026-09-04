@@ -1,5 +1,5 @@
 {
-  "$comment": "Closed category vocabulary for mcp-server entries (entry-core.v1.schema.json's `category`, internal project documentation Section 3.6). Aligned to the GA4GH API specification family the server implements or wraps, matching the packages already in ga4gh-plugins (internal project documentation Section 4.1, Section 8). Which exact standard(s) and version(s) an entry touches is recorded precisely in server._meta['org.ga4gh/ai-registry'].ga4gh_standards[] and in the common core's ga4gh_standards[]; `category` is the coarser browse/filter grouping.",
+  "$comment": "Closed category vocabulary for mcp-server entries (entry-core.v1.schema.json's `category`, internal project documentation Section 3.6). Aligned to the GA4GH API specification family the server implements or wraps, matching the packages already in ga4gh-plugins (internal project documentation Section 4.1, Section 8). Which exact standard(s) and version(s) an entry touches is recorded precisely in server._meta['org.ga4gh/ai-registry'].ga4gh_standards[] and in the common core's ga4gh_standards[]; `category` is the coarser browse/filter grouping. Phase 6 (internal project documentation) added tes/crypt4gh/phenopackets/pedigree/rnaget: these ga4gh-plugins packages exist and needed a real category, not a blanket 'other', following the same targeted-addition discipline D15 established for service-info.",
   "categories": [
     { "id": "trs", "name": "Tool Registry Service (TRS)" },
     { "id": "drs", "name": "Data Repository Service (DRS)" },
@@ -13,6 +13,11 @@
     { "id": "refget", "name": "refget" },
     { "id": "service-info", "name": "Service Info" },
     { "id": "service-registry", "name": "Service Registry" },
+    { "id": "tes", "name": "Task Execution Service (TES)" },
+    { "id": "crypt4gh", "name": "Crypt4GH" },
+    { "id": "phenopackets", "name": "Phenopackets" },
+    { "id": "pedigree", "name": "Pedigree" },
+    { "id": "rnaget", "name": "RNAget" },
     { "id": "other", "name": "Other GA4GH-standard or genomics/health data source" }
   ]
 }

@@ -1,0 +1,422 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import CertificationBadge from "../../components/CertificationBadge.astro";
+import SafetyBadges from "../../components/SafetyBadges.astro";
+import InstallTabs from "../../components/InstallTabs.astro";
+import CopyButton from "../../components/CopyButton.astro";
+import { COLLECTION_KEYS, TYPE_META, type CollectionKey } from "../../lib/registry-types.js";
+import { categoryLabel, harnessLabel } from "../../lib/vocab.js";
+import { withBase } from "../../lib/url.js";
+import { deriveAllInstallSnippets, type InstallableServer } from "../../../../scripts/install-snippets.js";
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const key of COLLECTION_KEYS) {
+    const entries = await getCollection(key);
+    for (const entry of entries) {
+      paths.push({ params: { type: key, slug: entry.id }, props: { entry } });
+    }
+  }
+  return paths;
+}
+
+interface Props {
+  entry: CollectionEntry<CollectionKey>;
+}
+
+const { type } = Astro.params as { type: CollectionKey };
+const { entry } = Astro.props;
+const meta = TYPE_META[type];
+const data = entry.data as Record<string, unknown>;
+
+const CLIENT_LABELS: Record<string, string> = {
+  "claude-desktop": "Claude Desktop",
+  "claude-code": "Claude Code",
+  cursor: "Cursor",
+  vscode: "VS Code",
+};
+
+function paragraphs(text: string): string[] {
+  return text
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+const maintainers = (data.maintainers as Array<{ name: string; github: string; affiliation?: string }>) ?? [];
+const safety = (data.safety_classification as Array<{ scheme: string; level: string; source: string }>) ?? [];
+const record = (data.record as { created?: string; updated?: string; last_verified?: string; source_issue?: number }) ?? {};
+const standards = (data.ga4gh_standards as string[] | undefined) ?? [];
+const keywords = (data.keywords as string[] | undefined) ?? [];
+
+let mcpPanels: { id: string; label: string; content: string; deeplink?: string }[] = [];
+if (type === "mcp-servers" && data.server) {
+  const server = data.server as { name?: string; packages?: unknown; remotes?: unknown };
+  const snippets = deriveAllInstallSnippets({
+    name: String(server.name ?? entry.id),
+    packages: server.packages,
+    remotes: server.remotes,
+  } as unknown as InstallableServer);
+  mcpPanels = snippets.map((s) => ({
+    id: s.client,
+    label: CLIENT_LABELS[s.client] ?? s.client,
+    content: s.configJson,
+    deeplink: s.deeplink,
+  }));
+}
+
+let pluginPanels: { id: string; label: string; content: string }[] = [];
+if (type === "plugins") {
+  const ga4gh = (data.ga4gh as { harnesses?: Array<{ harness: string; installCommand: string }> }) ?? {};
+  pluginPanels = (ga4gh.harnesses ?? []).map((h) => ({ id: h.harness, label: harnessLabel(h.harness), content: h.installCommand }));
+}
+---
+
+<Base title={String(data.name)} description={String(data.summary)}>
+  <article data-pagefind-body data-pagefind-filter={`type:${meta.type}`}>
+    <header class="detail-header">
+      <div>
+        <p class="page-intro" style="margin:0 0 0.35rem;">
+          <a href={withBase(`/${type}/`)}>{meta.label}</a>
+        </p>
+        <h1 class="detail-header__title">{String(data.name)}</h1>
+        <p class="page-intro">{String(data.summary)}</p>
+      </div>
+      <div class="detail-badges">
+        <CertificationBadge tier={String(data.certification_tier ?? "unsigned")} />
+      </div>
+    </header>
+
+    <section class="detail-section">
+      <h2>Overview</h2>
+      {paragraphs(String(data.description ?? "")).map((p) => <p>{p}</p>)}
+    </section>
+
+    <section class="detail-section">
+      <h2>Details</h2>
+      <dl class="field-list">
+        <dt>Licence</dt>
+        <dd>
+          {String(data.license)}
+          {data.license === "other" && data.license_url ? (
+            <>
+              {" "}
+              (<a href={String(data.license_url)}>full text</a>)
+            </>
+          ) : null}
+        </dd>
+        <dt>Version</dt>
+        <dd>{String(data.version)}</dd>
+        <dt>Category</dt>
+        <dd data-pagefind-filter={`category:${String(data.category ?? "")}`}>
+          {categoryLabel(type, String(data.category ?? ""))}
+        </dd>
+        <dt>Homepage</dt>
+        <dd><a href={String(data.homepage)}>{String(data.homepage)}</a></dd>
+        <dt>Repository</dt>
+        <dd><a href={String(data.repository)}>{String(data.repository)}</a></dd>
+        <dt>Maintainers</dt>
+        <dd>
+          {maintainers.map((m, i) => (
+            <>
+              {i > 0 ? ", " : ""}
+              {m.name} (<a href={`https://github.com/${m.github}`}>@{m.github}</a>
+              {m.affiliation ? `, ${m.affiliation}` : ""})
+            </>
+          ))}
+        </dd>
+        {
+          keywords.length > 0 && (
+            <>
+              <dt>Keywords</dt>
+              <dd>
+                {keywords.map((k) => (
+                  <span class="badge badge--keyword" data-pagefind-filter={`keyword:${k}`}>
+                    {k}
+                  </span>
+                ))}{" "}
+              </dd>
+            </>
+          )
+        }
+        {
+          standards.length > 0 && (
+            <>
+              <dt>GA4GH standards</dt>
+              <dd>
+                {standards.map((s) => (
+                  <span class="badge badge--keyword" data-pagefind-filter={`ga4gh_standards:${s}`}>
+                    {s}
+                  </span>
+                ))}{" "}
+              </dd>
+            </>
+          )
+        }
+      </dl>
+    </section>
+
+    <section class="detail-section">
+      <h2>Safety classification</h2>
+      <SafetyBadges classifications={safety} />
+    </section>
+
+    {
+      type === "models" && (
+        <section class="detail-section">
+          <h2>Model Card</h2>
+          <p>
+            <a href={String(data.model_card_uri)}>View the full GA4GH Genomic AI Model Card ↗</a>
+          </p>
+          <dl class="field-list">
+            {data.pipeline_tag && (
+              <>
+                <dt>Pipeline tag</dt>
+                <dd>{String(data.pipeline_tag)}</dd>
+              </>
+            )}
+            {data.hosting_location && (
+              <>
+                <dt>Hosting</dt>
+                <dd>{String(data.hosting_location)}</dd>
+              </>
+            )}
+            {data.access_uri && (
+              <>
+                <dt>Access</dt>
+                <dd>
+                  <a href={String(data.access_uri)}>{String(data.access_uri)}</a>
+                </dd>
+              </>
+            )}
+            {data.install_command && (
+              <>
+                <dt>Install</dt>
+                <dd>
+                  <div class="install-snippet-row">
+                    <pre id="model-install-command">{String(data.install_command)}</pre>
+                    <CopyButton targetId="model-install-command" label="Copy install command" />
+                  </div>
+                </dd>
+              </>
+            )}
+          </dl>
+          {data.last_synced && (
+            <p class="cache-note">
+              Mirrored data last synced from the Model Card at {String(data.last_synced)}. See the linked card for
+              the authoritative, live version.
+            </p>
+          )}
+        </section>
+      )
+    }
+
+    {
+      type === "agents" && (
+        <section class="detail-section">
+          <h2>Agent info snapshot</h2>
+          <p>
+            <a href={String(data.agent_info_uri)}>View the live Agent Info endpoint ↗</a>
+          </p>
+          {(() => {
+            const snapshot = (data.agent_info_snapshot as Record<string, unknown>) ?? {};
+            const enrichment = (snapshot.enrichment as Record<string, unknown>) ?? {};
+            return (
+              <>
+                <dl class="field-list">
+                  {snapshot.protocol_version && (
+                    <>
+                      <dt>Protocol version</dt>
+                      <dd>{String(snapshot.protocol_version)}</dd>
+                    </>
+                  )}
+                  {snapshot.agent_type && (
+                    <>
+                      <dt>Agent type</dt>
+                      <dd>{String(snapshot.agent_type)}</dd>
+                    </>
+                  )}
+                  {snapshot.trust_level && (
+                    <>
+                      <dt>Trust level</dt>
+                      <dd>{String(snapshot.trust_level)}</dd>
+                    </>
+                  )}
+                  {enrichment.trust_score !== undefined && (
+                    <>
+                      <dt>Trust score</dt>
+                      <dd>{String(enrichment.trust_score)} / 1000</dd>
+                    </>
+                  )}
+                  {enrichment.trust_tier && (
+                    <>
+                      <dt>Trust tier</dt>
+                      <dd>{String(enrichment.trust_tier)}</dd>
+                    </>
+                  )}
+                  {enrichment.gasl_level !== undefined && (
+                    <>
+                      <dt>GASL level (live sync)</dt>
+                      <dd>{String(enrichment.gasl_level)}</dd>
+                    </>
+                  )}
+                  {data.alignment_card_uri && (
+                    <>
+                      <dt>Alignment card</dt>
+                      <dd>
+                        <a href={String(data.alignment_card_uri)}>{String(data.alignment_card_uri)}</a>
+                      </dd>
+                    </>
+                  )}
+                </dl>
+                {snapshot.last_synced && (
+                  <p class="cache-note">
+                    This is a cached snapshot of the agent's live endpoint, last synced at {String(snapshot.last_synced)}.
+                    It is not live status; see the linked endpoint for current values.
+                  </p>
+                )}
+              </>
+            );
+          })()}
+        </section>
+      )
+    }
+
+    {
+      type === "skills" && (
+        <section class="detail-section">
+          <h2>Skill</h2>
+          {(() => {
+            const skill = (data.skill as Record<string, unknown>) ?? {};
+            const source = (data.source as { repository?: { url?: string; subfolder?: string } }) ?? {};
+            const inputs = (data.inputs as Array<{ name: string; type: string; description?: string }>) ?? [];
+            const outputs = (data.outputs as Array<{ name: string; type: string; description?: string }>) ?? [];
+            return (
+              <>
+                <dl class="field-list">
+                  <dt>Human oversight</dt>
+                  <dd>{String(data.human_oversight)}</dd>
+                  <dt>Provenance logging</dt>
+                  <dd>{data.provenance_logging ? "Yes" : "No"}</dd>
+                  {data.evaluation_criteria_uri && (
+                    <>
+                      <dt>Evaluation criteria</dt>
+                      <dd>
+                        <a href={String(data.evaluation_criteria_uri)}>{String(data.evaluation_criteria_uri)}</a>
+                      </dd>
+                    </>
+                  )}
+                  {source.repository?.url && (
+                    <>
+                      <dt>Source</dt>
+                      <dd>
+                        <a href={source.repository.url}>{source.repository.url}</a>
+                        {source.repository.subfolder ? ` (${source.repository.subfolder})` : ""}
+                      </dd>
+                    </>
+                  )}
+                </dl>
+                {inputs.length > 0 && (
+                  <>
+                    <h3>Inputs</h3>
+                    <ul>
+                      {inputs.map((i) => (
+                        <li>
+                          <strong>{i.name}</strong> ({i.type}){i.description ? ` — ${i.description}` : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {outputs.length > 0 && (
+                  <>
+                    <h3>Outputs</h3>
+                    <ul>
+                      {outputs.map((o) => (
+                        <li>
+                          <strong>{o.name}</strong> ({o.type}){o.description ? ` — ${o.description}` : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </>
+            );
+          })()}
+        </section>
+      )
+    }
+
+    {
+      type === "mcp-servers" && (
+        <section class="detail-section">
+          <h2>Server manifest</h2>
+          {(() => {
+            const server = (data.server as Record<string, unknown>) ?? {};
+            const metaBlock = ((server._meta as Record<string, unknown> | undefined)?.["org.ga4gh/ai-registry"] as
+              | { ga4gh_standards?: string[] }
+              | undefined) ?? {};
+            return (
+              <dl class="field-list">
+                <dt>Server name</dt>
+                <dd>{String(server.name ?? "")}</dd>
+                {server.version && (
+                  <>
+                    <dt>Server version</dt>
+                    <dd>{String(server.version)}</dd>
+                  </>
+                )}
+                {metaBlock.ga4gh_standards && metaBlock.ga4gh_standards.length > 0 && (
+                  <>
+                    <dt>Implements</dt>
+                    <dd>{metaBlock.ga4gh_standards.join(", ")}</dd>
+                  </>
+                )}
+              </dl>
+            );
+          })()}
+        </section>
+      )
+    }
+
+    {
+      (type === "mcp-servers" || type === "plugins") && (
+        <section class="detail-section">
+          <h2>Install</h2>
+          <InstallTabs heading={`Install ${String(data.name)}`} panels={type === "mcp-servers" ? mcpPanels : pluginPanels} />
+        </section>
+      )
+    }
+
+    <section class="detail-section">
+      <h2>Provenance</h2>
+      <dl class="field-list">
+        {record.created && (
+          <>
+            <dt>Created</dt>
+            <dd>{record.created}</dd>
+          </>
+        )}
+        {record.updated && (
+          <>
+            <dt>Updated</dt>
+            <dd>{record.updated}</dd>
+          </>
+        )}
+        {record.last_verified && (
+          <>
+            <dt>Last verified</dt>
+            <dd>{record.last_verified}</dd>
+          </>
+        )}
+        {record.source_issue !== undefined && (
+          <>
+            <dt>Submission issue</dt>
+            <dd>#{record.source_issue}</dd>
+          </>
+        )}
+      </dl>
+    </section>
+  </article>
+</Base>

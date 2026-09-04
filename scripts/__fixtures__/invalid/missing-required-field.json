@@ -1,0 +1,21 @@
+{
+  "id": "missing-summary-model",
+  "type": "model",
+  "name": "Missing Summary Model",
+  "description": "Used to test that scripts/validate.ts rejects an entry missing a common-core required field (summary, here).",
+  "homepage": "https://example.org/missing-summary-model",
+  "repository": "https://github.com/example-org/missing-summary-model",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "model_card_uri": "https://example.org/missing-summary-model/model-card.json"
+}

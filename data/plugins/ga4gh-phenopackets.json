@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-phenopackets",
+  "type": "plugin",
+  "name": "GA4GH Phenopackets Validator",
+  "summary": "Structural validation for GA4GH Phenopacket v2 documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+  "description": "Structural validation for GA4GH Phenopacket v2 documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/phenopackets",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "phenopackets",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "phenopackets"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.080Z",
+    "updated": "2026-09-03T19:00:06.080Z",
+    "last_verified": "2026-09-03T19:00:06.080Z"
+  },
+  "category": "phenopackets",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-phenopackets",
+    "version": "0.1.0-rc.5",
+    "description": "Structural validation for GA4GH Phenopacket v2 documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/phenopackets",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/phenopackets",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "phenopackets",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-phenopackets": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-phenopackets"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "phenopackets",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "phenopackets",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-phenopackets -- npx -y @deepseek-ai/dsh-ga4gh-phenopackets"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-phenopackets -- npx -y @deepseek-ai/dsh-ga4gh-phenopackets"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-phenopackets npx -y @deepseek-ai/dsh-ga4gh-phenopackets"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-phenopackets\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-phenopackets\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-phenopackets\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-phenopackets\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

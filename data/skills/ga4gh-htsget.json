@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-htsget",
+  "type": "skill",
+  "name": "ga4gh-htsget skill",
+  "summary": "Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server",
+  "description": "Bundled Claude Code / MCP skill for GA4GH htsget, shipped alongside the `@deepseek-ai/dsh-ga4gh-htsget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server. Use when the user asks to fetch or stream genomic reads/variants over htsget, wants byte-range URLs for a BAM/CRAM/VCF/BCF object, or is integrating with the GA4GH htsget streaming-retrieval standard.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/htsget",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "htsget",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "htsget"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.662Z",
+    "updated": "2026-09-04T11:00:07.662Z",
+    "last_verified": "2026-09-04T11:00:07.662Z"
+  },
+  "skill": {
+    "name": "ga4gh-htsget",
+    "description": "Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server. Use when the user asks to fetch or stream genomic reads/variants over htsget, wants byte-range URLs for a BAM/CRAM/VCF/BCF object, or is integrating with the GA4GH htsget streaming-retrieval standard.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/htsget"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/htsget"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/htsget/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

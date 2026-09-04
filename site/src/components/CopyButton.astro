@@ -1,0 +1,50 @@
+---
+/**
+ * Copy-to-clipboard control (internal project documentation Section 4.3, PRD.md Section 5.3).
+ * `navigator.clipboard.writeText` with a toggled copied-state, following the
+ * Ollama/shadcn-ui pattern TECH.md cites. The action and copied-state are
+ * exposed to assistive technology via an `aria-live="polite"` status region,
+ * not a purely visual icon toggle (internal project documentation Section 10).
+ */
+interface Props {
+  targetId: string;
+  label?: string;
+}
+
+const { targetId, label = "Copy" } = Astro.props;
+---
+
+<span class="copy-button-wrap">
+  <button type="button" class="copy-button" data-copy-button data-copy-target={targetId}>
+    {label}
+  </button>
+  <span class="visually-hidden" role="status" aria-live="polite" data-copy-status></span>
+</span>
+
+<script>
+  function initCopyButtons() {
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const button = target.closest<HTMLButtonElement>("[data-copy-button]");
+      if (!button) return;
+
+      const targetId = button.getAttribute("data-copy-target");
+      const source = targetId ? document.getElementById(targetId) : null;
+      if (!source) return;
+
+      const text = source.textContent ?? "";
+      navigator.clipboard.writeText(text).then(() => {
+        button.dataset.copied = "true";
+        const status = button.parentElement?.querySelector<HTMLElement>("[data-copy-status]");
+        if (status) status.textContent = "Copied to clipboard";
+        window.setTimeout(() => {
+          button.dataset.copied = "false";
+          if (status) status.textContent = "";
+        }, 2000);
+      });
+    });
+  }
+
+  initCopyButtons();
+</script>

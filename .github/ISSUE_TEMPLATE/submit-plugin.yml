@@ -1,0 +1,184 @@
+name: Submit a coding-harness plugin
+description: Submit a coding-harness plugin (Claude Code, Codex, Gemini CLI, opencode, or a generic MCP-based plugin) to the GA4GH AI Registry
+title: "[Plugin] "
+labels: ["registry-submission", "type:plugin"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting a coding-harness plugin to the GA4GH AI Registry. Automation will
+        check this form's contents (schema conformance, licence eligibility, link resolution,
+        embedded `plugin.json` conformance) and comment back with any errors; a maintainer then
+        decides whether the entry belongs in the catalogue. See `internal project documentation` Section 5.4 for the
+        full review process.
+
+        **Field conventions used throughout this form:**
+        - A comma-separated field takes multiple values on one line, e.g. `trs, drs`.
+        - A multi-line field takes one row per item, each row itself comma-separated in the exact
+          column order stated in that field's own description.
+        - The "plugin.json" field below takes the exact Claude Code `plugin.json` document from your
+          repository, not individually re-typed fields.
+
+  - type: input
+    id: id
+    attributes:
+      label: Registry slug (id)
+      description: Lowercase letters, digits, and hyphens only, e.g. "variant-review-plugin". Must be unique among plugin entries.
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary
+      description: Maximum 200 characters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Markdown. Rendered on the entry's detail page.
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage URL
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: Licence
+      description: Choose "other" if your licence is not listed, and fill in the licence URL field below.
+      options:
+        - Apache-2.0
+        - MIT
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - GPL-2.0-only
+        - GPL-3.0-only
+        - LGPL-2.1-only
+        - LGPL-3.0-only
+        - AGPL-3.0-only
+        - MPL-2.0
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+        - CC-BY-NC-4.0
+        - Unlicense
+        - OFL-1.1
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: license_url
+    attributes:
+      label: Licence URL (required only if licence is "other")
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+    validations:
+      required: true
+
+  - type: input
+    id: keywords
+    attributes:
+      label: Keywords (common core)
+      description: "Comma-separated, e.g.: variant-review, clinical-genomics"
+
+  - type: input
+    id: category
+    attributes:
+      label: Category
+      description: >
+        Free text in v1 (a closed vocabulary is premature at the current package count). Use a
+        short, consistent, lowercase-hyphenated term, e.g. "clinical-genomics".
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_standards
+    attributes:
+      label: GA4GH standards touched (optional)
+      description: "Comma-separated, e.g.: trs, drs. Leave blank if this plugin does not directly touch a GA4GH API."
+
+  - type: textarea
+    id: maintainers
+    attributes:
+      label: Maintainers
+      description: "One per line: name, github-username[, affiliation[, orcid]]. At least one row required."
+      placeholder: Thomas Conner, thomas-conner
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety_classification
+    attributes:
+      label: Safety classification (optional)
+      description: >
+        One per line: scheme, level, source[, certifying_body[, evaluation_date[, valid_until[, evidence_uri]]]].
+        Leave blank if no safety classification applies yet.
+
+  - type: textarea
+    id: plugin
+    attributes:
+      label: plugin.json
+      description: >
+        Paste your Claude Code plugin's complete .claude-plugin/plugin.json document as JSON. This
+        must be the exact, unmodified document (internal project documentation Section 3.5.5); GA4GH additions live in
+        the separate ga4gh.* fields below, never inside this document.
+      render: json
+      placeholder: |
+        { "name": "variant-review-plugin", "version": "2.1.0", "description": "Bundles variant-review skills and MCP tools for Claude Code." }
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_keywords
+    attributes:
+      label: ga4gh.keywords (optional)
+      description: Comma-separated, plugin-specific keywords distinct from the common-core keywords field above.
+
+  - type: input
+    id: ga4gh_category
+    attributes:
+      label: ga4gh.category (optional)
+      description: Plugin-specific category, distinct from the common-core category field above.
+
+  - type: textarea
+    id: ga4gh_harnesses
+    attributes:
+      label: Target harnesses and install commands
+      description: >
+        One per line: harness, installCommand[, manifestPath[, minVersion[, maxVersion]]]. harness
+        is one of "claude-code", "codex", "gemini-cli", "opencode", "mcp-generic". A package that
+        ships both a coding-harness plugin and a standalone MCP server usable by any MCP-capable
+        harness should list "mcp-generic" as a second row.
+      placeholder: |
+        claude-code, /plugin install variant-review-plugin@example-org
+        mcp-generic, npx -y @example-org/variant-review-mcp
+    validations:
+      required: true

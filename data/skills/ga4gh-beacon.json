@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-beacon",
+  "type": "skill",
+  "name": "ga4gh-beacon skill",
+  "summary": "Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Beacon v2, shipped alongside the `@deepseek-ai/dsh-ga4gh-beacon` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary. Use when the user asks about GA4GH Beacon queries, variant-presence lookups against a Beacon v2 service, federated genomic discovery, or GA4GH Beacon interoperability.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "beacon",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "beacon"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.662Z",
+    "updated": "2026-09-04T11:00:07.662Z",
+    "last_verified": "2026-09-04T11:00:07.662Z"
+  },
+  "skill": {
+    "name": "ga4gh-beacon",
+    "description": "Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary. Use when the user asks about GA4GH Beacon queries, variant-presence lookups against a Beacon v2 service, federated genomic discovery, or GA4GH Beacon interoperability.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/beacon"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/beacon"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/beacon/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-data-connect",
+  "type": "plugin",
+  "name": "GA4GH Data Connect Server",
+  "summary": "GA4GH Data Connect Cordis plugin: search a configured Data Connect endpoint as a model-facing tool and a standalone stdio MCP server",
+  "description": "Searches a configured GA4GH Data Connect endpoint, as a model-facing tool and a standalone stdio MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "data-connect",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "data-connect"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.076Z",
+    "updated": "2026-09-03T19:00:06.076Z",
+    "last_verified": "2026-09-03T19:00:06.076Z"
+  },
+  "category": "data-connect",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-data-connect",
+    "version": "0.1.0-rc.5",
+    "description": "GA4GH Data Connect Cordis plugin: search a configured Data Connect endpoint as a model-facing tool and a standalone stdio MCP server",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "data-connect",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-data-connect": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-data-connect"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "data-connect",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "data-connect",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-data-connect -- npx -y @deepseek-ai/dsh-ga4gh-data-connect"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-data-connect -- npx -y @deepseek-ai/dsh-ga4gh-data-connect"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-data-connect npx -y @deepseek-ai/dsh-ga4gh-data-connect"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-data-connect\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-data-connect\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-data-connect\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-data-connect\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

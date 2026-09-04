@@ -1,0 +1,73 @@
+{
+  "id": "ga4gh-security",
+  "type": "skill",
+  "name": "ga4gh-security skill",
+  "summary": "Mount the GA4GH Passport and GA4GH Crypt4GH plugins together and report which GA4GH security-domain standards this composition bundles",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Passport and Crypt4GH (composed), shipped alongside the `@deepseek-ai/dsh-ga4gh-security` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Mount the GA4GH Passport and GA4GH Crypt4GH plugins together and report which GA4GH security-domain standards this composition bundles. Use when the user wants both GA4GH Passport visa validation and GA4GH Crypt4GH header inspection mounted from one plugin, or asks which GA4GH security standards a deployment supports.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "security",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "governance-support",
+  "ga4gh_standards": [
+    "passport"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.665Z",
+    "updated": "2026-09-04T11:00:07.665Z",
+    "last_verified": "2026-09-04T11:00:07.665Z"
+  },
+  "skill": {
+    "name": "ga4gh-security",
+    "description": "Mount the GA4GH Passport and GA4GH Crypt4GH plugins together and report which GA4GH security-domain standards this composition bundles. Use when the user wants both GA4GH Passport visa validation and GA4GH Crypt4GH header inspection mounted from one plugin, or asks which GA4GH security standards a deployment supports.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/security"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/security"
+    }
+  },
+  "inputs": [
+    {
+      "name": "document_or_endpoint",
+      "type": "string",
+      "description": "The visa/credential document or clearinghouse endpoint to validate."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "validation_result",
+      "type": "object",
+      "description": "Pass/fail outcome; on failure, the specific rule violated. Informs, but does not itself make, a data-access decision."
+    }
+  ],
+  "human_oversight": "required",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/security/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-crypt4gh",
+  "type": "mcp-server",
+  "name": "GA4GH Crypt4GH Inspector",
+  "summary": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting",
+  "description": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "crypt4gh",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "crypt4gh"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.080Z",
+    "updated": "2026-09-03T19:00:06.080Z",
+    "last_verified": "2026-09-03T19:00:06.080Z"
+  },
+  "category": "crypt4gh",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-crypt4gh",
+    "description": "Validates a GA4GH Crypt4GH file header's magic bytes, version, and packet accounting",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/crypt4gh"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-crypt4gh",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "crypt4gh"
+        ]
+      }
+    }
+  }
+}

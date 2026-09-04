@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-gks",
+  "type": "plugin",
+  "name": "GA4GH Genomic Knowledge Standards (GKS) Server",
+  "summary": "Meta-plugin for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled ga4gh-vrs plugin and reports which GKS-family standards it currently bundles",
+  "description": "Meta-server for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled `ga4gh-vrs` plugin and reports which GKS-family standards it currently bundles.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "gks",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "vrs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "gks",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-gks",
+    "version": "0.1.0-rc.5",
+    "description": "Meta-plugin for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled ga4gh-vrs plugin and reports which GKS-family standards it currently bundles",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "gks",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-gks": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-gks"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "gks",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "gks",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-gks -- npx -y @deepseek-ai/dsh-ga4gh-gks"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-gks -- npx -y @deepseek-ai/dsh-ga4gh-gks"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-gks npx -y @deepseek-ai/dsh-ga4gh-gks"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-gks\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-gks\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-gks\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-gks\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}
