@@ -1,0 +1,223 @@
+name: Submit a skill
+description: Submit a certifiable skill to the GA4GH AI Registry
+title: "[Skill] "
+labels: ["registry-submission", "type:skill"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting a skill to the GA4GH AI Registry. Automation will check this form's
+        contents (schema conformance, licence eligibility, link resolution) and comment back with
+        any errors; a maintainer then decides whether the entry belongs in the catalogue. Skill
+        submissions are routed to the Certified Skills Library reviewer. See `internal project documentation` Section
+        5.4 for the full review process.
+
+        **Field conventions used throughout this form:**
+        - A comma-separated field takes multiple values on one line, e.g. `trs, drs`.
+        - A multi-line field takes one row per item, each row itself comma-separated in the exact
+          column order stated in that field's own description.
+        - A "paste JSON" field takes the exact JSON object you already have, not individually
+          re-typed fields.
+
+  - type: input
+    id: id
+    attributes:
+      label: Registry slug (id)
+      description: Lowercase letters, digits, and hyphens only, e.g. "consent-form-reviewer". Must be unique among skill entries.
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary
+      description: Maximum 200 characters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Markdown. Rendered on the entry's detail page.
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage URL
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: Licence
+      description: Choose "other" if your licence is not listed, and fill in the licence URL field below.
+      options:
+        - Apache-2.0
+        - MIT
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - GPL-2.0-only
+        - GPL-3.0-only
+        - LGPL-2.1-only
+        - LGPL-3.0-only
+        - AGPL-3.0-only
+        - MPL-2.0
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+        - CC-BY-NC-4.0
+        - Unlicense
+        - OFL-1.1
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: license_url
+    attributes:
+      label: Licence URL (required only if licence is "other")
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+    validations:
+      required: true
+
+  - type: input
+    id: keywords
+    attributes:
+      label: Keywords
+      description: "Comma-separated, e.g.: consent, duo, governance"
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - scientific-writing
+        - consent-review
+        - governance-support
+        - data-curation
+        - variant-interpretation
+        - literature-extraction
+        - regulatory-compliance
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_standards
+    attributes:
+      label: GA4GH standards touched (optional)
+      description: "Comma-separated, e.g.: trs, drs. Leave blank if this skill does not directly touch a GA4GH API."
+
+  - type: textarea
+    id: maintainers
+    attributes:
+      label: Maintainers
+      description: "One per line: name, github-username[, affiliation[, orcid]]. At least one row required."
+      placeholder: Megan Tsao, megan-tsao
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety_classification
+    attributes:
+      label: Safety classification (optional)
+      description: >
+        One per line: scheme, level, source[, certifying_body[, evaluation_date[, valid_until[, evidence_uri]]]].
+        Leave blank if no safety classification applies yet.
+
+  - type: textarea
+    id: skill
+    attributes:
+      label: SKILL.md frontmatter
+      description: >
+        Paste your skill's SKILL.md frontmatter as JSON, at minimum {"name": "...", "description": "..."}.
+        Any additional frontmatter keys your ecosystem uses are preserved as-is.
+      render: json
+      placeholder: |
+        { "name": "consent-form-reviewer", "description": "Extracts DUO-relevant restrictions from a consent form." }
+    validations:
+      required: true
+
+  - type: input
+    id: source_repository_url
+    attributes:
+      label: Skill source repository URL
+      description: May be the same as the repository field above, or a monorepo containing this skill.
+    validations:
+      required: true
+
+  - type: input
+    id: source_repository_subfolder
+    attributes:
+      label: Subfolder within the repository (optional)
+      description: Relative path from the repository root to this skill, if it lives in a monorepo.
+
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      description: "One per line: name[, type[, description]]."
+      placeholder: consent_document, file, The signed consent form, PDF or text.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Outputs
+      description: "One per line: name[, type[, description]]."
+      placeholder: duo_restrictions, json, Extracted DUO codes and free-text restrictions.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: human_oversight
+    attributes:
+      label: Human oversight requirement
+      options:
+        - required
+        - recommended
+        - none
+    validations:
+      required: true
+
+  - type: dropdown
+    id: provenance_logging
+    attributes:
+      label: Does this skill perform provenance logging?
+      options:
+        - "true"
+        - "false"
+    validations:
+      required: true
+
+  - type: input
+    id: evaluation_criteria_uri
+    attributes:
+      label: Evaluation criteria URI
+      description: Pointer to this skill's evaluation criteria document.
+    validations:
+      required: true

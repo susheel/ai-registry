@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-beacon",
+  "type": "mcp-server",
+  "name": "GA4GH Beacon v2 Server",
+  "summary": "GA4GH Beacon v2 client: query a Beacon endpoint's g_variants search for variant/dataset existence",
+  "description": "Queries a GA4GH Beacon v2 endpoint's `g_variants` search for variant and dataset existence.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "beacon",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "beacon"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.075Z",
+    "updated": "2026-09-03T19:00:06.075Z",
+    "last_verified": "2026-09-03T19:00:06.075Z"
+  },
+  "category": "beacon",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-beacon",
+    "description": "Queries a GA4GH Beacon v2 endpoint's variant search for variant and dataset existence",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/beacon"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-beacon",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "beacon"
+        ]
+      }
+    }
+  }
+}

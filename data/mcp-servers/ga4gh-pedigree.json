@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-pedigree",
+  "type": "mcp-server",
+  "name": "GA4GH Pedigree Validator",
+  "summary": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+  "description": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "pedigree",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "pedigree"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.080Z",
+    "updated": "2026-09-03T19:00:06.080Z",
+    "last_verified": "2026-09-03T19:00:06.080Z"
+  },
+  "category": "pedigree",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-pedigree",
+    "description": "Structural validation for GA4GH pedigree documents",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/pedigree"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-pedigree",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "pedigree"
+        ]
+      }
+    }
+  }
+}

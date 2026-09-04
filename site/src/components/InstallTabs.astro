@@ -1,0 +1,99 @@
+---
+/**
+ * Accessible tabbed install-snippet control (internal project documentation Section 4.3, 3.5.4,
+ * 3.5.5). One tab per client (MCP servers) or per harness (plugins).
+ * Implements the WAI-ARIA tabs pattern with roving tabindex and arrow-key
+ * navigation, since native HTML has no tab semantics of its own.
+ */
+import CopyButton from "./CopyButton.astro";
+
+interface Panel {
+  id: string;
+  label: string;
+  content: string;
+  deeplink?: string;
+}
+
+interface Props {
+  panels: Panel[];
+  heading: string;
+}
+
+const { panels, heading } = Astro.props;
+const groupId = heading.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+{
+  panels.length === 0 ? (
+    <p class="page-intro">No install snippet could be derived for this entry.</p>
+  ) : (
+    <div class="install-panel">
+      <div class="install-tabs" role="tablist" aria-label={heading} data-install-tabs>
+        {panels.map((p, i) => (
+          <button
+            type="button"
+            class="install-tab"
+            role="tab"
+            id={`tab-${groupId}-${p.id}`}
+            aria-controls={`panel-${groupId}-${p.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+      {panels.map((p, i) => (
+        <div
+          class="install-panel-body"
+          role="tabpanel"
+          id={`panel-${groupId}-${p.id}`}
+          aria-labelledby={`tab-${groupId}-${p.id}`}
+          hidden={i !== 0}
+        >
+          <div class="install-snippet-row">
+            <pre id={`snippet-${groupId}-${p.id}`}>{p.content}</pre>
+            <CopyButton targetId={`snippet-${groupId}-${p.id}`} label={`Copy ${p.label} snippet`} />
+          </div>
+          {p.deeplink && (
+            <a class="deeplink" href={p.deeplink}>
+              Open in {p.label}
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  function setupTabs(tablist: HTMLElement) {
+    const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls") ?? ""));
+
+    function activate(index: number) {
+      tabs.forEach((tab, i) => {
+        const selected = i === index;
+        tab.setAttribute("aria-selected", selected ? "true" : "false");
+        tab.tabIndex = selected ? 0 : -1;
+        const panel = panels[i];
+        if (panel) panel.hidden = !selected;
+      });
+      tabs[index]?.focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => activate(i));
+      tab.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") activate((i + 1) % tabs.length);
+        else if (event.key === "ArrowLeft") activate((i - 1 + tabs.length) % tabs.length);
+        else if (event.key === "Home") activate(0);
+        else if (event.key === "End") activate(tabs.length - 1);
+        else return;
+        event.preventDefault();
+      });
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-install-tabs]").forEach(setupTabs);
+</script>

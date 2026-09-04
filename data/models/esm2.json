@@ -1,0 +1,28 @@
+{
+  "id": "esm2",
+  "type": "model",
+  "name": "ESM-2",
+  "summary": "Protein language model family from Meta FAIR, learning structure and function representations from protein sequence.",
+  "description": "ESM-2 (Evolutionary Scale Modeling) is a family of protein language models developed by Meta's Fundamental AI Research (FAIR) team, ranging from 8M to 3B parameters, that learn structural and functional representations directly from protein sequence. ESM-2 is the base model for ESMFold's single-sequence structure prediction and underpins a wide range of genomics-adjacent variant-effect-on-protein and protein-design workflows. Its source code is confirmed MIT licensed (the ESM Metagenomic Atlas *data*, a separate artefact, carries a separate CC-BY-4.0 licence not applicable to the model weights/code catalogued here).\n\n**Registry note on `model_card_uri`**: this points to the model's standard Hugging Face model card, not a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification. ESM-2 is protein-sequence-native rather than DNA-native; it is catalogued here because protein-level variant-effect modelling is a common downstream step in genomic AI pipelines, per PRD.md Section 4.1's task-relevance test rather than a DNA-specific one.",
+  "homepage": "https://huggingface.co/facebook/esm2_t36_3B_UR50D",
+  "repository": "https://github.com/facebookresearch/esm",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "esm2_t36_3B_UR50D",
+  "keywords": ["protein", "protein-language-model", "structure-prediction", "esmfold"],
+  "category": "protein-structure",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Meta AI (FAIR)",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/facebook/esm2_t36_3B_UR50D",
+  "model_card_uri": "https://huggingface.co/facebook/esm2_t36_3B_UR50D",
+  "last_synced": "2026-09-04T11:05:00.000Z",
+  "record": {
+    "created": "2026-09-04T11:05:00.000Z",
+    "updated": "2026-09-04T11:05:00.000Z",
+    "last_verified": "2026-09-04T11:05:00.000Z"
+  }
+}

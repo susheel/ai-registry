@@ -1,0 +1,73 @@
+{
+  "id": "ga4gh-crypt4gh",
+  "type": "skill",
+  "name": "ga4gh-crypt4gh skill",
+  "summary": "Structurally validate a GA4GH Crypt4GH file header (magic bytes, version, packet-length accounting) from base64-encoded bytes",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Crypt4GH, shipped alongside the `@deepseek-ai/dsh-ga4gh-crypt4gh` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Structurally validate a GA4GH Crypt4GH file header (magic bytes, version, packet-length accounting) from base64-encoded bytes. Use when the user asks to check, inspect, or validate a Crypt4GH header, or asks about GA4GH Crypt4GH file-format interoperability. Does not decrypt Crypt4GH-encrypted data.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "crypt4gh",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "governance-support",
+  "ga4gh_standards": [
+    "crypt4gh"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.664Z",
+    "updated": "2026-09-04T11:00:07.664Z",
+    "last_verified": "2026-09-04T11:00:07.664Z"
+  },
+  "skill": {
+    "name": "ga4gh-crypt4gh",
+    "description": "Structurally validate a GA4GH Crypt4GH file header (magic bytes, version, packet-length accounting) from base64-encoded bytes. Use when the user asks to check, inspect, or validate a Crypt4GH header, or asks about GA4GH Crypt4GH file-format interoperability. Does not decrypt Crypt4GH-encrypted data.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/crypt4gh"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/crypt4gh"
+    }
+  },
+  "inputs": [
+    {
+      "name": "document",
+      "type": "string",
+      "description": "The document or file content to validate structurally against the standard."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "validation_result",
+      "type": "object",
+      "description": "Pass/fail outcome; on failure, the specific rule violated."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/crypt4gh/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

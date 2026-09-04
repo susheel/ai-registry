@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-passport",
+  "type": "plugin",
+  "name": "GA4GH Passport Server",
+  "summary": "Validates GA4GH Passport visas against a configured clearinghouse and registers the bundled ga4gh-passport skill",
+  "description": "Validates GA4GH Passport visas against a configured clearinghouse. Bundles the `ga4gh-passport` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "passport",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "passport"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "passport",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-passport",
+    "version": "0.1.0-rc.5",
+    "description": "Validates GA4GH Passport visas against a configured clearinghouse and registers the bundled ga4gh-passport skill",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "passport",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-passport": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-passport"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "passport",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "passport",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-passport -- npx -y @deepseek-ai/dsh-ga4gh-passport"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-passport -- npx -y @deepseek-ai/dsh-ga4gh-passport"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-passport npx -y @deepseek-ai/dsh-ga4gh-passport"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-passport\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-passport\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-passport\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-passport\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

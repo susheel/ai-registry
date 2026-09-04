@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-refget",
+  "type": "mcp-server",
+  "name": "GA4GH refget Server",
+  "summary": "GA4GH refget v2.0 sequence-metadata lookup, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+  "description": "GA4GH refget v2.0 sequence-metadata lookup by checksum, as a Cordis plugin, a bundled skill, and a standalone MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "refget",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "refget"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "refget",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-refget",
+    "description": "GA4GH refget v2.0 sequence-metadata lookup by checksum",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/refget"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-refget",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "refget"
+        ]
+      }
+    }
+  }
+}

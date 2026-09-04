@@ -1,0 +1,73 @@
+{
+  "id": "ga4gh-phenopackets",
+  "type": "skill",
+  "name": "ga4gh-phenopackets skill",
+  "summary": "Structurally validate a GA4GH Phenopacket v2 document (a schema for sharing clinical phenotype and disease data linked to genomic findings)",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Phenopacket v2, shipped alongside the `@deepseek-ai/dsh-ga4gh-phenopackets` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Structurally validate a GA4GH Phenopacket v2 document (a schema for sharing clinical phenotype and disease data linked to genomic findings). Use when the user provides a phenopacket JSON document and asks whether it is well-formed, or asks which phenotypic-data sections (phenotypic features, diseases, interpretations, measurements, biosamples, medical actions) it populates.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/phenopackets",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "phenopackets",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "data-curation",
+  "ga4gh_standards": [
+    "phenopackets"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.665Z",
+    "updated": "2026-09-04T11:00:07.665Z",
+    "last_verified": "2026-09-04T11:00:07.665Z"
+  },
+  "skill": {
+    "name": "ga4gh-phenopackets",
+    "description": "Structurally validate a GA4GH Phenopacket v2 document (a schema for sharing clinical phenotype and disease data linked to genomic findings). Use when the user provides a phenopacket JSON document and asks whether it is well-formed, or asks which phenotypic-data sections (phenotypic features, diseases, interpretations, measurements, biosamples, medical actions) it populates.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/phenopackets"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/phenopackets"
+    }
+  },
+  "inputs": [
+    {
+      "name": "document",
+      "type": "string",
+      "description": "The document or file content to validate structurally against the standard."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "validation_result",
+      "type": "object",
+      "description": "Pass/fail outcome; on failure, the specific rule violated."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/phenopackets/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

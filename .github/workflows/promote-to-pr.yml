@@ -1,0 +1,113 @@
+name: Promote approved submission to PR
+
+# Workflow 2 (internal project documentation Section 6): triggered when a maintainer applies
+# the `approved` label (human gate 1). Re-derives the candidate record fresh
+# from the issue's *current* body (rather than trusting a Workflow 1 result
+# that may predate a later edit), re-validates it, and -- only if that still
+# passes -- writes data/<type>/<slug>.json on a new branch and opens a PR
+# with `Closes #<n>`.
+#
+# **External prerequisite, not yet provisioned** (internal project documentation Phase 4,
+# internal project documentation Section 10): this workflow MUST use a GitHub App installation
+# token or a maintainer-owned PAT, stored as the `REGISTRY_BOT_TOKEN`
+# repository secret referenced below -- never the default `GITHUB_TOKEN`. A
+# PR opened with the default token does not trigger `on: pull_request`
+# workflows (GitHub's own anti-recursion safeguard), which would silently
+# skip Workflow 3 (`validate-pr.yml`) entirely. This workflow will fail at
+# the "Open pull request" step until `REGISTRY_BOT_TOKEN` is provisioned;
+# that failure is intentional, not a bug, since falling back to
+# `GITHUB_TOKEN` would silently break the pipeline in a much harder-to-
+# notice way.
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  promote:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Determine submission type from labels
+        id: type
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.issue.labels.map((l) => l.name);
+            const typeLabel = labels.find((l) => l.startsWith('type:'));
+            if (!typeLabel) {
+              core.setFailed('No type:<kind> label found on this issue; the issue form should have applied one automatically.');
+              return;
+            }
+            core.setOutput('type', typeLabel.slice('type:'.length));
+
+      - name: Select this type's issue-form template path
+        id: template
+        env:
+          TYPE: ${{ steps.type.outputs.type }}
+        run: |
+          case "$TYPE" in
+            model) echo "path=.github/ISSUE_TEMPLATE/submit-model.yml" >> "$GITHUB_OUTPUT" ;;
+            agent) echo "path=.github/ISSUE_TEMPLATE/submit-agent.yml" >> "$GITHUB_OUTPUT" ;;
+            skill) echo "path=.github/ISSUE_TEMPLATE/submit-skill.yml" >> "$GITHUB_OUTPUT" ;;
+            mcp-server) echo "path=.github/ISSUE_TEMPLATE/submit-mcp-server.yml" >> "$GITHUB_OUTPUT" ;;
+            plugin) echo "path=.github/ISSUE_TEMPLATE/submit-plugin.yml" >> "$GITHUB_OUTPUT" ;;
+            *) echo "::error::Unrecognised type '$TYPE'"; exit 1 ;;
+          esac
+
+      - name: Re-parse the issue body
+        id: issue-parser
+        uses: stefanbuck/github-issue-parser@v3
+        with:
+          template-path: ${{ steps.template.outputs.path }}
+
+      - name: Re-validate before writing anything
+        id: validation
+        env:
+          ISSUE_TYPE: ${{ steps.type.outputs.type }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_FIELDS_JSON: ${{ steps.issue-parser.outputs.jsonString }}
+        run: pnpm exec tsx scripts/validate-submission.ts > /tmp/result.json
+
+      - name: Write the candidate entry to data/
+        id: write
+        env:
+          SUBMISSION_RESULT_PATH: /tmp/result.json
+          ISSUE_TYPE: ${{ steps.type.outputs.type }}
+        run: pnpm exec tsx scripts/write-submission-entry.ts
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.REGISTRY_BOT_TOKEN }}
+          commit-message: "feat(data): add ${{ steps.type.outputs.type }} entry ${{ steps.write.outputs.slug }}"
+          branch: submission/${{ github.event.issue.number }}-${{ steps.write.outputs.slug }}
+          title: "Add ${{ steps.type.outputs.type }} entry: ${{ steps.write.outputs.slug }}"
+          body: |
+            Closes #${{ github.event.issue.number }}
+
+            Automatically generated from the approved submission issue. Adds `${{ steps.write.outputs.file-path }}`.
+
+            Workflow 3 (`validate-pr.yml`) will re-validate this file and run a full site build before this can merge. CODEOWNERS routes this PR's review request automatically based on the changed path.
+          labels: |
+            automated
+            type:${{ steps.type.outputs.type }}
+          add-paths: ${{ steps.write.outputs.file-path }}

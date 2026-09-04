@@ -1,0 +1,21 @@
+{
+  "name": "@ga4gh-ai-registry/site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "tsx ../scripts/build-zod-schemas.ts --out src/generated/entry-schemas.zod.ts",
+    "dev": "astro dev",
+    "prebuild": "tsx ../scripts/build-zod-schemas.ts --out src/generated/entry-schemas.zod.ts",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.2.10",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2",
+    "tsx": "^4.19.2"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "hyenadna",
+  "type": "model",
+  "name": "HyenaDNA",
+  "summary": "Long-range genomic foundation model, pretrained at single-nucleotide resolution on context lengths up to 1 million tokens.",
+  "description": "HyenaDNA is a long-range genomic foundation model from the Hazy Research lab at Stanford, pretrained at single-nucleotide resolution on context lengths of up to 1 million tokens, substantially longer than prior genomic language models. It is released as a family of checkpoints (tiny/small/medium/large) at varying sequence lengths.\n\n**Licence note**: the Hugging Face model card page does not surface a licence tag in its rendered content; the licence stated here (Apache-2.0) was confirmed directly against the `LICENSE` file in the model's source repository, `github.com/HazyResearch/hyena-dna`, not assumed.\n\n**Registry note on `model_card_uri`**: this points to the model's standard Hugging Face model card, not a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification.",
+  "homepage": "https://huggingface.co/LongSafari/hyenadna-large-1m-seqlen-hf",
+  "repository": "https://github.com/HazyResearch/hyena-dna",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "large-1m-seqlen",
+  "keywords": ["dna", "genomics", "foundation-model", "long-range", "single-nucleotide-resolution"],
+  "category": "genomic-foundation-model",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Hazy Research, Stanford University",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/LongSafari/hyenadna-large-1m-seqlen-hf",
+  "model_card_uri": "https://huggingface.co/LongSafari/hyenadna-large-1m-seqlen-hf",
+  "last_synced": "2026-09-04T11:05:00.000Z",
+  "record": {
+    "created": "2026-09-04T11:05:00.000Z",
+    "updated": "2026-09-04T11:05:00.000Z",
+    "last_verified": "2026-09-04T11:05:00.000Z"
+  }
+}

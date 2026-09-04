@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-pedigree",
+  "type": "plugin",
+  "name": "GA4GH Pedigree Validator",
+  "summary": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+  "description": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "pedigree",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "pedigree"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.080Z",
+    "updated": "2026-09-03T19:00:06.080Z",
+    "last_verified": "2026-09-03T19:00:06.080Z"
+  },
+  "category": "pedigree",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-pedigree",
+    "version": "0.1.0-rc.5",
+    "description": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "pedigree",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-pedigree": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-pedigree"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "pedigree",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "pedigree",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-pedigree -- npx -y @deepseek-ai/dsh-ga4gh-pedigree"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-pedigree -- npx -y @deepseek-ai/dsh-ga4gh-pedigree"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-pedigree npx -y @deepseek-ai/dsh-ga4gh-pedigree"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-pedigree\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-pedigree\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-pedigree\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-pedigree\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

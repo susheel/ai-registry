@@ -1,0 +1,182 @@
+name: Submit an MCP server
+description: Submit a Model Context Protocol server to the GA4GH AI Registry
+title: "[MCP Server] "
+labels: ["registry-submission", "type:mcp-server"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting an MCP server to the GA4GH AI Registry. Automation will check this
+        form's contents (schema conformance, licence eligibility, link resolution, embedded
+        `server.json` conformance against the official MCP registry schema) and comment back with
+        any errors; a maintainer then decides whether the entry belongs in the catalogue. See
+        `internal project documentation` Section 5.4 for the full review process.
+
+        **Field conventions used throughout this form:**
+        - A comma-separated field takes multiple values on one line, e.g. `trs, drs`.
+        - A multi-line field takes one row per item, each row itself comma-separated in the exact
+          column order stated in that field's own description.
+        - The "server.json" field below takes the exact `server.json` document you would publish to
+          `registry.modelcontextprotocol.io`, plus its GA4GH extension block, not individually
+          re-typed fields.
+
+  - type: input
+    id: id
+    attributes:
+      label: Registry slug (id)
+      description: Lowercase letters, digits, and hyphens only, e.g. "trs-tools-mcp". Must be unique among mcp-server entries.
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary
+      description: Maximum 200 characters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Markdown. Rendered on the entry's detail page.
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage URL
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: Licence
+      description: Choose "other" if your licence is not listed, and fill in the licence URL field below.
+      options:
+        - Apache-2.0
+        - MIT
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - GPL-2.0-only
+        - GPL-3.0-only
+        - LGPL-2.1-only
+        - LGPL-3.0-only
+        - AGPL-3.0-only
+        - MPL-2.0
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+        - CC-BY-NC-4.0
+        - Unlicense
+        - OFL-1.1
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: license_url
+    attributes:
+      label: Licence URL (required only if licence is "other")
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+    validations:
+      required: true
+
+  - type: input
+    id: keywords
+    attributes:
+      label: Keywords
+      description: "Comma-separated, e.g.: trs, tool-registry"
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: The GA4GH API specification family this server implements or wraps.
+      options:
+        - trs
+        - drs
+        - beacon
+        - htsget
+        - data-connect
+        - wes
+        - vrs
+        - gks
+        - passport
+        - refget
+        - service-info
+        - service-registry
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_standards
+    attributes:
+      label: GA4GH standards touched
+      description: >
+        Comma-separated, version-free, e.g.: trs. Required for MCP-server entries. This is the
+        coarse browse facet; the precise, version-qualified claim goes in server.json's own
+        _meta["org.ga4gh/ai-registry"].ga4gh_standards below, and every standard named there
+        (with any @version suffix stripped) must also appear here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: maintainers
+    attributes:
+      label: Maintainers
+      description: "One per line: name, github-username[, affiliation[, orcid]]. At least one row required."
+      placeholder: Thomas Conner, thomas-conner
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety_classification
+    attributes:
+      label: Safety classification (optional)
+      description: >
+        One per line: scheme, level, source[, certifying_body[, evaluation_date[, valid_until[, evidence_uri]]]].
+        Leave blank if no safety classification applies yet.
+
+  - type: textarea
+    id: server
+    attributes:
+      label: server.json
+      description: >
+        Paste your server's complete server.json document as JSON, including its GA4GH extension
+        block at _meta["org.ga4gh/ai-registry"].ga4gh_standards (version-qualified, e.g. "trs@2.0.1").
+        This must be the exact, unmodified document you would publish to registry.modelcontextprotocol.io
+        (internal project documentation Section 3.5.4): the GA4GH extension is the one addition on top of it.
+      render: json
+      placeholder: |
+        {
+          "name": "org.ga4gh/trs-tools-mcp",
+          "description": "MCP server exposing GA4GH TRS-compatible tool listings.",
+          "version": "1.0.0",
+          "_meta": { "org.ga4gh/ai-registry": { "ga4gh_standards": ["trs@2.0.1"] } }
+        }
+    validations:
+      required: true

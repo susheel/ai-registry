@@ -1,0 +1,67 @@
+{
+  "id": "ga4gh-security",
+  "type": "mcp-server",
+  "name": "GA4GH Security Suite (Passport + Crypt4GH)",
+  "summary": "Mounts the ga4gh-passport and ga4gh-crypt4gh plugins together and reports which GA4GH security-domain standards the composition bundles",
+  "description": "Meta-server mounting the `ga4gh-passport` and `ga4gh-crypt4gh` plugins together, reporting which GA4GH security-domain standards the composition bundles.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "security",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "passport",
+    "crypt4gh"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.080Z",
+    "updated": "2026-09-03T19:00:06.080Z",
+    "last_verified": "2026-09-03T19:00:06.080Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-security",
+    "description": "Meta-server bundling the GA4GH Passport and Crypt4GH security-domain plugins",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/security"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-security",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "passport",
+          "crypt4gh"
+        ]
+      }
+    }
+  }
+}

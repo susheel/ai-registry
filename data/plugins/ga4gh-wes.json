@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-wes",
+  "type": "plugin",
+  "name": "GA4GH Workflow Execution Service (WES) Server",
+  "summary": "Lists workflow runs from a configured GA4GH Workflow Execution Service (WES) endpoint and registers the bundled ga4gh-wes skill",
+  "description": "Lists workflow runs from a configured GA4GH Workflow Execution Service (WES) endpoint. Bundles the `ga4gh-wes` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/wes",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "wes",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "wes"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "wes",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-wes",
+    "version": "0.1.0-rc.5",
+    "description": "Lists workflow runs from a configured GA4GH Workflow Execution Service (WES) endpoint and registers the bundled ga4gh-wes skill",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/wes",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/wes",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "wes",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-wes": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-wes"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "wes",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "wes",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-wes -- npx -y @deepseek-ai/dsh-ga4gh-wes"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-wes -- npx -y @deepseek-ai/dsh-ga4gh-wes"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-wes npx -y @deepseek-ai/dsh-ga4gh-wes"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-wes\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-wes\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-wes\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-wes\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

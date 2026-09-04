@@ -1,0 +1,22 @@
+{
+  "id": "unlisted-license-model",
+  "type": "model",
+  "name": "Unlisted Licence Model",
+  "summary": "Model entry whose licence is neither on the allow-list nor \"other\".",
+  "description": "Used to test that scripts/validate.ts rejects a license value absent from schemas/vocab/licenses.json.",
+  "homepage": "https://example.org/unlisted-license-model",
+  "repository": "https://github.com/example-org/unlisted-license-model",
+  "license": "Some-Made-Up-License-9.9",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "model_card_uri": "https://example.org/unlisted-license-model/model-card.json"
+}

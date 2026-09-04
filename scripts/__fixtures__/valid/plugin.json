@@ -1,0 +1,37 @@
+{
+  "id": "variant-review-plugin",
+  "type": "plugin",
+  "name": "Variant Review Plugin",
+  "summary": "Claude Code plugin bundling variant-review skills and MCP tools.",
+  "description": "A coding-harness plugin bundling skills and MCP tools for clinical variant review workflows.",
+  "homepage": "https://example.org/plugins/variant-review",
+  "repository": "https://github.com/example-org/variant-review-plugin",
+  "license": "MIT",
+  "maintainers": [{ "name": "Thomas Conner", "github": "thomas-conner" }],
+  "version": "2.1.0",
+  "keywords": ["variant-review", "clinical-genomics"],
+  "category": "variant-interpretation",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z",
+    "source_issue": 105
+  },
+  "plugin": {
+    "name": "variant-review-plugin",
+    "version": "2.1.0",
+    "description": "Bundles variant-review skills and MCP tools for Claude Code."
+  },
+  "ga4gh": {
+    "keywords": ["variant-review"],
+    "category": "clinical-genomics",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "/plugin install variant-review-plugin@example-org"
+      }
+    ]
+  }
+}

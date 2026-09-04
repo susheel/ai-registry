@@ -1,0 +1,94 @@
+{
+  "id": "ga4gh-service-info",
+  "type": "plugin",
+  "name": "GA4GH Service Info Server",
+  "summary": "Fetches the standard GA4GH Service Info document from a configured service and registers the bundled ga4gh-service-info skill",
+  "description": "Fetches the standard GA4GH Service Info document from a configured service. Bundles the `ga4gh-service-info` skill.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-info",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "service-info",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "service-info"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.078Z",
+    "updated": "2026-09-03T19:00:06.078Z",
+    "last_verified": "2026-09-03T19:00:06.078Z"
+  },
+  "category": "service-info",
+  "plugin": {
+    "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+    "name": "ga4gh-service-info",
+    "version": "0.1.0-rc.5",
+    "description": "Fetches the standard GA4GH Service Info document from a configured service and registers the bundled ga4gh-service-info skill",
+    "author": {
+      "name": "deepseek-ai",
+      "url": "https://github.com/deepseek-ai"
+    },
+    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-info",
+    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-info",
+    "license": "MIT",
+    "keywords": [
+      "ga4gh",
+      "service-info",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "mcpServers": {
+      "ga4gh-service-info": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@deepseek-ai/dsh-ga4gh-service-info"
+        ]
+      }
+    }
+  },
+  "ga4gh": {
+    "keywords": [
+      "ga4gh",
+      "service-info",
+      "cordis-plugin",
+      "mcp-server"
+    ],
+    "category": "service-info",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude mcp add ga4gh-service-info -- npx -y @deepseek-ai/dsh-ga4gh-service-info"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "codex mcp add ga4gh-service-info -- npx -y @deepseek-ai/dsh-ga4gh-service-info"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "gemini mcp add ga4gh-service-info npx -y @deepseek-ai/dsh-ga4gh-service-info"
+      },
+      {
+        "harness": "opencode",
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-service-info\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-service-info\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+      },
+      {
+        "harness": "mcp-generic",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-service-info\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-service-info\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

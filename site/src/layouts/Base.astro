@@ -1,0 +1,51 @@
+---
+import "../styles/global.css";
+import { TYPE_META, COLLECTION_KEYS } from "../lib/registry-types.js";
+import { withBase } from "../lib/url.js";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · GA4GH AI Registry</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header" data-pagefind-ignore>
+      <div class="site-header__inner">
+        <a class="site-header__brand" href={withBase("/")}>GA4GH AI Registry</a>
+        <nav aria-label="Primary">
+          <ul class="site-nav">
+            {
+              COLLECTION_KEYS.map((key) => (
+                <li>
+                  <a href={withBase(`/${key}/`)}>{TYPE_META[key].label}</a>
+                </li>
+              ))
+            }
+            <li><a href={withBase("/search/")}>Search</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="site-footer" data-pagefind-ignore>
+      <div class="site-footer__inner">
+        A catalogue maintained by the GA4GH AI Workstream. Entries are community-submitted and reviewed;
+        see each entry's certification tier and safety classification before relying on it.
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-service-registry",
+  "type": "skill",
+  "name": "ga4gh-service-registry skill",
+  "summary": "List services registered with a configured GA4GH Service Registry, optionally filtered by GA4GH service type, or retrieve one registered service by id",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Service Registry, shipped alongside the `@deepseek-ai/dsh-ga4gh-service-registry` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. List services registered with a configured GA4GH Service Registry, optionally filtered by GA4GH service type, or retrieve one registered service by id. Use when the user asks which GA4GH services are registered at a discovery endpoint, wants to find a service of a given GA4GH type (e.g. `tes`, `htsget`), needs the detail of one already-known registered service, or needs to discover GA4GH-compliant services in a deployment.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-registry",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "service-registry",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "service-registry"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.664Z",
+    "updated": "2026-09-04T11:00:07.664Z",
+    "last_verified": "2026-09-04T11:00:07.664Z"
+  },
+  "skill": {
+    "name": "ga4gh-service-registry",
+    "description": "List services registered with a configured GA4GH Service Registry, optionally filtered by GA4GH service type, or retrieve one registered service by id. Use when the user asks which GA4GH services are registered at a discovery endpoint, wants to find a service of a given GA4GH type (e.g. `tes`, `htsget`), needs the detail of one already-known registered service, or needs to discover GA4GH-compliant services in a deployment.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/service-registry"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/service-registry"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/service-registry/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

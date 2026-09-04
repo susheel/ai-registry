@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-gks",
+  "type": "mcp-server",
+  "name": "GA4GH Genomic Knowledge Standards (GKS) Server",
+  "summary": "Meta-plugin for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled ga4gh-vrs plugin and reports which GKS-family standards it currently bundles",
+  "description": "Meta-server for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled `ga4gh-vrs` plugin and reports which GKS-family standards it currently bundles.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "gks",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "vrs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.077Z",
+    "updated": "2026-09-03T19:00:06.077Z",
+    "last_verified": "2026-09-03T19:00:06.077Z"
+  },
+  "category": "gks",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-gks",
+    "description": "Meta-server bundling the GA4GH Genomic Knowledge Standards (GKS) suite, currently VRS",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/gks"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-gks",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "vrs"
+        ]
+      }
+    }
+  }
+}

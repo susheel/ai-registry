@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-data-connect",
+  "type": "skill",
+  "name": "ga4gh-data-connect skill",
+  "summary": "Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Data Connect, shipped alongside the `@deepseek-ai/dsh-ga4gh-data-connect` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly. Use when the user asks to search, query, or run SQL against a GA4GH Data Connect service, wants to know what tables it holds, or mentions GA4GH data-connect interoperability.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "data-connect",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "data-connect"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.663Z",
+    "updated": "2026-09-04T11:00:07.663Z",
+    "last_verified": "2026-09-04T11:00:07.663Z"
+  },
+  "skill": {
+    "name": "ga4gh-data-connect",
+    "description": "Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly. Use when the user asks to search, query, or run SQL against a GA4GH Data Connect service, wants to know what tables it holds, or mentions GA4GH data-connect interoperability.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/data-connect"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/data-connect"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/data-connect/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

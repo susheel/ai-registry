@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-tes",
+  "type": "skill",
+  "name": "ga4gh-tes skill",
+  "summary": "Submit, monitor, and cancel batch compute tasks on a configured GA4GH Task Execution Service (TES) server, and read the server's own description",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Task Execution Service (TES), shipped alongside the `@deepseek-ai/dsh-ga4gh-tes` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Submit, monitor, and cancel batch compute tasks on a configured GA4GH Task Execution Service (TES) server, and read the server's own description. Use when the user asks about GA4GH TES compute tasks, wants to run a container-based task on a TES server, needs to check or cancel task status, or needs the TES server's service-info.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "tes",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "tes"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.664Z",
+    "updated": "2026-09-04T11:00:07.664Z",
+    "last_verified": "2026-09-04T11:00:07.664Z"
+  },
+  "skill": {
+    "name": "ga4gh-tes",
+    "description": "Submit, monitor, and cancel batch compute tasks on a configured GA4GH Task Execution Service (TES) server, and read the server's own description. Use when the user asks about GA4GH TES compute tasks, wants to run a container-based task on a TES server, needs to check or cancel task status, or needs the TES server's service-info.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/tes"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/tes"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/tes/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}

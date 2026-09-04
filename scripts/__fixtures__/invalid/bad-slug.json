@@ -1,0 +1,22 @@
+{
+  "id": "Not_A_Valid_Slug!",
+  "type": "model",
+  "name": "Bad Slug Model",
+  "summary": "Model entry with an id that violates the slug pattern.",
+  "description": "Used to test that scripts/validate.ts rejects an id not matching ^[a-z0-9][a-z0-9-]*$.",
+  "homepage": "https://example.org/bad-slug-model",
+  "repository": "https://github.com/example-org/bad-slug-model",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "model_card_uri": "https://example.org/bad-slug-model/model-card.json"
+}

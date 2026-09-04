@@ -1,0 +1,65 @@
+{
+  "id": "ga4gh-trs",
+  "type": "mcp-server",
+  "name": "GA4GH Tool Registry Service (TRS) Server",
+  "summary": "Searches a GA4GH Tool Registry Service (TRS) for registered tools and their versions, and registers the bundled ga4gh-trs skill",
+  "description": "Searches a GA4GH Tool Registry Service (TRS) for registered tools and their versions. Ships as a Cordis plugin, a standalone stdio MCP server, and a bundled skill, part of the `ga4gh-plugins` monorepo.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/trs",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "trs",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "ga4gh_standards": [
+    "trs"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-03T19:00:06.074Z",
+    "updated": "2026-09-03T19:00:06.074Z",
+    "last_verified": "2026-09-03T19:00:06.074Z"
+  },
+  "category": "trs",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.deepseek-ai/ga4gh-trs",
+    "description": "Searches a GA4GH Tool Registry Service (TRS) for registered tools and their versions",
+    "version": "0.1.0-rc.5",
+    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/trs",
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "source": "github",
+      "subfolder": "packages/trs"
+    },
+    "packages": [
+      {
+        "registryType": "npm",
+        "registryBaseUrl": "https://registry.npmjs.org",
+        "identifier": "@deepseek-ai/dsh-ga4gh-trs",
+        "version": "0.1.0-rc.5",
+        "transport": {
+          "type": "stdio"
+        }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": [
+          "trs"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "consent-form-reviewer",
+  "type": "skill",
+  "name": "Consent Form Reviewer",
+  "summary": "Reviews informed-consent documents for DUO-relevant restrictions.",
+  "description": "A certifiable skill that reads an informed-consent form and extracts DUO-relevant data-use restrictions for a human reviewer to confirm.",
+  "homepage": "https://example.org/skills/consent-form-reviewer",
+  "repository": "https://github.com/example-org/skills",
+  "license": "MIT",
+  "maintainers": [{ "name": "Megan Tsao", "github": "megan-tsao" }],
+  "version": "1.0.0",
+  "keywords": ["consent", "duo", "governance"],
+  "category": "consent-review",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z",
+    "source_issue": 103
+  },
+  "skill": {
+    "name": "consent-form-reviewer",
+    "description": "Extracts DUO-relevant data-use restrictions from an informed-consent document."
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/example-org/skills",
+      "subfolder": "consent-form-reviewer"
+    }
+  },
+  "inputs": [{ "name": "consent_document", "type": "file", "description": "The signed consent form, PDF or text." }],
+  "outputs": [{ "name": "duo_restrictions", "type": "json", "description": "Extracted DUO codes and free-text restrictions." }],
+  "human_oversight": "required",
+  "provenance_logging": true,
+  "evaluation_criteria_uri": "https://example.org/skills/consent-form-reviewer/evaluation.md"
+}

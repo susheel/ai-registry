@@ -1,0 +1,28 @@
+{
+  "id": "malformed-safety-agent",
+  "type": "agent",
+  "name": "Malformed Safety Classification Agent",
+  "summary": "Agent entry whose safety_classification item is missing the required source field.",
+  "description": "Used to test that entry-core.v1.schema.json's SafetyClassification $def rejects an item missing a required field.",
+  "homepage": "https://example.org/malformed-safety-agent",
+  "repository": "https://github.com/example-org/malformed-safety-agent",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "variant-interpretation",
+  "safety_classification": [{ "scheme": "ga4gh-agent-runtime-risk", "level": "2" }],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "agent_info_uri": "https://agent.example.org/service-info",
+  "agent_info_snapshot": {
+    "protocol_version": "0.5.0",
+    "agent_type": "variant-triage",
+    "trust_level": "registered",
+    "enrichment": { "gasl_level": 2 }
+  }
+}

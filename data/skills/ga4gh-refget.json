@@ -1,0 +1,78 @@
+{
+  "id": "ga4gh-refget",
+  "type": "skill",
+  "name": "ga4gh-refget skill",
+  "summary": "Fetch checksum, length, and alias metadata, bounded raw sequence bytes, and sequence-collection facts from a GA4GH refget-conformant server",
+  "description": "Bundled Claude Code / MCP skill for GA4GH refget, shipped alongside the `@deepseek-ai/dsh-ga4gh-refget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Fetch checksum, length, and alias metadata, bounded raw sequence bytes, and sequence-collection facts from a GA4GH refget-conformant server. Use when the user asks to look up or verify a sequence identifier (a ga4gh:SQ.* checksum or accession) against a refget server, asks about a sequence's GA4GH (SQ.*) or MD5 checksum, length, or known aliases, wants a bounded byte range of raw sequence content, or asks about a genome assembly / sequence collection by its seqcol digest.",
+  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.1.0-rc.5",
+  "keywords": [
+    "ga4gh",
+    "refget",
+    "cordis-plugin",
+    "mcp-server"
+  ],
+  "category": "other",
+  "ga4gh_standards": [
+    "refget"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-04T11:00:07.664Z",
+    "updated": "2026-09-04T11:00:07.664Z",
+    "last_verified": "2026-09-04T11:00:07.664Z"
+  },
+  "skill": {
+    "name": "ga4gh-refget",
+    "description": "Fetch checksum, length, and alias metadata, bounded raw sequence bytes, and sequence-collection facts from a GA4GH refget-conformant server. Use when the user asks to look up or verify a sequence identifier (a ga4gh:SQ.* checksum or accession) against a refget server, asks about a sequence's GA4GH (SQ.*) or MD5 checksum, length, or known aliases, wants a bounded byte range of raw sequence content, or asks about a genome assembly / sequence collection by its seqcol digest.",
+    "license": "MIT",
+    "allowed-tools": [],
+    "metadata": {
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/refget"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "subfolder": "packages/refget"
+    }
+  },
+  "inputs": [
+    {
+      "name": "endpoint_url",
+      "type": "string",
+      "description": "Base URL of the configured endpoint to query."
+    },
+    {
+      "name": "query_parameters",
+      "type": "object",
+      "description": "Standard-specific filter, search, or lookup parameters; see the skill's own tool table."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "description": "Structured response from the queried endpoint, per the standard's own schema, unmodified."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/refget/EVALUATION-CRITERIA.md",
+  "host_runtimes": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "opencode"
+  ]
+}
