@@ -4,8 +4,8 @@
   "name": "ga4gh-pedigree skill",
   "summary": "Structurally validate a GA4GH pedigree document (a family-structure record of members and their parent relationships)",
   "description": "Bundled Claude Code / MCP skill for GA4GH pedigree, shipped alongside the `@deepseek-ai/dsh-ga4gh-pedigree` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Structurally validate a GA4GH pedigree document (a family-structure record of members and their parent relationships). Use when the user provides a pedigree/family-structure JSON document and asks whether it is well-formed, or asks for its member count or structural errors (missing ids, duplicate ids, or parent references to members that do not exist in the document).",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/pedigree",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/pedigree"
     }
   },
@@ -63,7 +63,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/pedigree/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/pedigree/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

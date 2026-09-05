@@ -4,8 +4,8 @@
   "name": "ga4gh-htsget skill",
   "summary": "Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server",
   "description": "Bundled Claude Code / MCP skill for GA4GH htsget, shipped alongside the `@deepseek-ai/dsh-ga4gh-htsget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server. Use when the user asks to fetch or stream genomic reads/variants over htsget, wants byte-range URLs for a BAM/CRAM/VCF/BCF object, or is integrating with the GA4GH htsget streaming-retrieval standard.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/htsget",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/htsget",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/htsget"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/htsget/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/htsget/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

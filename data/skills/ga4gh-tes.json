@@ -4,8 +4,8 @@
   "name": "ga4gh-tes skill",
   "summary": "Submit, monitor, and cancel batch compute tasks on a configured GA4GH Task Execution Service (TES) server, and read the server's own description",
   "description": "Bundled Claude Code / MCP skill for GA4GH Task Execution Service (TES), shipped alongside the `@deepseek-ai/dsh-ga4gh-tes` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Submit, monitor, and cancel batch compute tasks on a configured GA4GH Task Execution Service (TES) server, and read the server's own description. Use when the user asks about GA4GH TES compute tasks, wants to run a container-based task on a TES server, needs to check or cancel task status, or needs the TES server's service-info.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/tes",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/tes"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/tes/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/tes/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

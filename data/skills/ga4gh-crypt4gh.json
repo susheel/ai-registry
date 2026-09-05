@@ -4,8 +4,8 @@
   "name": "ga4gh-crypt4gh skill",
   "summary": "Structurally validate a GA4GH Crypt4GH file header (magic bytes, version, packet-length accounting) from base64-encoded bytes",
   "description": "Bundled Claude Code / MCP skill for GA4GH Crypt4GH, shipped alongside the `@deepseek-ai/dsh-ga4gh-crypt4gh` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Structurally validate a GA4GH Crypt4GH file header (magic bytes, version, packet-length accounting) from base64-encoded bytes. Use when the user asks to check, inspect, or validate a Crypt4GH header, or asks about GA4GH Crypt4GH file-format interoperability. Does not decrypt Crypt4GH-encrypted data.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/crypt4gh",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/crypt4gh"
     }
   },
@@ -63,7 +63,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/crypt4gh/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/crypt4gh/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

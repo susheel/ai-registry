@@ -4,8 +4,8 @@
   "name": "GA4GH Data Repository Service (DRS) Server",
   "summary": "GA4GH Data Repository Service (DRS) Cordis plugin: fetch a DrsObject by id from a configured DRS endpoint as a model-facing tool and a standalone stdio MCP server",
   "description": "Fetches a DrsObject by id from a configured GA4GH Data Repository Service (DRS) endpoint, as a model-facing tool and a standalone stdio MCP server.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/drs",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/drs",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-drs",
     "description": "Fetches a DrsObject by id from a configured GA4GH Data Repository Service (DRS) endpoint",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/drs",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/drs",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/drs"
     },

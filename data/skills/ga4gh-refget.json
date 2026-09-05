@@ -4,8 +4,8 @@
   "name": "ga4gh-refget skill",
   "summary": "Fetch checksum, length, and alias metadata, bounded raw sequence bytes, and sequence-collection facts from a GA4GH refget-conformant server",
   "description": "Bundled Claude Code / MCP skill for GA4GH refget, shipped alongside the `@deepseek-ai/dsh-ga4gh-refget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Fetch checksum, length, and alias metadata, bounded raw sequence bytes, and sequence-collection facts from a GA4GH refget-conformant server. Use when the user asks to look up or verify a sequence identifier (a ga4gh:SQ.* checksum or accession) against a refget server, asks about a sequence's GA4GH (SQ.*) or MD5 checksum, length, or known aliases, wants a bounded byte range of raw sequence content, or asks about a genome assembly / sequence collection by its seqcol digest.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/refget",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/refget"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/refget/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/refget/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",
