@@ -4,8 +4,8 @@
   "name": "ga4gh-data-connect skill",
   "summary": "Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly",
   "description": "Bundled Claude Code / MCP skill for GA4GH Data Connect, shipped alongside the `@deepseek-ai/dsh-ga4gh-data-connect` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly. Use when the user asks to search, query, or run SQL against a GA4GH Data Connect service, wants to know what tables it holds, or mentions GA4GH data-connect interoperability.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/data-connect",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/data-connect"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/data-connect/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/data-connect/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

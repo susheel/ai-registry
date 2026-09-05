@@ -4,8 +4,8 @@
   "name": "GA4GH htsget Server",
   "summary": "Requests GA4GH htsget tickets (byte-range URLs) and service-info documents, downloads their data blocks, from a configured htsget server, and registers the bundled ga4gh-htsget skill",
   "description": "Requests GA4GH htsget tickets (byte-range URLs) and service-info documents from a configured htsget server, downloading their data blocks. Bundles the `ga4gh-htsget` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/htsget",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/htsget",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-htsget",
     "description": "Requests GA4GH htsget tickets and service-info documents from a configured htsget server",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/htsget",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/htsget",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/htsget"
     },

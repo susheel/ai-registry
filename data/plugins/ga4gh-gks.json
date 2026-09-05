@@ -4,8 +4,8 @@
   "name": "GA4GH Genomic Knowledge Standards (GKS) Server",
   "summary": "Meta-plugin for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled ga4gh-vrs plugin and reports which GKS-family standards it currently bundles",
   "description": "Meta-server for the GA4GH Genomic Knowledge Standards (GKS) suite: mounts the bundled `ga4gh-vrs` plugin and reports which GKS-family standards it currently bundles.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/gks",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/gks",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/gks",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/gks",
     "license": "MIT",
     "keywords": [
       "ga4gh",

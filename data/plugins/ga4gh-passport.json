@@ -4,8 +4,8 @@
   "name": "GA4GH Passport Server",
   "summary": "Validates GA4GH Passport visas against a configured clearinghouse and registers the bundled ga4gh-passport skill",
   "description": "Validates GA4GH Passport visas against a configured clearinghouse. Bundles the `ga4gh-passport` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/passport",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/passport",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/passport",
     "license": "MIT",
     "keywords": [
       "ga4gh",

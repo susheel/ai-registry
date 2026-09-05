@@ -4,8 +4,8 @@
   "name": "GA4GH Variation Representation Specification (VRS) Server",
   "summary": "Normalizes a genomic variation expression against a configured GA4GH Variation Representation Specification (VRS) normalization service and registers the bundled ga4gh-vrs skill",
   "description": "Normalizes a genomic variation expression against a configured GA4GH VRS normalization service. Bundles the `ga4gh-vrs` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/vrs",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/vrs",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/vrs",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/vrs",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/vrs",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/vrs",
     "license": "MIT",
     "keywords": [
       "ga4gh",

@@ -4,8 +4,8 @@
   "name": "GA4GH Pedigree Validator",
   "summary": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
   "description": "Structural validation for GA4GH pedigree documents, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/pedigree",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-pedigree",
     "description": "Structural validation for GA4GH pedigree documents",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/pedigree",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/pedigree",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/pedigree"
     },
