@@ -4,8 +4,8 @@
   "name": "ga4gh-passport skill",
   "summary": "Validate GA4GH Passport visas (encoded JWT strings) against a configured GA4GH Passport clearinghouse and report per-passport authorization",
   "description": "Bundled Claude Code / MCP skill for GA4GH Passport, shipped alongside the `@deepseek-ai/dsh-ga4gh-passport` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Validate GA4GH Passport visas (encoded JWT strings) against a configured GA4GH Passport clearinghouse and report per-passport authorization. Use when the user asks to check researcher authorization, validate a GA4GH Passport or visa, or verify access under the GA4GH Passport / AAI (Authentication and Authorization Infrastructure) standard.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/passport",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/passport",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/passport"
     }
   },
@@ -63,7 +63,7 @@
   ],
   "human_oversight": "required",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/passport/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/passport/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

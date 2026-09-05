@@ -4,8 +4,8 @@
   "name": "ga4gh-beacon skill",
   "summary": "Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary",
   "description": "Bundled Claude Code / MCP skill for GA4GH Beacon v2, shipped alongside the `@deepseek-ai/dsh-ga4gh-beacon` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary. Use when the user asks about GA4GH Beacon queries, variant-presence lookups against a Beacon v2 service, federated genomic discovery, or GA4GH Beacon interoperability.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/beacon"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/beacon/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/beacon/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

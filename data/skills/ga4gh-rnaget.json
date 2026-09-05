@@ -4,8 +4,8 @@
   "name": "ga4gh-rnaget skill",
   "summary": "\"Browse GA4GH RNAget metadata and retrieve expression or continuous matrices by id from a configured RNAget 1.2.0 server",
   "description": "Bundled Claude Code / MCP skill for GA4GH RNAget, shipped alongside the `@deepseek-ai/dsh-ga4gh-rnaget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. \"Browse GA4GH RNAget metadata and retrieve expression or continuous matrices by id from a configured RNAget 1.2.0 server. Use when the user asks which projects or studies a server holds, what filters, formats, or units it supports, or needs the actual bytes of a named expression or continuous matrix.\"",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/rnaget",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/rnaget",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/rnaget"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/rnaget/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/rnaget/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

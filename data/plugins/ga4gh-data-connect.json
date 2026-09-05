@@ -4,8 +4,8 @@
   "name": "GA4GH Data Connect Server",
   "summary": "GA4GH Data Connect Cordis plugin: search a configured Data Connect endpoint as a model-facing tool and a standalone stdio MCP server",
   "description": "Searches a configured GA4GH Data Connect endpoint, as a model-facing tool and a standalone stdio MCP server.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/data-connect",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/data-connect",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/data-connect",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/data-connect",
     "license": "MIT",
     "keywords": [
       "ga4gh",

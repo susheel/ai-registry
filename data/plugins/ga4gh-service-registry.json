@@ -4,8 +4,8 @@
   "name": "GA4GH Service Registry Server",
   "summary": "Lists services registered with a configured GA4GH Service Registry and registers the bundled ga4gh-service-registry skill",
   "description": "Lists services registered with a configured GA4GH Service Registry. Bundles the `ga4gh-service-registry` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-registry",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-registry",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-registry",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-registry",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-registry",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-registry",
     "license": "MIT",
     "keywords": [
       "ga4gh",

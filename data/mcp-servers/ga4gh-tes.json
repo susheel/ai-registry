@@ -4,8 +4,8 @@
   "name": "GA4GH Task Execution Service (TES) Server",
   "summary": "Lists tasks known to a configured GA4GH Task Execution Service (TES) server and registers the bundled ga4gh-tes skill",
   "description": "Lists tasks known to a configured GA4GH Task Execution Service (TES) server. Bundles the `ga4gh-tes` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/tes",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-tes",
     "description": "Lists tasks known to a configured GA4GH Task Execution Service (TES) server",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/tes",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/tes",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/tes"
     },

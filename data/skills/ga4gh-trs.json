@@ -4,8 +4,8 @@
   "name": "ga4gh-trs skill",
   "summary": "Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, se",
   "description": "Bundled Claude Code / MCP skill for GA4GH Tool Registry Service (TRS), shipped alongside the `@deepseek-ai/dsh-ga4gh-trs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, secondary descriptor files, test parameter files, file listing, and container build recipes. Use when the user asks to find a registered CWL/WDL/Nextflow tool or workflow, look up a tool's versions or descriptor types, or fetch a registered workflow's source or tests.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/trs",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/trs",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -43,7 +43,7 @@
   },
   "source": {
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "subfolder": "packages/trs"
     }
   },
@@ -68,7 +68,7 @@
   ],
   "human_oversight": "recommended",
   "provenance_logging": false,
-  "evaluation_criteria_uri": "https://github.com/deepseek-ai/ga4gh-plugins/blob/main/packages/trs/EVALUATION-CRITERIA.md",
+  "evaluation_criteria_uri": "https://github.com/susheel/ga4gh-plugins/blob/main/packages/trs/EVALUATION-CRITERIA.md",
   "host_runtimes": [
     "claude-code",
     "codex",

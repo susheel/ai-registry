@@ -4,8 +4,8 @@
   "name": "GA4GH Service Info Server",
   "summary": "Fetches the standard GA4GH Service Info document from a configured service and registers the bundled ga4gh-service-info skill",
   "description": "Fetches the standard GA4GH Service Info document from a configured service. Bundles the `ga4gh-service-info` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-info",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-info",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-service-info",
     "description": "Fetches the standard GA4GH Service Info document from a configured service",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/service-info",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-info",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/service-info"
     },

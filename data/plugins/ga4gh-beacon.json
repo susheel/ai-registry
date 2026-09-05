@@ -4,8 +4,8 @@
   "name": "GA4GH Beacon v2 Server",
   "summary": "GA4GH Beacon v2 client: query a Beacon endpoint's g_variants search for variant/dataset existence",
   "description": "Queries a GA4GH Beacon v2 endpoint's `g_variants` search for variant and dataset existence.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/beacon",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
     "license": "MIT",
     "keywords": [
       "ga4gh",

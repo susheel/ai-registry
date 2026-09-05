@@ -4,8 +4,8 @@
   "name": "GA4GH RNAget Server",
   "summary": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrices through policy-enforced ticket requests and anonymous byte fetches",
   "description": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrix data through policy-enforced ticket requests and anonymous byte fetches.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/rnaget",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/rnaget",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-rnaget",
     "description": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrix data",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/rnaget",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/rnaget",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/rnaget"
     },

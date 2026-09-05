@@ -4,8 +4,8 @@
   "name": "GA4GH Security Suite (Passport + Crypt4GH)",
   "summary": "Mounts the ga4gh-passport and ga4gh-crypt4gh plugins together and reports which GA4GH security-domain standards the composition bundles",
   "description": "Meta-server mounting the `ga4gh-passport` and `ga4gh-crypt4gh` plugins together, reporting which GA4GH security-domain standards the composition bundles.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/security",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -42,8 +42,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/security",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/security",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/security",
     "license": "MIT",
     "keywords": [
       "ga4gh",

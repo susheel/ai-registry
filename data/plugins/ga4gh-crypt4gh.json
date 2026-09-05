@@ -4,8 +4,8 @@
   "name": "GA4GH Crypt4GH Inspector",
   "summary": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting",
   "description": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/crypt4gh",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/crypt4gh",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/crypt4gh",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/crypt4gh",
     "license": "MIT",
     "keywords": [
       "ga4gh",

@@ -4,8 +4,8 @@
   "name": "GA4GH Workflow Execution Service (WES) Server",
   "summary": "Lists workflow runs from a configured GA4GH Workflow Execution Service (WES) endpoint and registers the bundled ga4gh-wes skill",
   "description": "Lists workflow runs from a configured GA4GH Workflow Execution Service (WES) endpoint. Bundles the `ga4gh-wes` skill.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/wes",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/wes",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -37,9 +37,9 @@
     "name": "io.github.deepseek-ai/ga4gh-wes",
     "description": "Lists workflow runs from a configured GA4GH Workflow Execution Service (WES) endpoint",
     "version": "0.1.0-rc.5",
-    "websiteUrl": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/wes",
+    "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/wes",
     "repository": {
-      "url": "https://github.com/deepseek-ai/ga4gh-plugins.git",
+      "url": "https://github.com/susheel/ga4gh-plugins.git",
       "source": "github",
       "subfolder": "packages/wes"
     },

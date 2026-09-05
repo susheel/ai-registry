@@ -4,8 +4,8 @@
   "name": "GA4GH refget Server",
   "summary": "GA4GH refget v2.0 sequence-metadata lookup, exposed as a Cordis plugin, a bundled skill, and a standalone MCP server",
   "description": "GA4GH refget v2.0 sequence-metadata lookup by checksum, as a Cordis plugin, a bundled skill, and a standalone MCP server.",
-  "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
-  "repository": "https://github.com/deepseek-ai/ga4gh-plugins",
+  "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/refget",
+  "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
   "maintainers": [
     {
@@ -41,8 +41,8 @@
       "name": "deepseek-ai",
       "url": "https://github.com/deepseek-ai"
     },
-    "homepage": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
-    "repository": "https://github.com/deepseek-ai/ga4gh-plugins/tree/main/packages/refget",
+    "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/refget",
+    "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/refget",
     "license": "MIT",
     "keywords": [
       "ga4gh",
