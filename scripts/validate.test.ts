@@ -50,6 +50,7 @@ describe("valid fixtures pass every offline check", () => {
     ["skill", "valid/skill.json"],
     ["mcp-server", "valid/mcp-server.json"],
     ["plugin", "valid/plugin.json"],
+    ["bundle", "valid/bundle.json"],
   ];
   for (const [type, file] of cases) {
     test(`${type}: ${file}`, () => {
@@ -118,6 +119,14 @@ describe("invalid fixtures are rejected, one per rule", () => {
   test("category outside the closed per-type vocabulary fails", () => {
     const issues = validateEntryOffline(loadFixture("invalid/category-not-allowed.json"), "model");
     assert.ok(issues.some((i) => i.code === "category-not-allowed"));
+  });
+
+  test("embedded marketplace failing the vendored marketplace.schema.json fails schema validation", () => {
+    const issues = validateEntryOffline(
+      loadFixture("invalid/embedded-marketplace-fails-vendor-schema.json"),
+      "bundle",
+    );
+    assert.ok(issues.some((i) => i.code === "schema" && i.path === "/marketplace"));
   });
 });
 
@@ -199,6 +208,28 @@ describe("slug uniqueness within a type", () => {
       assert.equal(result.ok, false);
       assert.ok(result.issues.some((i) => i.code === "slug-duplicate"));
     }
+  });
+});
+
+// -- Phase 10: bundle ga4gh.members[] cross-reference resolution ------------
+
+describe("bundle member cross-references (validateFiles, not the pure offline fn)", () => {
+  test("a member reference with no matching entry among the files under validation fails", async () => {
+    const results = await validateFiles([path.join(FIXTURES_DIR, "valid/bundle.json")], {
+      skipNetwork: true,
+    });
+    assert.equal(results.length, 1);
+    assert.equal(results[0]!.ok, false);
+    assert.ok(results[0]!.issues.some((i) => i.code === "bundle-member-not-found"));
+  });
+
+  test("a member reference resolved by another file passed in the same validation run passes", async () => {
+    const results = await validateFiles(
+      [path.join(FIXTURES_DIR, "valid/bundle.json"), path.join(FIXTURES_DIR, "valid/plugin.json")],
+      { skipNetwork: true },
+    );
+    const bundleResult = results.find((r) => r.type === "bundle")!;
+    assert.ok(!bundleResult.issues.some((i) => i.code === "bundle-member-not-found"));
   });
 });
 
@@ -350,6 +381,13 @@ describe("lift-out round-trip (internal project documentation Section 3.1, Secti
     const validatePlugin = getVendorValidator("plugin");
     const ok = validatePlugin(entry.plugin);
     assert.equal(ok, true, JSON.stringify(validatePlugin.errors));
+  });
+
+  test("the embedded marketplace document is already a valid, unmodified marketplace.json (GA4GH additions live as sibling fields, never inside marketplace)", () => {
+    const entry = loadFixture("valid/bundle.json");
+    const validateMarketplace = getVendorValidator("marketplace");
+    const ok = validateMarketplace(entry.marketplace);
+    assert.equal(ok, true, JSON.stringify(validateMarketplace.errors));
   });
 });
 

@@ -32,8 +32,8 @@
     },
     "type": {
       "type": "string",
-      "description": "The content type this entry belongs to. Closed enumeration in v1 (internal project documentation Section 4.2, internal project documentation Section 3.2): expanding it is a schema minor-version bump, not a v1 concern.",
-      "enum": ["model", "agent", "skill", "mcp-server", "plugin"]
+      "description": "The content type this entry belongs to. Closed enumeration (internal project documentation Section 4.2, internal project documentation Section 3.2). Six values as of Phase 10 (internal project documentation): the original five plus \"bundle\", added as a schema minor-version amendment, not a v1 rewrite.",
+      "enum": ["model", "agent", "skill", "mcp-server", "plugin", "bundle"]
     },
     "name": {
       "type": "string",

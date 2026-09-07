@@ -381,6 +381,76 @@ if (type === "plugins") {
     }
 
     {
+      type === "bundles" && (
+        <section class="detail-section">
+          <h2>Marketplace</h2>
+          {(() => {
+            const marketplace = (data.marketplace as Record<string, unknown>) ?? {};
+            const owner = (marketplace.owner as { name?: string; url?: string } | undefined) ?? {};
+            const plugins = (marketplace.plugins as Array<{ name: string; description?: string; source?: unknown }>) ?? [];
+            const members = ((data.ga4gh as { members?: Array<{ type: string; id: string }> } | undefined)?.members) ?? [];
+            return (
+              <>
+                <dl class="field-list">
+                  {marketplace.name && (
+                    <>
+                      <dt>Marketplace name</dt>
+                      <dd>{String(marketplace.name)}</dd>
+                    </>
+                  )}
+                  {owner.name && (
+                    <>
+                      <dt>Curated by</dt>
+                      <dd>{owner.url ? <a href={owner.url}>{owner.name}</a> : owner.name}</dd>
+                    </>
+                  )}
+                  <dt>Plugins in this bundle</dt>
+                  <dd>{plugins.length}</dd>
+                  {data.source_uri && (
+                    <>
+                      <dt>Source</dt>
+                      <dd>
+                        <a href={String(data.source_uri)}>{String(data.source_uri)}</a>
+                      </dd>
+                    </>
+                  )}
+                </dl>
+                {plugins.length > 0 && (
+                  <>
+                    <h3>Bundled plugins</h3>
+                    <ul>
+                      {plugins.map((p) => {
+                        const linkedMember = members.find((m) => m.type === "plugin" && m.id === p.name);
+                        return (
+                          <li>
+                            <strong>{p.name}</strong>
+                            {p.description ? ` — ${p.description}` : ""}
+                            {linkedMember && (
+                              <>
+                                {" "}
+                                (<a href={withBase(`/plugins/${linkedMember.id}/`)}>also catalogued in this registry ↗</a>)
+                              </>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )}
+                {data.last_synced && (
+                  <p class="cache-note">
+                    This is a cached snapshot of the marketplace manifest at {String(data.source_uri)}, last synced
+                    at {String(data.last_synced)}. See the source for the authoritative, live listing.
+                  </p>
+                )}
+              </>
+            );
+          })()}
+        </section>
+      )
+    }
+
+    {
       (type === "mcp-servers" || type === "plugins") && (
         <section class="detail-section">
           <h2>Install</h2>

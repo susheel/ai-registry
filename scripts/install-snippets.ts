@@ -56,11 +56,55 @@
  * environment variables as `-e NAME=value` argv pairs rather than a
  * client-level `env` object (docker does not forward the host CLI
  * process's environment into the container without `-e`/`--env-file`).
+ *
+ * **Three more clients added 2026-09-07** (`internal project documentation`,
+ * D25), each verified against current documentation via `mcp__plugin_context-mode_context-mode__ctx_fetch_and_index`,
+ * not assumed:
+ * - `windsurf` and `kiro` both use the identical `mcpServers` wrapper as
+ *   `claude-desktop`/`claude-code` (a plain `{command, args, env}` stdio
+ *   object per server, keyed by server name) -- no new derivation branch
+ *   needed, they fall through the existing default path.
+ *   Sources: https://docs.windsurf.com/windsurf/cascade/mcp (`mcp_config.json`,
+ *   cross-confirmed as the standard shape by Gemini CLI's own docs
+ *   referencing it as "standard MCP clients" configuration), https://kiro.dev/docs/mcp/configuration/.
+ * - `opencode` uses a genuinely different shape: a top-level `mcp` object
+ *   (not `mcpServers`), each entry carrying `type: "local"`, `command` as
+ *   an **array** (`[executable, ...args]`, not separate `command`/`args`
+ *   fields), `enabled: true`, and `environment` (not `env`) for variables.
+ *   Source: https://opencode.ai/docs/mcp-servers/.
+ *
+ * **Deliberately not added in this pass**: `codex` (OpenAI's Codex CLI)
+ * configures MCP servers via `config.toml` (TOML, not JSON) with a
+ * meaningfully different shape (`[mcp_servers.<name>]` tables, `env_vars`
+ * as an array of names-to-forward rather than a key-value object, and a
+ * separate `url`/`bearer_token_env_var` shape for remote servers) --
+ * confirmed via https://developers.openai.com/codex/mcp. This is a real
+ * architectural difference (this module's `InstallSnippet.configJson`
+ * field is JSON-shaped throughout every other client), not just a new
+ * config shape, and needs its own design decision on whether/how to
+ * represent a non-JSON snippet before implementing, matching D24's
+ * already-deferred "needs a design decision first" reasoning. Also
+ * deliberately not added: `gemini-cli`, despite having a verified,
+ * trivially-addable `mcpServers`-shaped config -- its own documentation
+ * (fetched 2026-09-07) now states "Gemini CLI was replaced by Antigravity
+ * CLI on June 18th, 2026" for unpaid-tier and Google One users. Adding new
+ * install-client support for a product with a credible replacement signal,
+ * found while doing this verification, was judged not worth doing without
+ * asking first; flagged for the person running the session's attention
+ * rather than silently added or silently dropped.
  */
 
-export type InstallClient = "claude-desktop" | "claude-code" | "cursor" | "vscode";
+export type InstallClient = "claude-desktop" | "claude-code" | "cursor" | "vscode" | "windsurf" | "kiro" | "opencode";
 
-export const INSTALL_CLIENTS: readonly InstallClient[] = ["claude-desktop", "claude-code", "cursor", "vscode"];
+export const INSTALL_CLIENTS: readonly InstallClient[] = [
+  "claude-desktop",
+  "claude-code",
+  "cursor",
+  "vscode",
+  "windsurf",
+  "kiro",
+  "opencode",
+];
 
 // -- Minimal shapes of the parts of server.json this module reads ----------
 // (the full, authoritative shape is schemas/vendor/server.schema.json;
@@ -302,6 +346,28 @@ export function deriveInstallSnippet(server: InstallableServer, client: InstallC
       servers: { [server.name]: config },
     };
     if (inputs.length > 0) body.inputs = inputs;
+    return { client, configJson: JSON.stringify(body, null, 2) };
+  }
+
+  if (client === "opencode") {
+    const inputs: DerivedConfig["inputs"] = [];
+    const config = deriveFor(server, inlinePlaceholderContext(), inputs);
+    if ("url" in config) {
+      // opencode's remote-server shape was not verified in this pass (only
+      // the local/stdio shape was fetched and confirmed) -- fall through
+      // to throwing rather than emit an unverified remote shape.
+      throw new Error(`opencode remote-server install snippets are not yet verified for server "${server.name}"`);
+    }
+    const body = {
+      mcp: {
+        [server.name]: {
+          type: "local" as const,
+          command: [config.command, ...config.args],
+          enabled: true,
+          ...(config.env && Object.keys(config.env).length > 0 ? { environment: config.env } : {}),
+        },
+      },
+    };
     return { client, configJson: JSON.stringify(body, null, 2) };
   }
 

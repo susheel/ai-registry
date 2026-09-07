@@ -41,6 +41,11 @@
                           "type": "array",
                           "description": "Optional Data Use Ontology / consent metadata associated with data this server exposes.",
                           "items": { "type": "string" }
+                        },
+                        "protocol_era": {
+                          "type": "string",
+                          "enum": ["legacy", "modern", "dual"],
+                          "description": "Optional, submitter-asserted: which MCP protocol era (2026-07-28 revision) this server supports -- \"legacy\" (pre-2026-07-28 stateful sessions only), \"modern\" (the stateless, per-request-versioned era only), or \"dual\" (both). A GA4GH addition, not an upstream field: confirmed by direct comparison against the live registry.modelcontextprotocol.io server.schema.json (2025-09-16, the same version vendored at schemas/vendor/server.schema.json) that the official MCP Registry spec carries no equivalent field as of this property's addition, so this does not duplicate or diverge from an upstream mechanism."
                         }
                       }
                     }

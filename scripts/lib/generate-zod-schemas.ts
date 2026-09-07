@@ -10,6 +10,7 @@ const SCHEMA_FILE_FOR_TYPE: Record<EntryType, string> = {
   skill: "skill-entry.v1.schema.json",
   "mcp-server": "mcp-server-entry.v1.schema.json",
   plugin: "plugin-entry.v1.schema.json",
+  bundle: "bundle-entry.v1.schema.json",
 };
 
 const EXPORT_NAME_FOR_TYPE: Record<EntryType, string> = {
@@ -18,6 +19,7 @@ const EXPORT_NAME_FOR_TYPE: Record<EntryType, string> = {
   skill: "SkillEntry",
   "mcp-server": "McpServerEntry",
   plugin: "PluginEntry",
+  bundle: "BundleEntry",
 };
 
 /**
