@@ -33,6 +33,7 @@ const SCHEMA_FILE_FOR_TYPE: Record<EntryType, string> = {
   skill: "skill-entry.v1.schema.json",
   "mcp-server": "mcp-server-entry.v1.schema.json",
   plugin: "plugin-entry.v1.schema.json",
+  bundle: "bundle-entry.v1.schema.json",
 };
 
 let ajvInstance: InstanceType<typeof Ajv2020> | undefined;
@@ -71,6 +72,7 @@ export function getAjv(): InstanceType<typeof Ajv2020> {
   ajv.addSchema(loadJson("entry-core.v1.schema.json"));
   ajv.addSchema(loadJson("vendor/server.schema.json"));
   ajv.addSchema(loadJson("vendor/plugin.schema.json"));
+  ajv.addSchema(loadJson("vendor/marketplace.schema.json"));
 
   for (const file of Object.values(SCHEMA_FILE_FOR_TYPE)) {
     ajv.addSchema(loadJson(file));
@@ -96,7 +98,7 @@ export function getValidatorForType(type: EntryType): ValidateFunction {
   return validate;
 }
 
-export function getVendorSchema(name: "server" | "plugin"): object {
+export function getVendorSchema(name: "server" | "plugin" | "marketplace"): object {
   return loadJson(`vendor/${name}.schema.json`);
 }
 
@@ -106,7 +108,7 @@ export function getVendorSchema(name: "server" | "plugin"): object {
  * 11 lift-out round-trip test: stripping the GA4GH extension from an
  * embedded document MUST leave something this validator still accepts.
  */
-export function getVendorValidator(name: "server" | "plugin"): ValidateFunction {
+export function getVendorValidator(name: "server" | "plugin" | "marketplace"): ValidateFunction {
   const ajv = getAjv();
   const schema = getVendorSchema(name) as { $id: string };
   const validate = ajv.getSchema(schema.$id) as ValidateFunction | undefined;

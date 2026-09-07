@@ -6,6 +6,7 @@ import {
   SkillEntrySchema,
   McpServerEntrySchema,
   PluginEntrySchema,
+  BundleEntrySchema,
 } from "./generated/entry-schemas.zod.js";
 
 // Reads data/<type>/ directly (internal project documentation Section 4.1). The glob loader's
@@ -37,10 +38,16 @@ const plugins = defineCollection({
   schema: PluginEntrySchema,
 });
 
+const bundles = defineCollection({
+  loader: glob({ pattern: "*.json", base: "../data/bundles" }),
+  schema: BundleEntrySchema,
+});
+
 export const collections = {
   models,
   agents,
   skills,
   "mcp-servers": mcpServers,
   plugins,
+  bundles,
 };

@@ -39,6 +39,7 @@ export interface IndexEntrySummary {
   record: unknown;
   harnesses?: string[];
   install?: InstallSnippet[];
+  pluginCount?: number;
 }
 
 export function toIndexEntrySummary(entry: AnyEntry, type: EntryType): IndexEntrySummary {
@@ -64,6 +65,11 @@ export function toIndexEntrySummary(entry: AnyEntry, type: EntryType): IndexEntr
     summary.harnesses = (ga4gh?.harnesses ?? [])
       .map((h) => h.harness)
       .filter((h): h is string => typeof h === "string");
+  }
+
+  if (type === "bundle" && entry.marketplace) {
+    const marketplace = entry.marketplace as { plugins?: unknown[] };
+    summary.pluginCount = Array.isArray(marketplace.plugins) ? marketplace.plugins.length : 0;
   }
 
   if (type === "mcp-server" && entry.server) {

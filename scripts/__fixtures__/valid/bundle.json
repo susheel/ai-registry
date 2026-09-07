@@ -1,0 +1,38 @@
+{
+  "id": "life-sciences-marketplace",
+  "type": "bundle",
+  "name": "Life Sciences Marketplace",
+  "summary": "A vendor-curated Claude Code marketplace bundling life-sciences plugins and skills.",
+  "description": "A third-party, vendor-curated collection of Claude Code plugins and skills targeting life-sciences and biomedical research workflows.",
+  "homepage": "https://example.org/life-sciences",
+  "repository": "https://github.com/example-org/life-sciences",
+  "license": "MIT",
+  "maintainers": [{ "name": "Thomas Conner", "github": "thomas-conner" }],
+  "version": "1.0.0",
+  "keywords": ["life-sciences", "marketplace"],
+  "category": "life-sciences",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-07T00:00:00Z",
+    "updated": "2026-09-07T00:00:00Z",
+    "last_verified": "2026-09-07T00:00:00Z",
+    "source_issue": 210
+  },
+  "marketplace": {
+    "name": "life-sciences",
+    "owner": { "name": "Example Org" },
+    "plugins": [
+      {
+        "name": "variant-review-plugin",
+        "source": "./plugins/variant-review-plugin"
+      }
+    ]
+  },
+  "source_uri": "https://raw.githubusercontent.com/example-org/life-sciences/main/.claude-plugin/marketplace.json",
+  "last_synced": "2026-09-07T00:00:00Z",
+  "ga4gh": {
+    "keywords": ["life-sciences"],
+    "members": [{ "type": "plugin", "id": "variant-review-plugin" }]
+  }
+}

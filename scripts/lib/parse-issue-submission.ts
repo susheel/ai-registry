@@ -275,6 +275,26 @@ function buildPlugin(fields: Record<string, string>, errors: string[]): AnyEntry
 }
 
 /**
+ * ga4gh.members[] (cross-references to entries already catalogued elsewhere
+ * in this registry) is deliberately not a submission-form field: a
+ * submitter proposing a bundle has no reliable way to know which of that
+ * bundle's plugins already have their own registry slug, and guessing wrong
+ * would fail scripts/validate.ts's member cross-reference check for a reason
+ * the submitter cannot fix themselves. A maintainer curates members[] as a
+ * follow-up edit once the bundle entry exists (internal project documentation Phase 10).
+ */
+function buildBundle(fields: Record<string, string>, errors: string[]): AnyEntry {
+  const bundle: AnyEntry = {
+    type: "bundle",
+    marketplace: parseJsonField(field(fields, "marketplace"), "marketplace", errors),
+    source_uri: field(fields, "source_uri"),
+  };
+  const ga4ghKeywords = parseCsv(field(fields, "ga4gh_keywords"));
+  if (ga4ghKeywords.length > 0) bundle.ga4gh = { keywords: ga4ghKeywords };
+  return bundle;
+}
+
+/**
  * Builds a candidate entry record from an issue form's parsed field map.
  * Returns `{ok: false, errors}` only for malformed input this module itself
  * detects (a JSON-paste field that fails to parse, a structured-textarea row
@@ -303,6 +323,9 @@ export function parseIssueSubmission(type: EntryType, fields: Record<string, str
       break;
     case "plugin":
       typeFields = buildPlugin(fields, errors);
+      break;
+    case "bundle":
+      typeFields = buildBundle(fields, errors);
       break;
   }
 

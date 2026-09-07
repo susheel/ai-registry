@@ -58,6 +58,34 @@ describe("stdio (npm) package derivation", () => {
     const decoded = JSON.parse(Buffer.from(configParam!, "base64").toString("utf-8"));
     assert.equal(decoded.command, "npx");
   });
+
+  test("windsurf and kiro both use the same mcpServers wrapper as claude-desktop", () => {
+    for (const client of ["windsurf", "kiro"] as const) {
+      const snippet = deriveInstallSnippet(npmServer, client);
+      const parsed = JSON.parse(snippet.configJson);
+      assert.deepEqual(parsed.mcpServers["org.ga4gh/trs-mcp"].command, "npx");
+      assert.deepEqual(parsed.mcpServers["org.ga4gh/trs-mcp"].args, ["@ga4gh/trs-mcp@2.0.1"]);
+    }
+  });
+
+  test("opencode uses a top-level mcp object with an array-form command and environment key", () => {
+    const snippet = deriveInstallSnippet(npmServer, "opencode");
+    const parsed = JSON.parse(snippet.configJson);
+    const config = parsed.mcp["org.ga4gh/trs-mcp"];
+    assert.equal(config.type, "local");
+    assert.deepEqual(config.command, ["npx", "@ga4gh/trs-mcp@2.0.1"]);
+    assert.equal(config.enabled, true);
+    assert.equal(config.environment.TRS_BASE_URL, "https://trs.example.org");
+    assert.equal(config.env, undefined);
+  });
+
+  test("opencode throws (skips) for a remote server, since its remote shape is unverified", () => {
+    const remote: InstallableServer = {
+      name: "org.ga4gh/remote-mcp",
+      remotes: [{ type: "streamable-http", url: "https://api.example.org/mcp" }],
+    };
+    assert.throws(() => deriveInstallSnippet(remote, "opencode"));
+  });
 });
 
 describe("docker (oci) package derivation", () => {
