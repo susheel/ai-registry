@@ -1,0 +1,184 @@
+name: Submit a bundle
+description: Submit a vendor-curated Claude Code marketplace (a bundle of plugins/skills) to the GA4GH AI Registry
+title: "[Bundle] "
+labels: ["registry-submission", "type:bundle"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting a bundle to the GA4GH AI Registry. A bundle catalogues a vendor-curated
+        marketplace (a `.claude-plugin/marketplace.json` document) as a single entry, rather than
+        requiring every plugin it lists to be submitted individually (internal project documentation Phase 10). This is
+        for a real, publicly discoverable marketplace with clear genomics or health-research
+        relevance; it is not a way to catalogue a single plugin or skill (use the plugin or skill
+        submission form instead) or your own personal collection.
+
+        Automation will check this form's contents (schema conformance, licence eligibility, link
+        resolution, embedded `marketplace.json` conformance) and comment back with any errors; a
+        maintainer then decides whether the entry belongs in the catalogue. See `internal project documentation`
+        Section 5.4 for the full review process.
+
+        **Field conventions used throughout this form:**
+        - A comma-separated field takes multiple values on one line, e.g. `trs, drs`.
+        - A multi-line field takes one row per item, each row itself comma-separated in the exact
+          column order stated in that field's own description.
+        - The "marketplace.json" field below takes the exact `.claude-plugin/marketplace.json`
+          document from the marketplace's own repository, not individually re-typed fields.
+        - Cross-references from this bundle to any of its members that are already separately
+          catalogued in this registry (`ga4gh.members[]`) are curated by a maintainer after this
+          entry is created, not filled in on this form: a submitter has no reliable way to know
+          which of a marketplace's plugins already have their own registry slug.
+
+  - type: input
+    id: id
+    attributes:
+      label: Registry slug (id)
+      description: Lowercase letters, digits, and hyphens only, e.g. "anthropic-life-sciences". Must be unique among bundle entries.
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: One-line summary
+      description: Maximum 200 characters.
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Markdown. Rendered on the entry's detail page.
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage URL
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository URL
+    validations:
+      required: true
+
+  - type: dropdown
+    id: license
+    attributes:
+      label: Licence
+      description: >
+        Choose "other" if your licence is not listed, and fill in the licence URL field below. Many
+        marketplaces have no single licence covering every listed plugin (each provider licenses its
+        own plugin separately); if so, choose "other" and point the licence URL field at whatever
+        page explains the licensing situation.
+      options:
+        - Apache-2.0
+        - MIT
+        - BSD-2-Clause
+        - BSD-3-Clause
+        - ISC
+        - GPL-2.0-only
+        - GPL-3.0-only
+        - LGPL-2.1-only
+        - LGPL-3.0-only
+        - AGPL-3.0-only
+        - MPL-2.0
+        - CC0-1.0
+        - CC-BY-4.0
+        - CC-BY-SA-4.0
+        - CC-BY-NC-4.0
+        - Unlicense
+        - OFL-1.1
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: license_url
+    attributes:
+      label: Licence URL (required only if licence is "other")
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The marketplace manifest's own version, e.g. from marketplace.json's metadata.version.
+    validations:
+      required: true
+
+  - type: input
+    id: keywords
+    attributes:
+      label: Keywords (common core)
+      description: "Comma-separated, e.g.: life-sciences, biomedical-research"
+
+  - type: input
+    id: category
+    attributes:
+      label: Category
+      description: Free text in v1. Use a short, consistent, lowercase-hyphenated term, e.g. "life-sciences".
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_standards
+    attributes:
+      label: GA4GH standards touched (optional)
+      description: "Comma-separated, e.g.: trs, drs. Leave blank if this bundle does not directly touch a GA4GH API."
+
+  - type: textarea
+    id: maintainers
+    attributes:
+      label: Maintainers
+      description: "One per line: name, github-username[, affiliation[, orcid]]. At least one row required."
+      placeholder: Thomas Conner, thomas-conner
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety_classification
+    attributes:
+      label: Safety classification (optional)
+      description: >
+        One per line: scheme, level, source[, certifying_body[, evaluation_date[, valid_until[, evidence_uri]]]].
+        Leave blank if no safety classification applies yet.
+
+  - type: textarea
+    id: marketplace
+    attributes:
+      label: marketplace.json
+      description: >
+        Paste the marketplace's complete .claude-plugin/marketplace.json document as JSON. This must
+        be the exact, unmodified document (internal project documentation Phase 10); GA4GH additions live in the
+        separate fields below, never inside this document.
+      render: json
+      placeholder: |
+        { "name": "life-sciences", "owner": { "name": "Example Org" }, "plugins": [...] }
+    validations:
+      required: true
+
+  - type: input
+    id: source_uri
+    attributes:
+      label: Source URI
+      description: Where the marketplace.json above was fetched from (a raw file URL), so a maintainer can re-verify or refresh it later.
+    validations:
+      required: true
+
+  - type: input
+    id: ga4gh_keywords
+    attributes:
+      label: ga4gh.keywords (optional)
+      description: Comma-separated, bundle-specific keywords distinct from the common-core keywords field above.

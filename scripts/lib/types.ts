@@ -1,4 +1,4 @@
-export type EntryType = "model" | "agent" | "skill" | "mcp-server" | "plugin";
+export type EntryType = "model" | "agent" | "skill" | "mcp-server" | "plugin" | "bundle";
 
 export const ENTRY_TYPES: readonly EntryType[] = [
   "model",
@@ -6,6 +6,7 @@ export const ENTRY_TYPES: readonly EntryType[] = [
   "skill",
   "mcp-server",
   "plugin",
+  "bundle",
 ];
 
 /** Directory name under data/ for a given entry type (TECH.md Section 2). */
@@ -15,6 +16,7 @@ export const DATA_DIR_FOR_TYPE: Record<EntryType, string> = {
   skill: "skills",
   "mcp-server": "mcp-servers",
   plugin: "plugins",
+  bundle: "bundles",
 };
 
 export type IssueSeverity = "error" | "warning";

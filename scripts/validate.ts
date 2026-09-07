@@ -115,6 +115,44 @@ function checkSlugUniqueness(entriesByType: Map<EntryType, Array<{ file: string;
   return issuesByFile;
 }
 
+/**
+ * Bundle entries' ga4gh.members[] cross-references (internal project documentation Phase 10,
+ * schemas/bundle-entry.v1.schema.json) must resolve to a real entry of the
+ * declared type; this is a cross-file check (it needs every other type's
+ * loaded entries), so it lives here alongside checkSlugUniqueness rather than
+ * in scripts/lib/validate-entry.ts's per-entry offline checks.
+ */
+function checkMemberReferences(
+  entriesByType: Map<EntryType, Array<{ file: string; entry: AnyEntry }>>,
+): Map<string, ValidationIssue[]> {
+  const issuesByFile = new Map<string, ValidationIssue[]>();
+  const bundles = entriesByType.get("bundle") ?? [];
+  for (const { file, entry } of bundles) {
+    const ga4gh = entry.ga4gh as { members?: Array<{ type?: unknown; id?: unknown }> } | undefined;
+    const members = ga4gh?.members;
+    if (!Array.isArray(members)) continue;
+    const issues: ValidationIssue[] = [];
+    for (const member of members) {
+      const memberType = member?.type;
+      const memberId = member?.id;
+      if (typeof memberType !== "string" || typeof memberId !== "string") continue;
+      if (!ENTRY_TYPES.includes(memberType as EntryType)) continue;
+      const candidates = entriesByType.get(memberType as EntryType) ?? [];
+      const found = candidates.some(({ entry: candidate }) => candidate.id === memberId);
+      if (!found) {
+        issues.push({
+          severity: "error",
+          code: "bundle-member-not-found",
+          message: `ga4gh.members[] references ${memberType} "${memberId}", which does not exist under data/${DATA_DIR_FOR_TYPE[memberType as EntryType]}/`,
+          path: "ga4gh.members",
+        });
+      }
+    }
+    if (issues.length > 0) issuesByFile.set(file, issues);
+  }
+  return issuesByFile;
+}
+
 export async function validateFiles(
   filesToValidate: string[],
   options: CliOptions,
@@ -142,6 +180,7 @@ export async function validateFiles(
     }
   }
   const duplicateIssuesByFile = checkSlugUniqueness(allEntriesByType);
+  const memberIssuesByFile = checkMemberReferences(allEntriesByType);
 
   const results: EntryValidationResult[] = [];
   for (const file of filesToValidate) {
@@ -171,6 +210,7 @@ export async function validateFiles(
 
     issues.push(...validateEntryOffline(entry, declaredType));
     issues.push(...(duplicateIssuesByFile.get(file) ?? []));
+    issues.push(...(memberIssuesByFile.get(file) ?? []));
     issues.push(...(await runNetworkChecks(entry, declaredType, { skipNetwork: options.skipNetwork })));
 
     results.push({

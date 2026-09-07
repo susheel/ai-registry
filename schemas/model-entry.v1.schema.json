@@ -32,6 +32,11 @@
           "type": "string",
           "description": "Mirrored from Hugging Face / Model Card Section 5: the base or foundation model this model was fine-tuned or derived from, if any."
         },
+        "openness_class": {
+          "type": "string",
+          "enum": ["I", "II", "III"],
+          "description": "Optional, non-normative, submitter-asserted: the model's classification under the Model Openness Framework (MOF, Generative AI Commons at the LF AI & Data Foundation, confirmed live and actively maintained at https://isitopen.ai/ and https://lfaidata.foundation/resources/whitepapers/), an orthogonal-to-safety transparency classification of which lifecycle components (data, code, weights, documentation) are publicly released and under what licences. This field points to MOF's own class rather than the registry re-deriving or re-defining it; see the Model Openness Tool (MOT) at the same site for the authoritative per-class component checklist. Not cross-checked against safety_classification[] or certification_tier -- openness and safety/trust are deliberately independent axes."
+        },
         "intended_domain": {
           "type": "string",
           "description": "Model Card Section 5.3 fallback for genomic tasks with no accepted Hugging Face pipeline_tag."

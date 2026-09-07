@@ -1,0 +1,25 @@
+{
+  "id": "broken-bundle",
+  "type": "bundle",
+  "name": "Broken Bundle",
+  "summary": "Bundle entry whose embedded marketplace.json fails the vendored marketplace.schema.json.",
+  "description": "Used to test that bundle-entry.v1.schema.json's $ref to vendor/marketplace.schema.json rejects an embedded marketplace document missing its required fields (name, owner, plugins).",
+  "homepage": "https://example.org/broken-bundle",
+  "repository": "https://github.com/example-org/broken-bundle",
+  "license": "MIT",
+  "maintainers": [{ "name": "Test Maintainer", "github": "test-maintainer" }],
+  "version": "1.0.0",
+  "keywords": [],
+  "category": "other",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-08-01T00:00:00Z",
+    "updated": "2026-08-01T00:00:00Z",
+    "last_verified": "2026-08-01T00:00:00Z"
+  },
+  "marketplace": {
+    "description": "This marketplace.json has no name, owner, or plugins field, all three of which vendor/marketplace.schema.json requires."
+  },
+  "source_uri": "https://example.org/broken-bundle/marketplace.json"
+}

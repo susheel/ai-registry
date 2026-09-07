@@ -17,6 +17,7 @@ const EXPORT_NAME_FOR_TYPE: Record<EntryType, string> = {
   skill: "SkillEntry",
   "mcp-server": "McpServerEntry",
   plugin: "PluginEntry",
+  bundle: "BundleEntry",
 };
 
 function loadFixture(relPath: string): AnyEntry {
@@ -100,6 +101,14 @@ describe("generated Zod schemas", () => {
     const entry = loadFixture("valid/plugin.json") as AnyEntry & { plugin: Record<string, unknown> };
     const { name: _name, ...pluginWithoutName } = entry.plugin;
     const result = schemas.plugin.safeParse({ ...entry, plugin: pluginWithoutName });
+    assert.equal(result.success, false);
+  });
+
+  test("a missing field inside the embedded marketplace vendor document is rejected", async () => {
+    const schemas = await loadGeneratedSchemas();
+    const entry = loadFixture("valid/bundle.json") as AnyEntry & { marketplace: Record<string, unknown> };
+    const { owner: _owner, ...marketplaceWithoutOwner } = entry.marketplace;
+    const result = schemas.bundle.safeParse({ ...entry, marketplace: marketplaceWithoutOwner });
     assert.equal(result.success, false);
   });
 });

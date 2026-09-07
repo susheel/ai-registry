@@ -4,13 +4,20 @@
  * e.g. "mcp-servers") to the singular `type` enum value entries carry
  * (internal project documentation Section 3.2), or vice versa.
  */
-export type CollectionKey = "models" | "agents" | "skills" | "mcp-servers" | "plugins";
+export type CollectionKey = "models" | "agents" | "skills" | "mcp-servers" | "plugins" | "bundles";
 
-export const COLLECTION_KEYS: readonly CollectionKey[] = ["models", "agents", "skills", "mcp-servers", "plugins"];
+export const COLLECTION_KEYS: readonly CollectionKey[] = [
+  "models",
+  "agents",
+  "skills",
+  "mcp-servers",
+  "plugins",
+  "bundles",
+];
 
 export interface TypeMeta {
   key: CollectionKey;
-  type: "model" | "agent" | "skill" | "mcp-server" | "plugin";
+  type: "model" | "agent" | "skill" | "mcp-server" | "plugin" | "bundle";
   label: string;
   singularLabel: string;
   description: string;
@@ -51,6 +58,13 @@ export const TYPE_META: Record<CollectionKey, TypeMeta> = {
     label: "Plugins",
     singularLabel: "Plugin",
     description: "Coding-harness plugins bundling skills and MCP tools for one or more harnesses.",
+  },
+  bundles: {
+    key: "bundles",
+    type: "bundle",
+    label: "Bundles",
+    singularLabel: "Bundle",
+    description: "Vendor-curated marketplaces bundling plugins and skills, catalogued as a single entry.",
   },
 };
 

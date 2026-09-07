@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ga4gh.github.io/ai-registry/schemas/bundle-entry.v1.schema.json",
+  "title": "GA4GH AI Registry: bundle entry (v1)",
+  "description": "The common entry core plus an embedded, verbatim Claude Code marketplace.json document, validated against schemas/vendor/marketplace.schema.json, plus a ga4gh sibling object recording provenance and any cross-references to entries already catalogued elsewhere in this registry. A bundle entry catalogues a vendor-curated collection (a marketplace) of plugins/skills as a single registry entry, rather than requiring every member of that collection to be submitted individually (internal project documentation Phase 10, internal research notes D47 Option B). The vendored marketplace.schema.json places no additionalProperties restriction at its root, so the ga4gh object sits alongside marketplace's own fields without invalidating it; stripping ga4gh, source_uri, and last_synced MUST leave a valid, unmodified marketplace.json.",
+  "allOf": [
+    { "$ref": "entry-core.v1.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "type": { "const": "bundle" },
+        "marketplace": { "$ref": "vendor/marketplace.schema.json" },
+        "source_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Where this entry's embedded marketplace document was fetched from. Required so a maintainer can re-verify or refresh the mirrored content; a bundle entry represents a cached snapshot of an externally maintained collection, not a live feed."
+        },
+        "last_synced": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last mirror refresh of the embedded marketplace document from source_uri, matching model entries' last_synced convention."
+        },
+        "ga4gh": {
+          "type": "object",
+          "description": "GA4GH-specific extension, sibling to the embedded marketplace document, never inside it.",
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "items": { "type": "string" },
+              "uniqueItems": true
+            },
+            "members": {
+              "type": "array",
+              "description": "Optional cross-references from this bundle to entries already catalogued elsewhere in this registry (by type and id). A bundle's marketplace.plugins[] routinely lists items this registry does not separately catalogue; members[] records only the subset that happen to coincide with a real registry entry, and scripts/validate.ts confirms each referenced (type, id) pair actually resolves to an existing data/<type>/<id>.json file.",
+              "items": {
+                "type": "object",
+                "required": ["type", "id"],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "The referenced entry's own registry type. Deliberately not \"bundle\": a bundle cross-referencing another bundle is out of scope for v1.",
+                    "enum": ["model", "agent", "skill", "mcp-server", "plugin"]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "The referenced entry's registry slug (data/<type>/<id>.json)."
+                  }
+                },
+                "unevaluatedProperties": false
+              },
+              "uniqueItems": true
+            }
+          },
+          "unevaluatedProperties": false
+        }
+      },
+      "required": ["marketplace", "source_uri"]
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -64,6 +64,7 @@ jobs:
             skill) echo "path=.github/ISSUE_TEMPLATE/submit-skill.yml" >> "$GITHUB_OUTPUT" ;;
             mcp-server) echo "path=.github/ISSUE_TEMPLATE/submit-mcp-server.yml" >> "$GITHUB_OUTPUT" ;;
             plugin) echo "path=.github/ISSUE_TEMPLATE/submit-plugin.yml" >> "$GITHUB_OUTPUT" ;;
+            bundle) echo "path=.github/ISSUE_TEMPLATE/submit-bundle.yml" >> "$GITHUB_OUTPUT" ;;
             *) echo "::error::Unrecognised type '$TYPE'"; exit 1 ;;
           esac
 

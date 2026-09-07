@@ -39,12 +39,13 @@ export function getAllowedSafetySchemeIds(): Set<string> {
 const categoryIdsByType = new Map<EntryType, Set<string>>();
 
 /**
- * Category vocabulary for a type, or undefined for "plugin", whose
- * ga4gh.category is free text in v1 (internal project documentation Section 3.6) and has no
+ * Category vocabulary for a type, or undefined for "plugin" and "bundle",
+ * whose category is free text (internal project documentation Section 3.6, and the same
+ * precedent applied to bundle entries in internal project documentation Phase 10) and has no
  * vocab file to check against.
  */
 export function getAllowedCategoryIds(type: EntryType): Set<string> | undefined {
-  if (type === "plugin") return undefined;
+  if (type === "plugin" || type === "bundle") return undefined;
   const cached = categoryIdsByType.get(type);
   if (cached) return cached;
   const ids = loadIds(`vocab/categories/${type}.json`, "categories");
