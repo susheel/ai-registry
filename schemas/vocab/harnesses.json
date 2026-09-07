@@ -5,6 +5,7 @@
     { "id": "codex", "name": "Codex" },
     { "id": "gemini-cli", "name": "Gemini CLI" },
     { "id": "opencode", "name": "opencode" },
-    { "id": "mcp-generic", "name": "Any MCP-capable harness (generic)" }
+    { "id": "mcp-generic", "name": "Any MCP-capable harness (generic)" },
+    { "id": "agent-plugins", "name": "Agent Plugins v1.0.0 (agent-plugins.org)" }
   ]
 }

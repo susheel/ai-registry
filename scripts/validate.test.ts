@@ -121,6 +121,70 @@ describe("invalid fixtures are rejected, one per rule", () => {
   });
 });
 
+// -- D21: skill host_runtimes[] vocab-backed against schemas/vocab/harnesses.json --
+
+describe("D21 host_runtimes vocabulary check", () => {
+  test("a host_runtimes value not in schemas/vocab/harnesses.json fails", () => {
+    const entry = loadFixture("valid/skill.json");
+    entry.host_runtimes = ["claude-code", "not-a-real-harness"];
+    const issues = validateEntryOffline(entry, "skill");
+    assert.ok(issues.some((i) => i.code === "host-runtime-not-allowed"));
+  });
+
+  test("every value already in the closed harness enumeration passes", () => {
+    const entry = loadFixture("valid/skill.json");
+    entry.host_runtimes = ["claude-code", "codex", "gemini-cli", "opencode", "mcp-generic"];
+    const issues = validateEntryOffline(entry, "skill");
+    assert.ok(!issues.some((i) => i.code === "host-runtime-not-allowed"));
+  });
+
+  test("the check is a no-op for non-skill types and for entries with no host_runtimes at all", () => {
+    const skillEntry = loadFixture("valid/skill.json");
+    delete skillEntry.host_runtimes;
+    assert.ok(!validateEntryOffline(skillEntry, "skill").some((i) => i.code === "host-runtime-not-allowed"));
+
+    const modelEntry = loadFixture("valid/model.json") as AnyEntry;
+    modelEntry.host_runtimes = ["not-a-real-harness"];
+    assert.ok(!validateEntryOffline(modelEntry, "model").some((i) => i.code === "host-runtime-not-allowed"));
+  });
+});
+
+// -- D20: hidden-Unicode / homoglyph scan on submitter-authored free text --
+
+describe("D20 hidden-Unicode scan", () => {
+  const ZERO_WIDTH_SPACE = String.fromCodePoint(0x200b);
+  const RLO_OVERRIDE = String.fromCodePoint(0x202e);
+  const UNICODE_TAG_CHAR = String.fromCodePoint(0xe0041);
+
+  test("a zero-width space hidden inside description fails", () => {
+    const entry = loadFixture("valid/model.json");
+    entry.description = `Perfectly normal text${ZERO_WIDTH_SPACE}with a hidden character`;
+    const issues = validateEntryOffline(entry, "model");
+    assert.ok(issues.some((i) => i.code === "hidden-unicode" && i.path === "description"));
+  });
+
+  test("a bidi right-to-left override in name fails", () => {
+    const entry = loadFixture("valid/model.json");
+    entry.name = `Safe${RLO_OVERRIDE}looking name`;
+    const issues = validateEntryOffline(entry, "model");
+    assert.ok(issues.some((i) => i.code === "hidden-unicode" && i.path === "name"));
+  });
+
+  test("a Unicode Tag character (ASCII-smuggling block) in a keyword fails", () => {
+    const entry = loadFixture("valid/model.json");
+    entry.keywords = ["normal", `hidden${UNICODE_TAG_CHAR}payload`];
+    const issues = validateEntryOffline(entry, "model");
+    assert.ok(issues.some((i) => i.code === "hidden-unicode" && i.path === "keywords"));
+  });
+
+  test("ordinary non-Latin text (no zero-width/bidi/tag characters) passes", () => {
+    const entry = loadFixture("valid/model.json");
+    entry.summary = "éèê 中文 مرحبا"; // accented Latin, Chinese, Arabic
+    const issues = validateEntryOffline(entry, "model");
+    assert.ok(!issues.some((i) => i.code === "hidden-unicode"));
+  });
+});
+
 // -- Slug uniqueness across files (validateFiles, not the pure offline fn) --
 
 describe("slug uniqueness within a type", () => {
