@@ -1,6 +1,7 @@
 import { getValidatorForType } from "./schemas.js";
 import {
   getAllowedCategoryIds,
+  getAllowedHarnessIds,
   getAllowedLicenseIds,
 } from "./vocab.js";
 import { checkAgentInfoUri, checkModelCardUri, checkUrlReachable, type FetchImpl } from "./fetch-checks.js";
@@ -92,6 +93,89 @@ export function checkGa4ghStandardsSubset(entry: AnyEntry, type: EntryType): Val
   return [];
 }
 
+/**
+ * D21 (internal project documentation): skill-entry
+ * host_runtimes[] is vocab-backed against the same closed harness enumeration
+ * plugin entries use (schemas/vocab/harnesses.json), enforced here rather
+ * than as a schema enum, matching checkCategory's/checkLicense's existing
+ * convention of keeping the vocab file, not the schema, as the source of
+ * truth for a value that can grow without a schema change.
+ */
+export function checkHostRuntimes(entry: AnyEntry, type: EntryType): ValidationIssue[] {
+  if (type !== "skill") return [];
+  const hostRuntimes = entry.host_runtimes;
+  if (!Array.isArray(hostRuntimes)) return [];
+  const allowed = getAllowedHarnessIds();
+  const disallowed = hostRuntimes.filter(
+    (value): value is string => typeof value === "string" && !allowed.has(value),
+  );
+  if (disallowed.length === 0) return [];
+  return [
+    {
+      severity: "error",
+      code: "host-runtime-not-allowed",
+      message: `host_runtimes[] value(s) [${[...new Set(disallowed)].join(", ")}] not in schemas/vocab/harnesses.json`,
+      path: "host_runtimes",
+    },
+  ];
+}
+
+/**
+ * D20 (internal project documentation): reject
+ * zero-width, bidi-control, and Unicode Tag characters in submitter-authored
+ * free-text fields. These characters render invisibly (or, for bidi
+ * overrides, can visually reorder surrounding text) and have no legitimate
+ * use in a name/summary/description/keyword, but are a known
+ * prompt-injection/ASCII-smuggling vector against agents that read registry
+ * entries verbatim (ga4gh_ai_registry_get/_search). This is a warn-once
+ * character-class denylist, not a full homoglyph/confusables check, which
+ * would need a much larger reference table and risks false positives on
+ * legitimate non-Latin text.
+ */
+// Zero-width/joiner (U+200B-200F), bidi embedding/override (U+202A-202E),
+// invisible-operator/directional-isolate block (U+2060-206F), BOM/ZWNBSP
+// (U+FEFF), and the Unicode Tags block (U+E0000-E007F) used in
+// ASCII-smuggling payloads. Every codepoint is a plain backslash-u escape
+// sequence below, never a literal pasted glyph, so this file stays plain
+// ASCII end to end and is safe to review as text.
+const HIDDEN_UNICODE_PATTERN =
+  /[\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff\u{E0000}-\u{E007F}]/u;
+
+function findHiddenUnicode(value: string): boolean {
+  return HIDDEN_UNICODE_PATTERN.test(value);
+}
+
+export function checkHiddenUnicode(entry: AnyEntry): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const scalarFields = ["name", "summary", "description"] as const;
+  for (const field of scalarFields) {
+    const value = entry[field];
+    if (typeof value === "string" && findHiddenUnicode(value)) {
+      issues.push({
+        severity: "error",
+        code: "hidden-unicode",
+        message: `${field} contains a zero-width, bidi-control, or Unicode Tag character, which is not permitted in a free-text field`,
+        path: field,
+      });
+    }
+  }
+  const keywords = entry.keywords;
+  if (Array.isArray(keywords)) {
+    const flagged = keywords.filter(
+      (kw): kw is string => typeof kw === "string" && findHiddenUnicode(kw),
+    );
+    if (flagged.length > 0) {
+      issues.push({
+        severity: "error",
+        code: "hidden-unicode",
+        message: `keywords[] entry contains a zero-width, bidi-control, or Unicode Tag character, which is not permitted`,
+        path: "keywords",
+      });
+    }
+  }
+  return issues;
+}
+
 export interface NetworkCheckOptions {
   skipNetwork: boolean;
   fetchImpl?: FetchImpl;
@@ -151,5 +235,7 @@ export function validateEntryOffline(entry: AnyEntry, type: EntryType): Validati
     ...checkLicense(entry),
     ...checkCategory(entry, type),
     ...checkGa4ghStandardsSubset(entry, type),
+    ...checkHostRuntimes(entry, type),
+    ...checkHiddenUnicode(entry),
   ];
 }
