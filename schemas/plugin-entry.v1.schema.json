@@ -34,7 +34,7 @@
                   "harness": {
                     "type": "string",
                     "description": "Closed enumeration, backed by schemas/vocab/harnesses.json.",
-                    "enum": ["claude-code", "codex", "gemini-cli", "opencode", "mcp-generic"]
+                    "enum": ["claude-code", "codex", "gemini-cli", "opencode", "mcp-generic", "agent-plugins"]
                   },
                   "installCommand": {
                     "type": "string",
