@@ -13,6 +13,7 @@
     "build:ai-catalog": "tsx scripts/build-ai-catalog.ts",
     "build:mcp-docs": "tsx scripts/build-mcp-server-docs.ts",
     "build:marketplace": "tsx scripts/build-marketplace.ts",
+    "check-bundle-freshness": "tsx scripts/check-bundle-freshness.ts",
     "test": "tsx --test scripts/**/*.test.ts",
     "typecheck": "tsc --noEmit",
     "format:check": "prettier --check --no-error-on-unmatched-pattern \"data/**/*.json\""

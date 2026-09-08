@@ -4,7 +4,13 @@ import {
   getAllowedHarnessIds,
   getAllowedLicenseIds,
 } from "./vocab.js";
-import { checkAgentInfoUri, checkModelCardUri, checkUrlReachable, type FetchImpl } from "./fetch-checks.js";
+import {
+  checkAgentInfoUri,
+  checkBundleFreshness,
+  checkModelCardUri,
+  checkUrlReachable,
+  type FetchImpl,
+} from "./fetch-checks.js";
 import type { AnyEntry, EntryType, ValidationIssue } from "./types.js";
 
 export function validateSchema(entry: unknown, type: EntryType): ValidationIssue[] {
@@ -183,11 +189,11 @@ export interface NetworkCheckOptions {
 
 /**
  * TECH.md Section 9 CI checks: HEAD reachability for homepage/repository, and
- * the deeper cross-reference checks for model_card_uri (model) and
- * agent_info_uri (agent, D13). The mcp-server `server` and plugin `plugin`
- * cross-reference checks are covered by schema validation itself, since both
- * documents are embedded and validated via $ref to the vendored schemas
- * rather than fetched by URI.
+ * the deeper cross-reference checks for model_card_uri (model), agent_info_uri
+ * (agent, D13), and source_uri freshness (bundle, Phase 11). The mcp-server
+ * `server` and plugin `plugin` cross-reference checks are covered by schema
+ * validation itself, since both documents are embedded and validated via
+ * $ref to the vendored schemas rather than fetched by URI.
  */
 export async function runNetworkChecks(
   entry: AnyEntry,
@@ -207,6 +213,10 @@ export async function runNetworkChecks(
 
   if (type === "model" && typeof entry.model_card_uri === "string") {
     issues.push(...(await checkModelCardUri(entry.model_card_uri, fetchImpl)));
+  }
+
+  if (type === "bundle" && typeof entry.source_uri === "string") {
+    issues.push(...(await checkBundleFreshness(entry.source_uri, entry.marketplace, fetchImpl)));
   }
 
   if (type === "agent" && typeof entry.agent_info_uri === "string") {

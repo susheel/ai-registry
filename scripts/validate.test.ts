@@ -7,7 +7,7 @@ import path from "node:path";
 import { validateEntryOffline } from "./lib/validate-entry.js";
 import { validateFiles, parseArgs, allResultsOk } from "./validate.js";
 import { getVendorValidator } from "./lib/schemas.js";
-import { checkAgentInfoUri, checkModelCardUri, type FetchImpl } from "./lib/fetch-checks.js";
+import { checkAgentInfoUri, checkBundleFreshness, checkModelCardUri, type FetchImpl } from "./lib/fetch-checks.js";
 import type { AnyEntry, EntryType } from "./lib/types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -359,6 +359,87 @@ describe("model_card_uri validation", () => {
     );
     assert.equal(issues.length, 1);
     assert.equal(issues[0]?.code, "model-card-unreachable");
+  });
+});
+
+// -- Phase 11: bundle source_uri freshness check -----------------------------
+
+describe("bundle source_uri freshness check (Phase 11)", () => {
+  const cachedMarketplace = {
+    name: "example-marketplace",
+    owner: { name: "Example Vendor" },
+    plugins: [{ name: "one-plugin", source: "./one-plugin", description: "does one thing" }],
+  };
+
+  test("a live document identical to the cached copy produces no issues", async () => {
+    const issues = await checkBundleFreshness(
+      "https://example.org/marketplace.json",
+      cachedMarketplace,
+      fetchReturning(jsonResponse(cachedMarketplace)),
+    );
+    assert.deepEqual(issues, []);
+  });
+
+  test("key order alone is not treated as drift", async () => {
+    const reordered = {
+      owner: cachedMarketplace.owner,
+      plugins: cachedMarketplace.plugins,
+      name: cachedMarketplace.name,
+    };
+    const issues = await checkBundleFreshness(
+      "https://example.org/marketplace.json",
+      cachedMarketplace,
+      fetchReturning(jsonResponse(reordered)),
+    );
+    assert.deepEqual(issues, []);
+  });
+
+  test("a live document that has drifted from the cached copy is a warning, never a failure", async () => {
+    const live = {
+      ...cachedMarketplace,
+      plugins: [...cachedMarketplace.plugins, { name: "new-plugin", source: "./new-plugin", description: "added upstream" }],
+    };
+    const issues = await checkBundleFreshness(
+      "https://example.org/marketplace.json",
+      cachedMarketplace,
+      fetchReturning(jsonResponse(live)),
+    );
+    assert.equal(issues.length, 1);
+    assert.equal(issues[0]?.severity, "warning");
+    assert.equal(issues[0]?.code, "bundle-marketplace-stale");
+  });
+
+  test("a non-200 response is a hard failure", async () => {
+    const issues = await checkBundleFreshness(
+      "https://example.org/missing.json",
+      cachedMarketplace,
+      fetchReturning(jsonResponse({}, { status: 404 })),
+    );
+    assert.equal(issues.length, 1);
+    assert.equal(issues[0]?.severity, "error");
+    assert.equal(issues[0]?.code, "bundle-source-unreachable");
+  });
+
+  test("a transport failure is a hard failure", async () => {
+    const issues = await checkBundleFreshness(
+      "https://example.org/marketplace.json",
+      cachedMarketplace,
+      fetchThrowing("ECONNREFUSED"),
+    );
+    assert.equal(issues.length, 1);
+    assert.equal(issues[0]?.severity, "error");
+    assert.equal(issues[0]?.code, "bundle-source-unreachable");
+  });
+
+  test("a non-JSON body is a hard failure, distinct from staleness", async () => {
+    const issues = await checkBundleFreshness(
+      "https://example.org/marketplace.json",
+      cachedMarketplace,
+      fetchReturning(textResponse("<html>not json</html>")),
+    );
+    assert.equal(issues.length, 1);
+    assert.equal(issues[0]?.severity, "error");
+    assert.equal(issues[0]?.code, "bundle-source-invalid");
   });
 });
 
