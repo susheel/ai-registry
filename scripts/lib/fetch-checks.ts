@@ -155,6 +155,93 @@ export async function checkModelCardUri(
   return [];
 }
 
+/**
+ * Phase 11 (internal project documentation): a bundle entry's `marketplace` field is a cached
+ * mirror of a vendor-maintained document, not a live feed (Section 3.5.6),
+ * so it can drift silently once seeded -- nothing previously checked whether
+ * `last_synced` still reflected reality. This follows checkAgentInfoUri's D13
+ * rule-5 precedent exactly: GET source_uri, and warn (never fail) when the
+ * live document no longer matches the embedded copy, since drift is expected
+ * over time (an upstream marketplace adding a plugin is not this registry's
+ * error) and must not fail CI merely because an upstream vendor shipped an
+ * update. An unreachable or non-JSON source_uri is a harder failure than mere
+ * staleness, mirroring checkModelCardUri's severity split for the same
+ * reason: a source that has vanished or stopped serving JSON is a materially
+ * different problem than a source that has simply moved on.
+ */
+export async function checkBundleFreshness(
+  sourceUri: string,
+  cachedMarketplace: unknown,
+  fetchImpl: FetchImpl = fetch,
+): Promise<ValidationIssue[]> {
+  let res: Response;
+  try {
+    res = await fetchImpl(sourceUri, { method: "GET", redirect: "follow" });
+  } catch (err) {
+    return [
+      {
+        severity: "error",
+        code: "bundle-source-unreachable",
+        message: `source_uri (${sourceUri}) is unreachable: ${(err as Error).message}`,
+        path: "source_uri",
+      },
+    ];
+  }
+  if (!res.ok) {
+    return [
+      {
+        severity: "error",
+        code: "bundle-source-unreachable",
+        message: `source_uri (${sourceUri}) returned HTTP ${res.status}`,
+        path: "source_uri",
+      },
+    ];
+  }
+
+  let live: unknown;
+  try {
+    live = await res.json();
+  } catch (err) {
+    return [
+      {
+        severity: "error",
+        code: "bundle-source-invalid",
+        message: `source_uri (${sourceUri}) did not return a parseable JSON body: ${(err as Error).message}`,
+        path: "source_uri",
+      },
+    ];
+  }
+
+  if (!deepEqualIgnoringKeyOrder(live, cachedMarketplace)) {
+    return [
+      {
+        severity: "warning",
+        code: "bundle-marketplace-stale",
+        message: `the embedded marketplace document no longer matches the live document at source_uri (${sourceUri}); last_synced is stale and this entry should be refreshed (scripts/check-bundle-freshness.ts)`,
+        path: "marketplace",
+      },
+    ];
+  }
+  return [];
+}
+
+function deepEqualIgnoringKeyOrder(a: unknown, b: unknown): boolean {
+  return JSON.stringify(sortKeysDeep(a)) === JSON.stringify(sortKeysDeep(b));
+}
+
+function sortKeysDeep(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(sortKeysDeep);
+  if (value && typeof value === "object") {
+    return Object.keys(value as Record<string, unknown>)
+      .sort()
+      .reduce<Record<string, unknown>>((acc, key) => {
+        acc[key] = sortKeysDeep((value as Record<string, unknown>)[key]);
+        return acc;
+      }, {});
+  }
+  return value;
+}
+
 interface CachedAgentInfoSnapshot {
   protocol_version?: unknown;
   agent_type?: unknown;

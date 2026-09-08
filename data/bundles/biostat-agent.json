@@ -1,0 +1,253 @@
+{
+  "id": "biostat-agent",
+  "type": "bundle",
+  "name": "BiostatAgent",
+  "summary": "A vendor-curated Claude Code marketplace of agents, commands, and skills for R-based biostatistics: Bayesian modelling, indirect treatment comparison, tidy R workflows, and clinical trial simulation.",
+  "description": "A single-author Claude Code marketplace (Ahmad Sofi-Mahmudi) bundling four plugins covering the core methodology of applied biostatistics in R: bayesian-modeling (Stan, PyMC, JAGS, WinBUGS model authoring and diagnostics), itc-modeling (indirect treatment comparison: pairwise meta-analysis, network meta-analysis, MAIC, STC, ML-NMR), r-tidy-modeling (tidyverse/tidymodels workflows spanning clinical trials, genomics, survival analysis, epidemiology, and pharmacokinetics), and clinical-trial-simulation (power analysis, sample-size determination, group sequential designs, and multiplicity optimisation via simtrial and Mediana). Catalogued here under this registry's bundle admission test (internal project documentation Phase 10): not itself a GA4GH-sponsored project, but a real, publicly discoverable collection whose every plugin is core clinical-trial and biostatistics methodology tooling, not general-purpose or vaguely health-adjacent content. Terms check: the repository carries a real root LICENSE file (MIT, confirmed by direct fetch, not just GitHub's derived metadata), so license is a clean SPDX id rather than the other escape hatch. None of its plugin names collide with this registry's own seeded plugin entries (all ga4gh-* slugs), so ga4gh.members is empty.",
+  "homepage": "https://github.com/choxos/BiostatAgent",
+  "repository": "https://github.com/choxos/BiostatAgent",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "1.0.0",
+  "keywords": ["biostatistics", "clinical-trials", "bayesian-modeling", "claude-code-marketplace"],
+  "category": "biostatistics",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "marketplace": {
+    "name": "biostat-agent",
+    "owner": {
+      "name": "Ahmad Sofi-Mahmudi",
+      "email": "choxos@users.noreply.github.com",
+      "url": "https://github.com/choxos"
+    },
+    "metadata": {
+      "description": "Comprehensive biostatistics agent ecosystem for R with 30 specialized agents, 17 workflow commands, and 45 methodology skills covering Bayesian modeling, indirect treatment comparisons, tidy R workflows, and clinical trial simulations",
+      "version": "1.0.0"
+    },
+    "plugins": [
+      {
+        "name": "bayesian-modeling",
+        "source": "./plugins/bayesian-modeling",
+        "description": "Create, review, and validate Bayesian models in Stan, PyMC, JAGS, and WinBUGS",
+        "version": "1.1.0",
+        "category": "statistics",
+        "strict": false,
+        "agents": [
+          "./agents/model-architect.md",
+          "./agents/stan-specialist.md",
+          "./agents/pymc-specialist.md",
+          "./agents/bugs-specialist.md",
+          "./agents/model-reviewer.md",
+          "./agents/test-runner.md"
+        ],
+        "commands": [
+          "./commands/create-model.md",
+          "./commands/review-model.md",
+          "./commands/run-diagnostics.md"
+        ],
+        "skills": [
+          "./skills/stan-fundamentals",
+          "./skills/pymc-fundamentals",
+          "./skills/bugs-fundamentals",
+          "./skills/hierarchical-models",
+          "./skills/regression-models",
+          "./skills/time-series-models",
+          "./skills/survival-models",
+          "./skills/meta-analysis",
+          "./skills/model-diagnostics"
+        ],
+        "keywords": [
+          "bayesian",
+          "stan",
+          "pymc",
+          "jags",
+          "winbugs",
+          "mcmc",
+          "hierarchical",
+          "regression",
+          "time-series",
+          "survival",
+          "meta-analysis",
+          "cmdstanr",
+          "r2jags",
+          "arviz",
+          "python",
+          "probabilistic-programming"
+        ]
+      },
+      {
+        "name": "itc-modeling",
+        "source": "./plugins/itc-modeling",
+        "description": "Expert agents for indirect treatment comparison modeling in R, covering pairwise MA, NMA, MAIC, STC, and ML-NMR with tidy modeling practices",
+        "version": "1.0.0",
+        "category": "biostatistics",
+        "strict": false,
+        "agents": [
+          "./agents/itc-architect.md",
+          "./agents/pairwise-meta-analyst.md",
+          "./agents/nma-specialist.md",
+          "./agents/maic-specialist.md",
+          "./agents/stc-specialist.md",
+          "./agents/ml-nmr-specialist.md",
+          "./agents/itc-code-reviewer.md"
+        ],
+        "commands": [
+          "./commands/itc-analysis.md",
+          "./commands/itc-review.md"
+        ],
+        "skills": [
+          "./skills/tidy-itc-workflow",
+          "./skills/pairwise-ma-methodology",
+          "./skills/nma-methodology",
+          "./skills/maic-methodology",
+          "./skills/stc-methodology",
+          "./skills/ml-nmr-methodology"
+        ],
+        "keywords": [
+          "indirect-treatment-comparison",
+          "meta-analysis",
+          "network-meta-analysis",
+          "MAIC",
+          "STC",
+          "ML-NMR",
+          "health-technology-assessment",
+          "evidence-synthesis",
+          "R",
+          "biostatistics",
+          "NICE-DSU",
+          "tidy-modeling"
+        ]
+      },
+      {
+        "name": "r-tidy-modeling",
+        "source": "./plugins/r-tidy-modeling",
+        "description": "Expert agents for R data science and biostatistics covering data wrangling, feature engineering, model building, statistical evaluation, clinical trials, genomics, documentation generation, and reproducible reporting using tidyverse and tidymodels",
+        "version": "1.0.0",
+        "category": "data-science",
+        "strict": false,
+        "agents": [
+          "./agents/r-data-architect.md",
+          "./agents/tidymodels-engineer.md",
+          "./agents/feature-engineer.md",
+          "./agents/biostatistician.md",
+          "./agents/data-wrangler.md",
+          "./agents/viz-specialist.md",
+          "./agents/reporting-engineer.md",
+          "./agents/r-code-reviewer.md",
+          "./agents/r-docs-architect.md",
+          "./agents/r-tutorial-engineer.md"
+        ],
+        "commands": [
+          "./commands/r-analysis.md",
+          "./commands/r-code-review.md",
+          "./commands/r-model-comparison.md",
+          "./commands/r-clinical-analysis.md",
+          "./commands/r-project-setup.md",
+          "./commands/r-doc-generate.md",
+          "./commands/r-tutorial-create.md"
+        ],
+        "skills": [
+          "./skills/tidymodels-workflow",
+          "./skills/tidymodels-review-patterns",
+          "./skills/recipes-patterns",
+          "./skills/resampling-strategies",
+          "./skills/model-tuning",
+          "./skills/model-evaluation",
+          "./skills/survival-analysis",
+          "./skills/clinical-trials",
+          "./skills/bayesian-modeling",
+          "./skills/epidemiology-methods",
+          "./skills/genomics-analysis",
+          "./skills/r-documentation-patterns",
+          "./skills/roxygen2-pkgdown",
+          "./skills/meta-analysis",
+          "./skills/network-meta-analysis",
+          "./skills/ipd-meta-analysis",
+          "./skills/diagnostic-accuracy",
+          "./skills/causal-mediation",
+          "./skills/mendelian-randomization",
+          "./skills/pharmacokinetics",
+          "./skills/health-economics",
+          "./skills/real-world-evidence",
+          "./skills/advanced-adaptive-trials"
+        ],
+        "keywords": [
+          "R",
+          "tidyverse",
+          "tidymodels",
+          "data-science",
+          "biostatistics",
+          "clinical-trials",
+          "machine-learning",
+          "statistical-modeling",
+          "feature-engineering",
+          "reproducible-research",
+          "ggplot2",
+          "dplyr",
+          "renv",
+          "targets",
+          "quarto"
+        ]
+      },
+      {
+        "name": "clinical-trial-simulation",
+        "source": "./plugins/clinical-trial-simulation",
+        "description": "Clinical trial simulation plugin supporting simtrial (time-to-event) and Mediana (CSE) frameworks for power analysis, sample size determination, group sequential designs, and multiplicity optimization",
+        "version": "1.0.0",
+        "category": "clinical-trials",
+        "strict": false,
+        "agents": [
+          "./agents/simulation-architect.md",
+          "./agents/tte-specialist.md",
+          "./agents/cse-specialist.md",
+          "./agents/multiplicity-expert.md",
+          "./agents/gs-design-specialist.md",
+          "./agents/power-optimizer.md",
+          "./agents/code-reviewer.md"
+        ],
+        "commands": [
+          "./commands/power-analysis.md",
+          "./commands/sample-size.md",
+          "./commands/gs-design.md",
+          "./commands/multiplicity-optimization.md",
+          "./commands/cse-analysis.md"
+        ],
+        "skills": [
+          "./skills/simtrial-fundamentals",
+          "./skills/mediana-fundamentals",
+          "./skills/multiplicity-methods",
+          "./skills/time-to-event-methods",
+          "./skills/group-sequential-methods",
+          "./skills/power-optimization-patterns",
+          "./skills/clinical-trial-design-patterns"
+        ],
+        "keywords": [
+          "clinical-trials",
+          "simulation",
+          "power-analysis",
+          "sample-size",
+          "survival-analysis",
+          "time-to-event",
+          "multiplicity",
+          "group-sequential",
+          "CSE",
+          "simtrial",
+          "Mediana"
+        ]
+      }
+    ]
+  },
+  "source_uri": "https://raw.githubusercontent.com/choxos/BiostatAgent/main/.claude-plugin/marketplace.json",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "ga4gh": {
+    "keywords": ["biostatistics", "clinical-trials"],
+    "members": []
+  }
+}
