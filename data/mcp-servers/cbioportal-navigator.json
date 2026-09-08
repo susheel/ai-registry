@@ -1,0 +1,49 @@
+{
+  "id": "cbioportal-navigator",
+  "type": "mcp-server",
+  "name": "cBioPortal Navigator",
+  "summary": "Official cBioPortal MCP server resolving natural-language cancer genomics queries into structured cBioPortal URLs across studies, genes, and molecular profiles.",
+  "description": "An MCP server published directly under the official cBioPortal GitHub organisation, the cancer genomics portal used across the oncology research community, that resolves natural-language queries into structured cBioPortal URLs. Confirmed real and current (repository created 2025-11-11, last pushed within the review window). Its own README describes the domain logic involved: searching and validating cancer studies, genes, and molecular profiles; resolving ambiguous queries (its own example, \"TCGA lung cancer\" to a specific study); and building properly formatted URLs with complex filters across StudyView, PatientView, ResultsView, and Group Comparison pages, a genuinely cancer-genomics-domain task, not a generic URL templater.\n\nLicensing note: no root LICENSE file exists in the repository (GitHub's own repository metadata reports no licence), but the project's own `package.json` declares `\"license\": \"AGPL-3.0-or-later\"` explicitly. Because the declared licence carries \"or later\" language, it is not the same identifier as this registry's allow-listed `AGPL-3.0-only` (this registry's own worked precedent, `data/bundles/encode-toolkit.json`, draws exactly this -only/-or-later distinction the other way). Recorded here as `license: \"other\"` with `license_url` pointing to the canonical AGPL-3.0 text, rather than inventing or rounding to the allow-listed identifier.\n\nRecorded as a marginal fit, plainly: the server does not implement a named GA4GH standard, carries no access control of its own (it queries cBioPortal's largely public study data), and does not expose data directly, only navigable URLs to it. It is included because the query-resolution task itself is concretely cancer-genomics-specific, and the publishing organisation is the real, primary cBioPortal project itself. Not published to npm; installation is git-clone-and-build from source.",
+  "homepage": "https://chat.cbioportal.org",
+  "repository": "https://github.com/cBioPortal/cbioportal-navigator",
+  "license": "other",
+  "license_url": "https://www.gnu.org/licenses/agpl-3.0.en.html",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "1.0.0",
+  "keywords": ["cbioportal", "cancer-genomics", "url-builder", "query-resolver", "mcp-server"],
+  "ga4gh_standards": ["other"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.cbioportal/cbioportal-navigator",
+    "description": "Resolves natural language cancer genomics queries into structured cBioPortal URLs.",
+    "version": "1.0.0",
+    "repository": {
+      "url": "https://github.com/cBioPortal/cbioportal-navigator",
+      "source": "github"
+    },
+    "packages": [
+      {
+        "registryType": "github",
+        "registryBaseUrl": "https://github.com",
+        "identifier": "cBioPortal/cbioportal-navigator",
+        "version": "1.0.0",
+        "transport": { "type": "stdio" }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["other"]
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "biomcp",
+  "type": "mcp-server",
+  "name": "BioMCP",
+  "summary": "MCP server (and CLI) reaching ~30 biomedical sources, including ClinVar clinical variant significance and ClinicalTrials.gov trial matching, through one command grammar.",
+  "description": "A real, actively maintained (628 GitHub stars at review time, pushed the same day as this review) MCP server, also distributed as the `biomcp-cli` CLI binary, that reaches roughly 30 trusted biomedical sources through one command grammar: PubMed/PubTator3, ClinVar, ClinicalTrials.gov, OncoKB, Reactome, and more, confirmed directly from the project's own README and `server.json`. ClinVar and ClinicalTrials.gov are the two sources this registry's admission bar cares about most directly: clinical variant significance classification and clinical-trial matching are concrete genomics and health-research workflows, not vague health-adjacent branding.\n\nMIT licence confirmed by direct fetch of the repository's own root `LICENSE` file (Copyright 2025 Ian Maurer), not from GitHub's derived metadata alone.\n\nRecorded as a marginal fit, plainly: BioMCP wraps public genomics and clinical databases directly rather than implementing or wrapping a named GA4GH API specification, and it carries no GA4GH-aligned (or any) access-control layer, since it queries open public APIs. It clears this registry's admission bar on the weaker of the two relevance tests, a real genomics/health data source exposed as MCP tools, with a concrete rather than vague relevance fact, but not the stronger named-GA4GH-standard or GA4GH-aligned-access-control test.",
+  "homepage": "https://biomcp.org/",
+  "repository": "https://github.com/genomoncology/biomcp",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "0.8.25",
+  "keywords": ["clinvar", "clinicaltrials", "pubmed", "oncokb", "biomedical", "mcp-server"],
+  "ga4gh_standards": ["other"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+    "name": "io.github.genomoncology/biomcp",
+    "title": "BioMCP",
+    "description": "Read-only biomedical search via the biomcp-cli PyPI package.",
+    "version": "0.8.25",
+    "websiteUrl": "https://biomcp.org",
+    "repository": {
+      "url": "https://github.com/genomoncology/biomcp",
+      "source": "github"
+    },
+    "packages": [
+      {
+        "registryType": "pypi",
+        "identifier": "biomcp-cli",
+        "version": "0.8.25",
+        "transport": { "type": "stdio" },
+        "packageArguments": [
+          { "type": "positional", "value": "serve" }
+        ]
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["other"]
+      }
+    }
+  }
+}

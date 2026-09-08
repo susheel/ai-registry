@@ -1,0 +1,47 @@
+{
+  "id": "langcare-mcp-fhir",
+  "type": "mcp-server",
+  "name": "LangCare MCP FHIR Server",
+  "summary": "Go-based MCP server exposing FHIR R4 Patient/Observation resources against Epic, Cerner, and GCP Healthcare API, plus a CLI bridging LangChain, CrewAI, AutoGen, and smolagents.",
+  "description": "A real, actively maintained MCP server (54 GitHub stars, tagged releases through v2.5.0, MIT licence confirmed by direct fetch of the repository's own root `LICENSE` file) exposing FHIR R4 resources as `fhir_search`/`fhir_read`/`fhir_create`/`fhir_update` MCP tools against real EMR backends: Epic, Cerner, and the GCP Healthcare API, confirmed from the project's own README and shipped `server.json`.\n\nWhat distinguishes this from a generic FHIR CRUD wrapper, and the reason it is included despite FHIR not being a GA4GH-owned standard: the repository ships a substantial, genuinely clinical skills library (40+ skills, confirmed by direct listing) implementing real clinical decision-support logic on top of the four generic tools, for example sepsis screening (qSOFA/SOFA/SIRS), cardiovascular risk scoring (CHA2DS2-VASc, HEART, Framingham, ASCVD, HAS-BLED), Beers Criteria and STOPP/START prescription-appropriateness review, and KDIGO CKD staging, not merely generic resource CRUD. It also ships a documented \"LangCare CLI\" that wraps the same four MCP tools as CLI subcommands over HTTP specifically so agent frameworks that do not speak MCP natively, LangChain, smolagents, CrewAI, and AutoGen, can call them as subprocess commands, a direct match to this registry's interest in agent-framework interoperability with health data.\n\nRecorded as a marginal fit, plainly: FHIR is a health-data interoperability standard, not a named GA4GH specification, and the underlying MCP tool set is generic clinical resource CRUD (Patient/Observation/Condition and similar); access control is standard FHIR API authentication, not GA4GH Passport/DUO-style controls. The clinical skills library and cross-framework CLI bridge are what lift this above a bare, undifferentiated FHIR wrapper.",
+  "homepage": "https://github.com/langcare/langcare-mcp-fhir",
+  "repository": "https://github.com/langcare/langcare-mcp-fhir",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "2.5.0",
+  "keywords": ["fhir", "hl7", "ehr", "clinical-decision-support", "langchain", "crewai", "autogen", "mcp-server"],
+  "ga4gh_standards": ["other"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+    "name": "io.github.langcare/langcare-mcp-fhir",
+    "description": "An MCP FHIR server written in Go for EMR systems like Epic and Cerner",
+    "repository": {
+      "url": "https://github.com/langcare/langcare-mcp-fhir",
+      "source": "github"
+    },
+    "version": "2.5.0",
+    "packages": [
+      {
+        "registryType": "npm",
+        "identifier": "@langcare/langcare-mcp-fhir",
+        "version": "2.5.0",
+        "transport": { "type": "stdio" }
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["other"]
+      }
+    }
+  }
+}

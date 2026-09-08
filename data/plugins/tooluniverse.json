@@ -1,0 +1,85 @@
+{
+  "id": "tooluniverse",
+  "type": "plugin",
+  "name": "ToolUniverse",
+  "summary": "Marginal fit: Claude Code / Gemini CLI plugin wrapping 1000+ science tools, including named genomics/health tools (TCGA, GWAS Catalog, ClinicalTrials.gov) within a much broader catalogue",
+  "description": "ToolUniverse (Zitnik Lab, Harvard Medical School; arXiv:2509.23426) is a large biomedical/scientific tool ecosystem shipped as a Claude Code plugin -- confirmed by direct fetch, its `.claude-plugin/marketplace.json` wraps a single `tooluniverse` plugin sourced from `./plugin`, whose own `.claude-plugin/plugin.json` (also fetched directly) is embedded verbatim below -- and separately documented for Gemini CLI via a first-party `mcpServers` configuration recipe wiring the `tooluniverse-smcp-stdio` MCP server into `~/.gemini/settings.json` (https://zitniklab.hms.harvard.edu/bioagent/guide/building_ai_scientists/gemini_cli.html, fetched directly). Its own `plugin.json` names concrete genomics/health-research data sources -- TCGA, GWAS Catalog, NHANES, ClinicalTrials.gov, PubMed, UniProt, PubChem -- a real, nameable relevance fact, not vague health branding. Marginal fit, flagged explicitly: ToolUniverse's actual scope (1000+ tools, 120+ skills) spans biology, chemistry, medicine, and general data science, of which genomics/health-research is a real but partial slice rather than the project's sole focus; this entry does not claim, and does not attempt, to enumerate ToolUniverse's full tool catalogue. Terms check: the repository's root `LICENSE` file (fetched directly) is the Apache License, Version 2.0, matching the `license` field in both `plugin.json` and the README. No slug collision against any existing entry in this registry.",
+  "homepage": "https://aiscientist.tools",
+  "repository": "https://github.com/mims-harvard/ToolUniverse",
+  "license": "Apache-2.0",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "1.4.0",
+  "keywords": [
+    "genomics",
+    "bioinformatics",
+    "drug-discovery",
+    "clinical-trials",
+    "tcga",
+    "mcp-server",
+    "claude-code-plugin"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "biomedical-research-tools",
+  "plugin": {
+    "name": "tooluniverse",
+    "description": "1000+ scientific research tools for biology, chemistry, medicine, and data science. Access PubMed, UniProt, PubChem, TCGA, NHANES, GWAS Catalog, and hundreds more databases through a unified MCP interface. Includes 120+ specialized research skills for genomics, drug discovery, clinical analysis, protein variant interpretation, and more.",
+    "version": "1.4.0",
+    "author": {
+      "name": "Shanghua Gao",
+      "url": "https://shgao.site"
+    },
+    "homepage": "https://aiscientist.tools",
+    "repository": "https://github.com/mims-harvard/ToolUniverse",
+    "license": "Apache-2.0",
+    "keywords": [
+      "science",
+      "biology",
+      "chemistry",
+      "medicine",
+      "genomics",
+      "bioinformatics",
+      "rna-seq",
+      "deseq2",
+      "phylogenetics",
+      "drug-discovery",
+      "clinical-trials",
+      "pubmed",
+      "uniprot",
+      "pubchem",
+      "tcga",
+      "research",
+      "mcp"
+    ]
+  },
+  "ga4gh": {
+    "keywords": [
+      "genomics",
+      "tcga",
+      "gwas-catalog",
+      "clinical-trials"
+    ],
+    "category": "biomedical-research-tools",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "claude plugin marketplace add mims-harvard/ToolUniverse\nclaude plugin install tooluniverse@tooluniverse"
+      },
+      {
+        "harness": "gemini-cli",
+        "installCommand": "{\n  \"mcpServers\": {\n    \"tooluniverse\": {\n      \"command\": \"uv\",\n      \"args\": [\n        \"--directory\",\n        \"/path/to/your/gemini_running_env\",\n        \"run\",\n        \"tooluniverse-smcp-stdio\"\n      ]\n    }\n  }\n}"
+      }
+    ]
+  }
+}

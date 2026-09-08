@@ -1,0 +1,55 @@
+{
+  "id": "sciagent-clinvar-database",
+  "type": "skill",
+  "name": "SciAgent-Skills ClinVar Database skill",
+  "summary": "Queries NCBI ClinVar via E-utilities for variant clinical significance, pathogenicity, disease associations, and VCF annotation.",
+  "description": "The `clinvar-database` skill from SciAgent-Skills, a 199-skill Claude Code library (per its own README badge count at the time of this check) powering the OmicsHorizon platform. Rather than seed the whole library's marketing claim of 'clinical variant interpretation' at face value, this entry was chosen after directly inspecting the `skills/genomics-bioinformatics/` tree, which does contain a genuinely concrete clinical-genomics slice: `clinvar-database`, `cosmic-database`, and `clinpgx-database` lookup skills alongside a `variant/` subcategory (GATK calling, SnpEff annotation, PLINK2 GWAS). The `clinvar-database` skill itself queries NCBI ClinVar's E-utilities by gene/rsID/condition/review-status, returns clinical significance (Pathogenic/Likely Pathogenic/VUS/Likely Benign/Benign), submitter data, and HGVS nomenclature, and documents a VCF-annotation workflow. Terms check, done per-skill rather than assumed from the repository default: the repository's root LICENSE is CC-BY-4.0 (confirmed by direct fetch), but this specific skill's own SKILL.md frontmatter independently declares `license: \"CC0-1.0\"` -- a real, verified per-skill licence divergence from the repository default, recorded here as this entry's `license` rather than the repository-wide CC-BY-4.0, matching this registry's own per-artefact licence-checking discipline. The library's headline evidence is a named, external benchmark (BixBench-Verified-50, +26.7 percentage points over an unaugmented Claude Code baseline to 92.0% accuracy), which this entry cites as evaluation evidence for the library this skill ships in, not for this one skill in isolation. No slug collision with any existing entry in this registry. `host_runtimes` below is restricted to this registry's own closed harness vocabulary (`schemas/vocab/harnesses.json`); the repository's own README additionally documents Cursor and Windsurf compatibility, which is real but has no matching vocabulary entry to record here.",
+  "homepage": "https://github.com/jaechang-hits/SciAgent-Skills/tree/main/skills/genomics-bioinformatics/databases/clinvar-database",
+  "repository": "https://github.com/jaechang-hits/SciAgent-Skills",
+  "license": "CC0-1.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "0.1.0",
+  "keywords": ["clinvar", "e-utilities", "variant-annotation", "sciagent-skills", "bixbench"],
+  "category": "variant-interpretation",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "skill": {
+    "name": "clinvar-database",
+    "description": "Query NCBI ClinVar via E-utilities for variant clinical significance, pathogenicity, disease associations. Search by gene/rsID/condition/review status; returns ClinSig, submitter data, conditions, HGVS. For GWAS use gwas-database; for variant consequence prediction use Ensembl VEP.",
+    "license": "CC0-1.0",
+    "metadata": {
+      "homepage": "https://github.com/jaechang-hits/SciAgent-Skills"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/jaechang-hits/SciAgent-Skills.git",
+      "subfolder": "skills/genomics-bioinformatics/databases/clinvar-database"
+    }
+  },
+  "inputs": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "A gene symbol, rsID, HGVS variant, genomic position, or ClinVar Variation ID, optionally combined with a condition or clinical-significance filter."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "clinvar_records",
+      "type": "object",
+      "description": "ClinVar variant records: clinical significance, submitter data, condition/phenotype associations, and HGVS nomenclature, retrieved via NCBI E-utilities."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/jaechang-hits/SciAgent-Skills/blob/main/README.md#benchmark-920-on-bixbench-verified-50",
+  "host_runtimes": ["claude-code", "codex"]
+}

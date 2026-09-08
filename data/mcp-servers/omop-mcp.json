@@ -1,0 +1,49 @@
+{
+  "id": "omop-mcp",
+  "type": "mcp-server",
+  "name": "OMOP MCP Server",
+  "summary": "MCP server from the OHNLP clinical-NLP consortium mapping free-text clinical terminology to OMOP Common Data Model concepts using LLMs.",
+  "description": "A real, currently maintained MCP server (40 GitHub stars, pushed within the month of review) published by OHNLP, an academic clinical natural-language-processing consortium, exposing an LLM-backed `find_omop_concept` tool that maps free-text clinical terminology to OHDSI's OMOP Common Data Model concepts, the CDM widely used across the OHDSI network to harmonise multi-site EHR and clinical-research data for real-world-evidence studies. The approach is backed by a published paper (arXiv:2509.03828), confirmed from the repository's own README, not merely asserted.\n\nLicensing note: GitHub's own derived licence metadata reports `NOASSERTION` for this repository (its automatic detector did not recognise the licence text), which is exactly the kind of derived-metadata gap this registry's vetting checklist asks not to trust on its own. Fetched directly, the repository's root `LICENSE` file is the standard, unmodified Apache License 2.0 text, so `Apache-2.0` is recorded here on that direct confirmation, not on GitHub's badge.\n\nRecorded as a marginal fit, plainly: OMOP/OHDSI is not a GA4GH standard, the tool operates on public, standardised vocabularies rather than access-controlled patient data, and it performs terminology mapping, a real, narrowly-scoped, published clinical-NLP task, rather than exposing a genomics or health data source directly. Not published to a package registry (no PyPI package found for `omop_mcp`); installation is git-clone-and-run via `uv`.",
+  "homepage": "https://github.com/OHNLP/omop_mcp",
+  "repository": "https://github.com/OHNLP/omop_mcp",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "0.2.0",
+  "keywords": ["omop", "ohdsi", "clinical-terminology", "common-data-model", "concept-mapping", "mcp-server"],
+  "ga4gh_standards": ["other"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.ohnlp/omop_mcp",
+    "description": "MCP server mapping clinical terminology to OMOP Common Data Model concepts using LLMs",
+    "version": "0.2.0",
+    "repository": {
+      "url": "https://github.com/OHNLP/omop_mcp",
+      "source": "github"
+    },
+    "packages": [
+      {
+        "registryType": "github",
+        "registryBaseUrl": "https://github.com",
+        "identifier": "OHNLP/omop_mcp",
+        "version": "0.2.0",
+        "transport": { "type": "stdio" },
+        "runtimeHint": "uv"
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["other"]
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "clawbio",
+  "type": "plugin",
+  "name": "ClawBio",
+  "summary": "Claude Code plugin bundling 97 bioinformatics agent skills: clinical variant interpretation, pharmacogenomics, GWAS/PRS, ancestry, RNA-seq/single-cell, and nf-core pipeline wrappers",
+  "description": "ClawBio is a Claude Code plugin from Manuel Corpas packaging 97 Agent Skills for bioinformatics: ACMG-guided clinical variant classification, pharmacogenomics (ClinPGx), GWAS and polygenic risk scoring, ancestry analysis, RNA-seq/single-cell workflows, metagenomics, proteomics, methylation clocks, and nf-core Sarek variant-calling pipeline wrappers, most running deterministically from the CLI with demo data and a SHA-256 reproducibility bundle. Verified directly: the repository's `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` (fetched 2026-09-08) both name it `clawbio`, matching the documented install (`/plugin marketplace add ClawBio/ClawBio` then `/plugin install clawbio`), and its `skills/` directory lists 98 skill folders including `clinical-variant-prioritizer`, `cnv-acmg-classifier`, `clinpgx`, and `ancestry-risk-profiler` -- a concrete, nameable genomics-domain fit, not vague health branding. Terms check: a root `LICENSE` file (fetched directly) is the MIT License, matching the `license` field declared in both `plugin.json` and `marketplace.json`. No slug collision against any existing entry in this registry (checked across data/models, data/mcp-servers, data/skills, data/plugins, data/agents, data/bundles).",
+  "homepage": "https://clawbio.ai",
+  "repository": "https://github.com/ClawBio/ClawBio",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "0.7.0",
+  "keywords": [
+    "bioinformatics",
+    "genomics",
+    "pharmacogenomics",
+    "clinical-variant-interpretation",
+    "gwas",
+    "claude-code-plugin"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "clinical-genomics",
+  "plugin": {
+    "name": "clawbio",
+    "description": "Bioinformatics-native AI agent skill library: pharmacogenomics, clinical variant interpretation, GWAS and polygenic scores, ancestry, RNA-seq and single-cell, metagenomics, proteomics and nf-core pipeline wrappers. 97 Agent Skills, 50 with a deterministic CLI entry point and demo data, every runnable skill writing a SHA-256 reproducibility bundle. Local-first.",
+    "version": "0.7.0",
+    "author": {
+      "name": "Manuel Corpas",
+      "email": "mc@manuelcorpas.com"
+    },
+    "homepage": "https://clawbio.ai",
+    "repository": "https://github.com/ClawBio/ClawBio",
+    "license": "MIT",
+    "keywords": [
+      "bioinformatics",
+      "genomics",
+      "pharmacogenomics",
+      "scRNA-seq",
+      "metagenomics",
+      "ancestry",
+      "variant-annotation",
+      "agent-skills",
+      "reproducibility"
+    ],
+    "skills": "./skills/",
+    "commands": [
+      "./commands/"
+    ]
+  },
+  "ga4gh": {
+    "keywords": [
+      "bioinformatics",
+      "genomics",
+      "clinical-variant-interpretation",
+      "pharmacogenomics"
+    ],
+    "category": "clinical-genomics",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "/plugin marketplace add ClawBio/ClawBio\n/plugin install clawbio"
+      },
+      {
+        "harness": "codex",
+        "installCommand": "cp -r skills/<skill-name> ~/.agents/skills/   # or symlink; every ClawBio skill is a plain Agent Skills folder that Codex, Cursor, VS Code, and Zed all read from ~/.agents/skills/ (or a project's .agents/skills/)"
+      }
+    ]
+  }
+}

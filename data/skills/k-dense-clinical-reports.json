@@ -1,0 +1,60 @@
+{
+  "id": "k-dense-clinical-reports",
+  "type": "skill",
+  "name": "K-Dense Clinical Reports skill",
+  "summary": "Safety-bounded draft structures for clinical case, trial, and aggregate research reports, with a hard human-review gate and per-claim provenance.",
+  "description": "The `clinical-reports` skill from K-Dense-AI's Scientific Agent Skills library (repository renamed from `claude-scientific-skills` to `scientific-agent-skills`; both names in the candidate pool for this seeding pass point to the same, single repository, confirmed live via the GitHub API). It prepares draft reporting structures, aggregate tables, and review manifests for case reports (CARE), randomised-trial results (CONSORT) and protocols (SPIRIT), radiology, pathology (CAP), and laboratory reports, strictly from synthetic, de-identified, or aggregate source-fact manifests. Its own SKILL.md states a non-negotiable boundary: it must never diagnose, recommend treatment, interpret raw clinical observations, or sign/file/submit a record, and every generated artifact must carry a visible 'DRAFT -- NOT FOR CLINICAL USE, SIGNATURE, FILING, OR SUBMISSION... Qualified review and sign-off are required' marking -- a concrete, verified instance of the human-oversight and provenance framing Project #24's skill definition calls for, not a generic bioinformatics wrapper. Verified live via direct fetch of the skill's SKILL.md and its dedicated `tests/clinical-reports/` suite (part of the repository's CI-gated `skill-tests.yml` workflow). Terms check: the repository's root LICENSE.md is MIT (confirmed via the GitHub API's license-detection endpoint), and this specific skill's own frontmatter independently declares `license: MIT`, so the two agree; the repository's README does separately warn that other individual skills in the library may declare a different licence, which is why this entry checked this skill's own frontmatter rather than relying on the repository default. No slug collision with any existing entry in this registry. `host_runtimes` below is restricted to this registry's own closed harness vocabulary (`schemas/vocab/harnesses.json`); the upstream README additionally documents Cursor and Google Antigravity compatibility, which is real but has no matching vocabulary entry to record here.",
+  "homepage": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/clinical-reports",
+  "repository": "https://github.com/K-Dense-AI/scientific-agent-skills",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "2.1",
+  "keywords": ["clinical-reports", "human-oversight", "provenance", "case-reports", "trial-reporting", "k-dense"],
+  "category": "governance-support",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "skill": {
+    "name": "clinical-reports",
+    "description": "Create safety-bounded draft structures and run local deterministic checks for clinical case, diagnostic, trial, safety, and aggregate research reports. Use only with synthetic, de-identified, or aggregate inputs and verified source-fact manifests; every output requires qualified review.",
+    "license": "MIT",
+    "metadata": {
+      "homepage": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/skills/clinical-reports"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "subfolder": "skills/clinical-reports"
+    }
+  },
+  "inputs": [
+    {
+      "name": "source_fact_manifest",
+      "type": "object",
+      "description": "Verified, authorised source facts (synthetic, de-identified, or aggregate data only), each mapped to a claim the draft will populate."
+    },
+    {
+      "name": "artifact_type",
+      "type": "string",
+      "description": "The requested report type: case report, diagnostic/radiology/pathology/laboratory scaffold, randomised-trial results manuscript, protocol report, CSR draft, or aggregate safety/research summary."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "draft_report_structure",
+      "type": "object",
+      "description": "A visibly marked DRAFT report structure or template, routed to the correct reporting guideline (CARE, CONSORT, SPIRIT, CAP, etc.), with each populated field traceable to a source-fact ID."
+    }
+  ],
+  "human_oversight": "required",
+  "provenance_logging": true,
+  "evaluation_criteria_uri": "https://github.com/K-Dense-AI/scientific-agent-skills/tree/main/tests/clinical-reports",
+  "host_runtimes": ["claude-code", "codex"]
+}

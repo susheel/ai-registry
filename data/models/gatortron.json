@@ -1,0 +1,28 @@
+{
+  "id": "gatortron",
+  "type": "model",
+  "name": "GatorTron",
+  "summary": "Clinical-note language model family (345M-8.9B params) pretrained on de-identified University of Florida Health and MIMIC-III clinical text.",
+  "description": "GatorTron is a clinical-note-extraction-oriented language model family (base/medium/large, 345M-8.9B parameters), pretrained using a BERT architecture (via NVIDIA's Megatron package) on a dataset of 82B words of de-identified clinical notes from the University of Florida Health System, 6.1B words from PubMed CC0, 2.5B words from WikiText, and 0.5B words of de-identified clinical notes from MIMIC-III. It is a joint effort between the University of Florida and NVIDIA, validated in a clinical NLP human-evaluation study (UF News, 2023), and matches the PRD's own named example of a \"clinical-note extraction model\" directly.\n\n**Licence note**: `license: apache-2.0`, confirmed directly against the raw Hugging Face model card YAML frontmatter (not derived metadata), matching this registry's Geneformer entry's own verification method.\n\n**Registry note on `model_card_uri`**: this points to the model's standard Hugging Face model card, not a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification.",
+  "homepage": "https://huggingface.co/UFNLP/gatortron-base",
+  "repository": "https://github.com/uf-hobi-informatics-lab/GatorTron",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "gatortron-base (345M)",
+  "keywords": ["clinical-nlp", "clinical-notes", "ehr", "bert", "de-identified-text"],
+  "category": "clinical-nlp",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "University of Florida / NVIDIA",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/UFNLP/gatortron-base",
+  "model_card_uri": "https://huggingface.co/UFNLP/gatortron-base",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  }
+}
