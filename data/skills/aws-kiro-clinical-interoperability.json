@@ -1,0 +1,55 @@
+{
+  "id": "aws-kiro-clinical-interoperability",
+  "type": "skill",
+  "name": "AWS Kiro Clinical Interoperability skill",
+  "summary": "Marginal fit: a Kiro steering-file guide (not an executable tool) to FHIR, HL7 v2, and OMOP CDM, including mapping genomic variants into FHIR Observation/DiagnosticReport resources.",
+  "description": "The `clinical-interoperability` skill from AWS's Kiro for Life Sciences bundle. Its content is real and concretely on-standard: FHIR resource types (Patient, Observation, Condition, DiagnosticReport, MolecularSequence) including a documented pattern for mapping VCF fields into FHIR `Observation.component` elements per the FHIR Genomics Implementation Guide, HL7 v2 ORU/ADT/ORM message structure with a worked example encoding a BRCA1 pathogenic-variant result, and OMOP CDM guidance -- verified by direct fetch of the skill file itself. This entry is marked marginal, not clean, for a specific, disclosed reason: unlike the other skill entries seeded in this pass (which wrap an executable tool, API, or script with a defined input/output contract), this is a Kiro steering document (`inclusion: manual` frontmatter) -- reference guidance injected into an agent's context, with no script, API call, or defined return schema of its own. The `inputs`/`outputs` recorded below are this registry's own reasonable characterisation of a guidance-lookup skill, not a contract declared by the source. Terms check: the repository's root LICENSE.txt is MIT-0 (MIT No Attribution), confirmed by direct fetch; MIT-0 is not on this registry's SPDX allow-list (`schemas/vocab/licenses.json`), so this entry records `license: \"other\"` with `license_url` pointing at that LICENSE.txt rather than an approximate SPDX match, per this registry's own convention for a real but un-listed licence. The candidate research note that led to this check described '10 named domain skills plus 16 steering workflows' including a 'gene-disease-associations' workflow chaining ClinVar to OMIM to HPO; direct inspection confirmed both the count and this specific skill/steering-file split (`kiro-life-sciences/skills/` holds 10 domain-guidance files including this one, `kiro-life-sciences/steering/` holds 16 workflow files including `gene-disease-associations.md` and `fhir-clinical-integration.md`), and separately confirmed the repository also ships genuine MCP servers (e.g. `life-sciences-genomics`, wrapping NCBI/Ensembl/ClinVar/GEO/SRA) as a distinct component from these skill/steering files. No slug collision with any existing entry in this registry.",
+  "homepage": "https://github.com/aws-samples/sample-kiro-power-life-sciences/tree/main/kiro-life-sciences",
+  "repository": "https://github.com/aws-samples/sample-kiro-power-life-sciences",
+  "license": "other",
+  "license_url": "https://github.com/aws-samples/sample-kiro-power-life-sciences/blob/main/LICENSE.txt",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "0.1.0",
+  "keywords": ["fhir", "hl7v2", "omop-cdm", "clinical-interoperability", "aws-kiro", "genomics-in-fhir"],
+  "category": "data-curation",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "skill": {
+    "name": "clinical-interoperability",
+    "description": "Practical guidance for working with healthcare data standards: FHIR, HL7 v2, OMOP CDM, and clinical terminologies, including mapping genomic variants into FHIR Observation/DiagnosticReport resources.",
+    "license": "other",
+    "metadata": {
+      "homepage": "https://github.com/aws-samples/sample-kiro-power-life-sciences"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/aws-samples/sample-kiro-power-life-sciences.git",
+      "subfolder": "kiro-life-sciences/skills/clinical-interoperability.md"
+    }
+  },
+  "inputs": [
+    {
+      "name": "data_exchange_scenario",
+      "type": "string",
+      "description": "A description of the clinical or genomic data-exchange task, e.g. mapping a VCF variant into a FHIR Observation, parsing an HL7 v2 ORU message, or querying an OMOP CDM table. Not a declared API contract -- inferred by this registry from the guidance the skill provides."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "interoperability_guidance",
+      "type": "string",
+      "description": "Implementation guidance, resource/message/table mappings, and example payloads for the requested clinical-data-exchange standard. Not a declared return schema -- inferred by this registry from the guidance the skill provides."
+    }
+  ],
+  "human_oversight": "recommended",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://github.com/aws-samples/sample-kiro-power-life-sciences/tree/main/kiro-life-sciences/tests"
+}

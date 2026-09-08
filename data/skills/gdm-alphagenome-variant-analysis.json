@@ -1,0 +1,59 @@
+{
+  "id": "gdm-alphagenome-variant-analysis",
+  "type": "skill",
+  "name": "GDM AlphaGenome Variant Analysis skill",
+  "summary": "Predicts a non-coding genomic variant's effect on gene expression, chromatin accessibility, histone marks, and transcription-factor binding via Google DeepMind's hosted AlphaGenome API.",
+  "description": "The `alphagenome-single-variant-analysis` skill from Google DeepMind's Science Skills collection. Given a variant in chr:pos:ref>alt form (or a gene/region query), it calls the AlphaGenome API to predict effects on RNA-seq expression, DNase chromatin accessibility, ChIP histone marks, and transcription-factor binding, and its own SKILL.md description names the workflow's actual purpose -- 'non-coding variant effects, pathogenicity, clinical significance, disease associations' -- alongside sibling skills in the same repository for `clinvar_database`, `gnomad_database`, and `dbsnp_database` lookups, confirmed live via direct fetch of the skills directory listing. Verified live via direct fetch of the skill's SKILL.md and its `internal project documentation` (a biological-interpretation and pre-report reasoning checklist), plus the repository's published technical report on the Science Skills collection. Terms check: the repository's root LICENSE is Apache-2.0 (confirmed by direct fetch and by `plugin.json`'s `license` field), and the repository's own `SKILL_LICENSES.md` separately documents that individual skills reference third-party data sources (AlphaGenome, ClinVar, gnomAD, etc.) carrying their own terms of use -- a data-usage-terms disclosure, not a code-licence divergence, so Apache-2.0 is recorded as this entry's `license` without qualification. The collection is built and documented primarily for Google's Antigravity harness (distributed via the open Agent Skills standard's `npx skills add`); Antigravity has no matching entry in this registry's closed harness vocabulary (`schemas/vocab/harnesses.json`), so `host_runtimes` is omitted below rather than mapped to an unverified value. No slug collision with any existing entry in this registry.",
+  "homepage": "https://github.com/google-deepmind/science-skills/tree/main/skills/alphagenome_single_variant_analysis",
+  "repository": "https://github.com/google-deepmind/science-skills",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "1.2.0",
+  "keywords": ["alphagenome", "variant-effect-prediction", "regulatory-genomics", "google-deepmind", "clinvar", "gnomad"],
+  "category": "variant-interpretation",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "skill": {
+    "name": "alphagenome-single-variant-analysis",
+    "description": "Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), histone marks (ChIP), and transcription factors using the AlphaGenome API. Use when the user asks about non-coding variant effects, pathogenicity, clinical significance, disease associations, functional effects, gene expression changes, splicing disruption, or regulatory effects in promoters and enhancers.",
+    "license": "Apache-2.0",
+    "metadata": {
+      "homepage": "https://deepmind.google.com/science/alphagenome/"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/google-deepmind/science-skills.git",
+      "subfolder": "skills/alphagenome_single_variant_analysis"
+    }
+  },
+  "inputs": [
+    {
+      "name": "variant",
+      "type": "string",
+      "description": "A genomic variant in chr:pos:ref>alt format, or a gene symbol/genomic region for de-novo annotation."
+    },
+    {
+      "name": "tissue_or_cell_type",
+      "type": "string",
+      "description": "Optional UBERON/CL ontology term scoping the prediction to a tissue or cell-type context."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "variant_effect_predictions",
+      "type": "object",
+      "description": "Predicted effects on gene expression (log TPM), chromatin accessibility, histone marks, splicing, and transcription-factor binding, returned by the hosted AlphaGenome model."
+    }
+  ],
+  "human_oversight": "required",
+  "provenance_logging": false,
+  "evaluation_criteria_uri": "https://storage.googleapis.com/deepmind-media/papers/google_deepmind_science_skills_for_antigravity_towards_efficient_and_reliable_scientific_workflows.pdf"
+}

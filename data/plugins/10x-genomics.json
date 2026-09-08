@@ -1,0 +1,58 @@
+{
+  "id": "10x-genomics",
+  "type": "plugin",
+  "name": "10x Genomics Cloud MCP Plugin",
+  "summary": "Marginal fit: individually installable Claude Code plugin (from Anthropic's life-sciences marketplace) wiring the 10x Genomics Cloud MCP server for single-cell and spatial genomics analysis workflows",
+  "description": "A single plugin within Anthropic's `anthropics/life-sciences` Claude Code marketplace (already catalogued separately in this registry as `data/bundles/anthropic-life-sciences.json`), independently installable via `/plugin marketplace add anthropics/life-sciences` then `/plugin install 10x-genomics@life-sciences`. Wires the 10x Genomics Cloud MCP server, giving Claude Code access to single-cell and spatial genomics analysis data and workflows -- confirmed directly by fetching the plugin's own manifest, `10x-genomics/.claude-plugin/plugin.json` in the life-sciences repository (embedded verbatim below), which points `mcpServers` at 10x Genomics' own `txg-mcp` release bundle. Anthropic also publishes a dedicated walkthrough, 'Using the 10x Genomics Extension in Claude' (Claude Academy: https://academy.claude.com/tutorials/using-the-10x-genomics-extension-in-claude), corroborating that this is a real, documented, individually-nameable capability rather than an assumption drawn from the marketplace listing alone. Marginal fit, flagged on two counts: administratively, this is a separate plugin-type record for one plugin already reachable through this registry's existing bundle entry for the same marketplace, not a new discovery of the marketplace itself; and its licence is genuinely unclear -- the parent repository carries no root `LICENSE` file (confirmed by direct fetch: 404) and its own README states each individual MCP server/plugin is licensed separately by its own provider (10x Genomics, Inc., in this case), with no per-plugin licence file findable, so `license` is recorded as `other` with `license_url` pointing to that provision, following the same precedent this registry's `anthropic-life-sciences` bundle entry already set for the identical situation. No slug collision against any existing entry in this registry.",
+  "homepage": "https://github.com/anthropics/life-sciences/tree/main/10x-genomics",
+  "repository": "https://github.com/anthropics/life-sciences",
+  "license": "other",
+  "license_url": "https://github.com/anthropics/life-sciences#license",
+  "maintainers": [
+    {
+      "name": "Susheel Varma",
+      "github": "susheel",
+      "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
+    }
+  ],
+  "version": "1.0.0",
+  "keywords": [
+    "genomics",
+    "single-cell",
+    "spatial-genomics",
+    "10x-genomics",
+    "claude-code-plugin"
+  ],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "genomics-data-access",
+  "plugin": {
+    "name": "10x-genomics",
+    "version": "1.0.0",
+    "description": "10x Genomics Cloud MCP server for accessing analysis data and workflows",
+    "author": {
+      "name": "10x Genomics, Inc.",
+      "url": "https://www.10xgenomics.com"
+    },
+    "mcpServers": "https://github.com/10XGenomics/txg-mcp/releases/latest/download/txg-node.mcpb"
+  },
+  "ga4gh": {
+    "keywords": [
+      "genomics",
+      "single-cell",
+      "spatial-genomics"
+    ],
+    "category": "genomics-data-access",
+    "harnesses": [
+      {
+        "harness": "claude-code",
+        "installCommand": "/plugin marketplace add anthropics/life-sciences\n/plugin install 10x-genomics@life-sciences"
+      }
+    ]
+  }
+}

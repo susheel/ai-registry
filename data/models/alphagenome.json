@@ -1,0 +1,30 @@
+{
+  "id": "alphagenome",
+  "type": "model",
+  "name": "AlphaGenome",
+  "summary": "DNA sequence model from Google DeepMind predicting regulatory and non-coding variant effects on gene expression, splicing, and chromatin state.",
+  "description": "AlphaGenome is a DNA sequence foundation model from Google DeepMind that predicts the effects of genetic variants on gene expression, splicing, chromatin accessibility, transcription-factor binding, and 3D contact maps, from sequence context up to 1 Mb, at near single-base-pair resolution. It is peer-reviewed in Nature (\"Advancing regulatory variant effect prediction with AlphaGenome\", 2025/2026, PMC12851941), and DeepMind has published the AlphaGenome Atlas, precomputing regulatory-impact predictions for essentially all ~9 billion possible single-nucleotide variants in the human genome -- a direct regulatory/non-coding variant-effect-prediction use case. A companion repository (`google-deepmind/alphagenome_research`) publishes the research code, scoring implementations, and evaluation datasets behind the Nature paper; this entry catalogues the actively maintained API client repository as the primary access point.\n\n**Licence note, confirmed directly against the repository, not derived metadata**: the client code in this repository is Apache-2.0 (confirmed against the repository's own \"License and Disclaimer\" section and raw `LICENSE` file). Documentation and examples are CC-BY-4.0. However, the model weights and the API's own outputs (including the AlphaGenome Atlas) are governed by a separate, non-commercial AlphaGenome Terms of Use/model terms: outputs are restricted to non-commercial use, may not be used to train other ML models, and are explicitly not for clinical decision-making. Because that restriction governs the actual model and its predictions -- the genomic-AI artefact this registry catalogues -- rather than merely the client library, `license` here is recorded as `other` with `license_url` pointing to those terms, per this registry's own precedent for a model whose weights/outputs carry a real usage restriction beyond its client code's licence (`data/models/nucleotide-transformer.json`).\n\n**Registry note on `model_card_uri`**: this points to the Hugging Face mirror of one released checkpoint (`google/alphagenome-all-folds`), which carries a standard Hugging Face model card, rather than a GA4GH Genomic AI Model Card v0.6.0-formatted document (no model has yet published one, since it is a newly drafted specification). The primary source and API client remain `github.com/google-deepmind/alphagenome`.",
+  "homepage": "https://www.alphagenomedocs.com",
+  "repository": "https://github.com/google-deepmind/alphagenome",
+  "license": "other",
+  "license_url": "https://deepmind.google.com/science/alphagenome/model-terms",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "AlphaGenome (2025/2026 Nature release)",
+  "keywords": ["dna", "regulatory-variant", "variant-effect", "gene-expression", "splicing", "chromatin-accessibility", "genomics"],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Google DeepMind",
+  "hosting_location": "github",
+  "access_uri": "https://github.com/google-deepmind/alphagenome",
+  "install_command": "pip install ./alphagenome  # after: git clone https://github.com/google-deepmind/alphagenome.git",
+  "model_card_uri": "https://huggingface.co/google/alphagenome-all-folds",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  }
+}

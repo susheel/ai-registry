@@ -1,0 +1,28 @@
+{
+  "id": "esm-variants",
+  "type": "model",
+  "name": "ESM-variants (ESM-1v zero-shot variant scoring)",
+  "summary": "Applies Meta FAIR's ESM-1v protein language model to zero-shot missense variant effect scoring, deployed as a public tool.",
+  "description": "esm-variants applies Meta FAIR's ESM-1v protein language model (Meier et al., \"Language models enable zero-shot prediction of the effects of mutations on protein function\", 2021) to zero-shot missense variant-effect scoring on human protein-coding variants, developed by the Ntranos lab. It is deployed as a public tool (huggingface.co/spaces/ntranoslab/esm_variants) and is distinct from the base ESM-2 model already catalogued in this registry (`data/models/esm2.json`): esm-variants is a purpose-built variant-scoring application layer over the earlier ESM-1v checkpoints, not a standalone foundation model.\n\n**Marginal call, stated plainly**: this entry is a real, fetchable, distinct variant-effect-prediction tool, but it is a thin wrapper/application over an existing base model (ESM-1v) rather than a standalone genomic or protein foundation model in its own right, so it is catalogued here as a marginal fit rather than a clean one.\n\n**Licence note**: this repository carries its own `LICENSE` file, confirmed directly (MIT, copyright Nadav Brandes and Vasilis Ntranos, 2023) -- resolving the licence uncertainty an earlier research pass flagged, rather than relying on the underlying `facebookresearch/esm` repository's separate MIT licence.\n\n**Registry note on `model_card_uri`**: the esm-variants tool itself publishes no separate model card. This points instead to the Hugging Face model card of the underlying ESM-1v checkpoint (`facebook/esm1v_t33_650M_UR90S_1`) it applies for zero-shot scoring, not a GA4GH Genomic AI Model Card v0.6.0-formatted document (no model has yet published one, since it is a newly drafted specification). The primary source repository for the scoring tool itself remains `github.com/ntranoslab/esm-variants`.",
+  "homepage": "https://huggingface.co/spaces/ntranoslab/esm_variants",
+  "repository": "https://github.com/ntranoslab/esm-variants",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "ESM-1v zero-shot scoring (Meier et al. 2021)",
+  "keywords": ["missense-variant", "variant-effect", "protein-language-model", "esm-1v", "zero-shot"],
+  "category": "variant-effect-prediction",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Ntranos lab",
+  "hosting_location": "github",
+  "access_uri": "https://huggingface.co/spaces/ntranoslab/esm_variants",
+  "model_card_uri": "https://huggingface.co/facebook/esm1v_t33_650M_UR90S_1",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  }
+}
