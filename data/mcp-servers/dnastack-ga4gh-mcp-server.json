@@ -1,0 +1,46 @@
+{
+  "id": "dnastack-ga4gh-mcp-server",
+  "type": "mcp-server",
+  "name": "GA4GH MCP Server (DNAstack)",
+  "summary": "Exposes 57 tools across the GA4GH Registry, WES, TES, TRS, Beacon v2, DRS, htsget, refget, and Data Connect as one MCP server.",
+  "description": "A single MCP server, published under the DNAstack GitHub organisation, that exposes the breadth of the GA4GH standards ecosystem to AI clients such as Claude Desktop and Claude Code: 57 tools spanning Registry discovery (12), WES (6), TES (5), TRS (8), Beacon v2 (7), DRS (3), htsget (4), refget (3), Data Connect (5), and combined Service Info/Registry (4), confirmed directly from the project's own README rather than assumed from its name. This is the strongest possible fit for this registry's mcp-server admission bar: it implements, not merely references, eight-plus named GA4GH API specifications as MCP tool groups.\n\nThe repository (created 2026-04-17, last pushed 2026-08-05, public, non-fork) is not an impersonation or a coincidental name match: Marc Fiume, co-chair of this very GA4GH AI Workstream, is a confirmed contributor (`mfiume`, 22 contributions) on the repository itself. A hosted instance is live at a Cloud Run endpoint, gated by a per-user API key passed as `Authorization: Bearer`, with self-hosting documented for Docker and Google Cloud Run.\n\nLicensing note: the repository carries no root LICENSE file, so GitHub's own repository metadata reports no licence. Checked directly against the project's own packaging manifest (`pyproject.toml`) rather than relying on that absence, the `[project]` table declares `license = \"Apache-2.0\"` explicitly, the project's own authoritative self-declaration, the same convention this registry already accepts elsewhere (a plugin manifest's own `license` field) when no separate LICENSE file exists. Recorded here as `Apache-2.0` on that basis, not invented.\n\nNot a marginal call: this entry implements named GA4GH standards directly, the strongest of the two relevance tests this registry's PRD defines for the mcp-servers type.",
+  "homepage": "https://github.com/DNAstack/ga4gh-mcp-server",
+  "repository": "https://github.com/DNAstack/ga4gh-mcp-server",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "0.1.0",
+  "keywords": ["ga4gh", "trs", "drs", "beacon", "htsget", "refget", "data-connect", "wes", "tes", "mcp-server"],
+  "ga4gh_standards": ["trs", "drs", "beacon", "htsget", "refget", "data-connect", "wes", "tes", "service-info", "service-registry"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
+    "name": "io.github.dnastack/ga4gh-mcp-server",
+    "description": "MCP server exposing the GA4GH ecosystem to AI clients",
+    "version": "0.1.0",
+    "websiteUrl": "https://github.com/DNAstack/ga4gh-mcp-server",
+    "repository": {
+      "url": "https://github.com/DNAstack/ga4gh-mcp-server.git",
+      "source": "github"
+    },
+    "remotes": [
+      {
+        "type": "streamable-http",
+        "url": "https://ga4gh-mcp-662019113068.us-central1.run.app/mcp/"
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["trs", "drs", "beacon", "htsget", "refget", "data-connect", "wes", "tes", "service-info", "service-registry"]
+      }
+    }
+  }
+}

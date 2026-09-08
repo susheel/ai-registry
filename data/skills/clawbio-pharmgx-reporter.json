@@ -1,0 +1,60 @@
+{
+  "id": "clawbio-pharmgx-reporter",
+  "type": "skill",
+  "name": "ClawBio PharmGx Reporter skill",
+  "summary": "Generates a CPIC-guideline pharmacogenomic report (12 genes, 31 SNPs, 51 drugs) from a 23andMe or AncestryDNA raw genotype export.",
+  "description": "The `pharmgx-reporter` skill from ClawBio, a bioinformatics-native AI agent skill library. Parses a 23andMe or AncestryDNA raw genotype file (either GRCh37 or GRCh38, detected automatically), calls star-allele diplotypes for 12 pharmacogenes, maps each to a metaboliser phenotype (poor/intermediate/normal/rapid/ultra-rapid), and returns CPIC-guideline drug recommendations across 51 medications -- a real, named, clinically used pharmacogenomics standard, not generic genotyping. Its own SKILL.md states every recommendation 'traces to a published star-allele -> phenotype -> drug mapping', which this entry records as the skill's provenance-logging behaviour. Verified live via direct fetch of the skill's SKILL.md, its `evals/` directory, and the repository's own `skills/catalog.json`, which records this skill at `maturity_tier: ci-validated` (`ci_tested: true`, `has_tests: true`, `has_demo: true`) -- ClawBio's escalating maturity-tier system functioning as the closest analogue to a certification ladder found in this seeding pass. A sibling skill in the same repository, `clinical-variant-reporter` (ACMG classification from VCF/BCF), was considered but not seeded here: the same `catalog.json` records its status as `planned` and `maturity_tier: cli-registered` with `benchmark_validated: false`, i.e. not yet validated against the Genome in a Bottle truth sets an earlier research pass attributed to it, so this entry deliberately picks the more mature sibling instead of describing an aspirational capability as current state. Terms check: the repository's root LICENSE is MIT (confirmed by direct fetch), and this specific skill's own `SKILL.md` frontmatter and `catalog.json` entry both independently declare `license: MIT` with empty `model_license`/`data_license` fields, i.e. no divergent third-party licence applies to this particular skill (the repository does warn that other skills wrapping third-party models or data may declare stricter terms). No slug collision with any existing entry in this registry.",
+  "homepage": "https://github.com/ClawBio/ClawBio/tree/main/skills/pharmgx-reporter",
+  "repository": "https://github.com/ClawBio/ClawBio",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "0.1.0",
+  "keywords": ["pharmacogenomics", "cpic", "clawbio", "23andme", "drug-gene-interaction"],
+  "category": "variant-interpretation",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "skill": {
+    "name": "pharmgx-reporter",
+    "description": "Pharmacogenomic report from DTC genetic data (23andMe/AncestryDNA) -- 12 genes, 31 SNPs, 51 drugs",
+    "license": "MIT",
+    "metadata": {
+      "homepage": "https://github.com/ClawBio/ClawBio"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/ClawBio/ClawBio.git",
+      "subfolder": "skills/pharmgx-reporter"
+    }
+  },
+  "inputs": [
+    {
+      "name": "genotype_file",
+      "type": "file",
+      "description": "A 23andMe or AncestryDNA raw genotype export (.txt or .txt.gz), GRCh37 or GRCh38."
+    },
+    {
+      "name": "drug",
+      "type": "string",
+      "description": "Optional single-drug mode: restrict the report to one medication."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "pharmacogenomic_report",
+      "type": "object",
+      "description": "Per-gene star-allele/diplotype calls, metaboliser phenotype, and CPIC-guideline drug recommendations across up to 51 medications and 12 genes, each traced to a published star-allele-to-drug mapping."
+    }
+  ],
+  "human_oversight": "required",
+  "provenance_logging": true,
+  "evaluation_criteria_uri": "https://github.com/ClawBio/ClawBio/tree/main/skills/pharmgx-reporter/evals",
+  "host_runtimes": ["claude-code"]
+}

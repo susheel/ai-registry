@@ -1,0 +1,29 @@
+{
+  "id": "medgemma",
+  "type": "model",
+  "name": "MedGemma",
+  "summary": "Google's open-weight Gemma 3-based model family for medical text and multimodal clinical reasoning (dermatology, pathology, radiology, clinical text).",
+  "description": "MedGemma is Google's open-weight Gemma 3-based model collection for medical text and multimodal medical image comprehension, covering dermatology, pathology, ophthalmology, chest X-ray, and clinical text, released as 4B multimodal and 27B text/multimodal variants. It is trained and evaluated on datasets including MIMIC-CXR, TCGA (cancer genomics data), CAMELYON histopathology, PAD-UFES-20, and SLAKE, and is documented with an unusually formal, separately maintained structured model-card document (developers.google.com/health-ai-developer-foundations/medgemma/model-card) covering intended use, training data, and evaluation, positioning it for clinical-note extraction and clinical-image interpretation workflows that match the PRD's own named example.\n\n**Marginal call, stated plainly**: MedGemma is a general clinical/health model (dermatology, radiology, pathology, clinical text), not a genomics-native model, even though its training data includes TCGA cancer genomics data as one dataset among many. It implements no GA4GH standard or extension. It is catalogued here as a marginal fit on the genomics-specificity axis, not a clean one, consistent with how this registry has already flagged other general clinical/health models.\n\n**Licence note, confirmed directly from Google's own model-card documentation** (not derived Hugging Face metadata alone): \"The use of MedGemma is governed by the Health AI Developer Foundations terms of use\" -- a custom, gated licence (Hugging Face access requires accepting these terms), not a standard open-source SPDX licence, hence `license: other` with `license_url` pointing to the terms document itself.\n\n**Registry note on `model_card_uri`**: this points to Google's own separately published, structured MedGemma model-card document rather than the gated Hugging Face repository page, since the former is the more authoritative and more fully documented source.",
+  "homepage": "https://developers.google.com/health-ai-developer-foundations/medgemma",
+  "repository": "https://github.com/google-health/medgemma",
+  "license": "other",
+  "license_url": "https://developers.google.com/health-ai-developer-foundations/terms",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "MedGemma 1.5 (4B multimodal instruction-tuned)",
+  "keywords": ["clinical-text", "multimodal", "medical-imaging", "gemma", "health-ai"],
+  "category": "multimodal",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Google",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/google/medgemma-4b-it",
+  "model_card_uri": "https://developers.google.com/health-ai-developer-foundations/medgemma/model-card",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "scgpt",
+  "type": "model",
+  "name": "scGPT",
+  "summary": "Generative single-cell multi-omics foundation model pretrained on over 33 million cells, from the Wang lab (University Health Network / University of Toronto).",
+  "description": "scGPT is a generative foundation model for single-cell multi-omics, pretrained on a corpus of over 33 million human cells, developed by the Wang lab (University Health Network and University of Toronto). It is peer-reviewed in Nature Methods (Cui, Wang, Maan et al., \"scGPT: toward building a foundation model for single-cell multi-omics using generative AI\", Nature Methods, 2024, doi:10.1038/s41592-024-02201-0; the repository's own citation still points to the earlier 2023 bioRxiv preprint, which this description notes rather than overriding). scGPT ships a model zoo of pretrained checkpoints (whole-human, brain, blood, heart, lung, kidney, pan-cancer) and is used for cell-type annotation, perturbation prediction, and multi-omic integration, standard single-cell genomics research workflows also listed on the Chan Zuckerberg Initiative's Virtual Cells Platform. It is a general single-cell representation model rather than a variant-effect predictor, similar in kind to this registry's existing Geneformer entry.\n\n**Licence note**: MIT, confirmed directly against the repository's own raw `LICENSE` file (not GitHub's derived badge alone).\n\n**Registry note on `model_card_uri`**: this points to a Hugging Face mirror of the pretrained checkpoint (`tdc/scGPT`), which carries a standard Hugging Face model card, rather than a GA4GH Genomic AI Model Card v0.6.0-formatted document. No model has yet published a card in the GA4GH v0.6.0 format, since it is a newly drafted specification. The primary source repository remains `github.com/bowang-lab/scGPT`.",
+  "homepage": "https://github.com/bowang-lab/scGPT",
+  "repository": "https://github.com/bowang-lab/scGPT",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "whole-human (recommended checkpoint)",
+  "keywords": ["single-cell", "multi-omics", "transcriptomics", "genomics", "foundation-model", "cell-type-annotation"],
+  "category": "genomic-foundation-model",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Wang lab, University Health Network / University of Toronto",
+  "hosting_location": "github",
+  "access_uri": "https://github.com/bowang-lab/scGPT",
+  "model_card_uri": "https://huggingface.co/tdc/scGPT",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  }
+}

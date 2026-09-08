@@ -1,0 +1,45 @@
+{
+  "id": "synapse-mcp",
+  "type": "mcp-server",
+  "name": "Synapse MCP Server",
+  "summary": "Official Sage Bionetworks MCP server exposing Synapse.org datasets, provenance/lineage, and ACL auditing for cancer, neurodegenerative, and rare-disease data.",
+  "description": "The official MCP server for Synapse.org, maintained under the Sage-Bionetworks GitHub organisation, this Workstream's own co-chairing institution, and confirmed real and actively developed (deployed to production AWS ECS via a companion infrastructure repository, MIT licence confirmed by direct fetch of the repository's own root `LICENSE` file, copyright Sage Bionetworks 2025). It exposes Synapse entities, Datasets, Projects, Folders, Files, and Tables, as MCP tools, and its own description names genomics, imaging, and clinical data on cancer, neurodegenerative disease, and rare disease as the content it makes searchable.\n\nWhat distinguishes this from a bare data-browsing wrapper: the server's own tool set, confirmed directly from its README, includes real access-governance tooling over that data, not just reads, `get_entity_provenance` (data lineage, inputs, outputs, the activity that generated an entity), `list_entity_acl`/`get_entity_acl`/`update_entity_acl`/`delete_entity_acl` (auditing and managing sharing settings, recursively across a project subtree), and `get_entity_permissions` (what the authenticated caller may do). Authentication is real: OAuth2 login by default, or a Synapse Personal Access Token for headless use, with read and write tools dispatched through separate proxies so a client can be configured read-only.\n\nRecorded as a marginal fit, honestly: Synapse does not implement a named GA4GH standard, and its access control (OAuth2/PAT/ACL) is Synapse's own platform security, not GA4GH Passport or DUO-style controls. It is nonetheless the strongest instance in this candidate pool of this registry's alternate relevance test, exposing genomic and health data under real, auditable access controls, at a genuine, Workstream-affiliated biomedical data platform, which is why it is included despite that gap.",
+  "homepage": "https://www.synapse.org/",
+  "repository": "https://github.com/Sage-Bionetworks/synapse-mcp",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "1.0.0",
+  "keywords": ["synapse", "provenance", "acl", "access-control", "cancer", "rare-disease", "mcp-server"],
+  "ga4gh_standards": ["other"],
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "category": "other",
+  "server": {
+    "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+    "name": "org.synapse.mcp/mcp",
+    "description": "MCP server enabling AI agent access to Synapse entities: Datasets, Projects, Files, Tables.",
+    "repository": {
+      "url": "https://github.com/Sage-Bionetworks/synapse-mcp",
+      "source": "github"
+    },
+    "version": "1.0.0",
+    "remotes": [
+      {
+        "type": "streamable-http",
+        "url": "https://mcp.synapse.org/mcp"
+      }
+    ],
+    "_meta": {
+      "org.ga4gh/ai-registry": {
+        "ga4gh_standards": ["other"]
+      }
+    }
+  }
+}

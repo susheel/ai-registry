@@ -1,0 +1,60 @@
+{
+  "id": "bioskills-acmg-classification",
+  "type": "skill",
+  "name": "bioSkills ACMG Classification skill",
+  "summary": "Applies the ACMG/AMP 2015 framework with ClinGen SVI specifications and the Tavtigian Bayesian point system to classify germline variants P/LP/VUS/LB/B, with a full evidence trail.",
+  "description": "The `bio-clinical-databases-acmg-classification` skill from GPTomics' bioSkills library, one of several `clinical-databases` skills alongside `clinvar-lookup`, `gnomad-frequencies`, and `pharmacogenomics`. Its own SKILL.md cites and applies named, real clinical-genomics evidentiary standards, not generic bioinformatics: the ACMG/AMP 2015 28-criterion framework, ClinGen Sequence Variant Interpretation (SVI) specifications, the Tavtigian 2018/2020 Bayesian point system, the Abou Tayoun 2018 PVS1 decision tree, Pejaver 2022 and Bergquist 2025 calibrated PP3/BP4 thresholds, the Walker 2023 SpliceAI splicing framework, and AMP/ASCO/CAP 2017 tumour tiers -- verified by direct fetch of the skill file itself, which also names ClinGen's Variant Curation Interface (VCI) as 'the gold standard for expert curation', i.e. automated output is explicitly framed as approximating, not replacing, human expert review. Terms check: the repository's root LICENSE is MIT (confirmed by direct fetch), this skill's own frontmatter declares no separate licence so it inherits the repository default, and a repository-level evaluation report (`resources/bioskills_eval_20260328.pdf`) benchmarks the whole library against the maintainer's own Bio-Task Bench dataset. Maintenance-status disclosure: the GitHub API reports this repository as archived ('This repo is archived... we'll no longer be making updates or code fixes') as of this seeding pass -- the content itself remains real, live-fetchable, and this specific, citation-dense, so the fit is not judged marginal on relevance grounds, but a future maintainer should expect no further upstream fixes. No slug collision with any existing entry in this registry. `host_runtimes` below is restricted to this registry's own closed harness vocabulary (`schemas/vocab/harnesses.json`); the repository's own install scripts additionally support Google Antigravity and OpenClaw, which is real but has no matching vocabulary entry to record here.",
+  "homepage": "https://github.com/GPTomics/bioSkills/tree/main/clinical-databases/acmg-classification",
+  "repository": "https://github.com/GPTomics/bioSkills",
+  "license": "MIT",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "3.0",
+  "keywords": ["acmg", "clingen-svi", "variant-classification", "clinical-genomics", "pathogenicity", "bioskills"],
+  "category": "variant-interpretation",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  },
+  "skill": {
+    "name": "bio-clinical-databases-acmg-classification",
+    "description": "Applies ACMG/AMP 2015 framework with ClinGen SVI specifications, Tavtigian 2018/2020 Bayesian point system, Abou Tayoun 2018 PVS1 decision tree, Pejaver 2022 and Bergquist 2025 calibrated PP3/BP4 thresholds for REVEL/BayesDel/AlphaMissense, Brnich 2020 PS3/BS3 OddsPath, Walker 2023 SpliceAI splicing framework, and AMP/ASCO/CAP 2017 tumor tiers. Use when classifying germline variants P / LP / VUS / LB / B, applying VCEP-specific CSpec rules, computing Whiffin BS1, or assigning cancer Tier I-IV per Li 2017.",
+    "license": "MIT",
+    "metadata": {
+      "homepage": "https://github.com/GPTomics/bioSkills/tree/main/clinical-databases/acmg-classification"
+    }
+  },
+  "source": {
+    "repository": {
+      "url": "https://github.com/GPTomics/bioSkills.git",
+      "subfolder": "clinical-databases/acmg-classification"
+    }
+  },
+  "inputs": [
+    {
+      "name": "variant",
+      "type": "string",
+      "description": "Variant identifier (HGVS, VCF record, or genomic coordinate) plus the gene and, where relevant, VCEP-specific context."
+    },
+    {
+      "name": "evidence_codes",
+      "type": "array",
+      "description": "Population frequency, computational (REVEL/BayesDel/AlphaMissense/SpliceAI), functional-assay, and segregation evidence to weigh under the Tavtigian point system."
+    }
+  ],
+  "outputs": [
+    {
+      "name": "classification",
+      "type": "object",
+      "description": "The five-tier ACMG/AMP classification (Pathogenic / Likely Pathogenic / VUS / Likely Benign / Benign) with the per-criterion Tavtigian point-system evidence trail and any applicable VCEP CSpec override."
+    }
+  ],
+  "human_oversight": "required",
+  "provenance_logging": true,
+  "evaluation_criteria_uri": "https://github.com/GPTomics/bioSkills/blob/main/resources/bioskills_eval_20260328.pdf",
+  "host_runtimes": ["claude-code", "codex", "opencode"]
+}

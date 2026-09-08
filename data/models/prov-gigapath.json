@@ -1,0 +1,28 @@
+{
+  "id": "prov-gigapath",
+  "type": "model",
+  "name": "Prov-GigaPath",
+  "summary": "Whole-slide digital pathology foundation model from Microsoft Research, trained on over one billion tiles from 170,000+ real-world cancer slides.",
+  "description": "Prov-GigaPath is a whole-slide digital pathology foundation model from Microsoft Research, developed jointly with Providence Health System and the University of Washington's Paul G. Allen School, trained on over one billion pathology image tiles from more than 170,000 real-world cancer slides. It is peer-reviewed in Nature (2024, doi:10.1038/s41586-024-07441-w) and supports cancer histopathology research workflows including zero-shot cancer subtyping and mutation prediction from whole-slide images.\n\n**Marginal call, stated plainly**: this is a digital pathology imaging model, not a genomics-native model, though it is squarely a health-research foundation model with documented provenance (a named health system's real-world cancer slide data) and downstream mutation-prediction applications. It is catalogued here as a marginal fit on the genomics-specificity axis.\n\n**Licence note, confirmed directly against the repository, correcting an earlier secondary-source claim**: the repository's own README states the code, data, and model checkpoints are \"intended to be used solely for (I) future research on pathology foundation models and (II) reproducibility of the experimental results reported in the reference paper\" and \"not intended to be used in clinical care\" -- but the repository's own raw `LICENSE` file (fetched directly) is the standard Apache License 2.0, and the README's own \"Model Family\" table lists \"Apache-2.0\" as the licence for GigaPath, GigaPath-Flash, GigaTIME, and GigaTIME-Flash alike. `license` is recorded as `Apache-2.0` accordingly, matching the actual copyright licence text rather than the separate, non-binding research-intent statement, which is noted here rather than folded into the licence field. Access to the model weights on Hugging Face additionally requires accepting a click-through terms agreement.",
+  "homepage": "https://www.microsoft.com/en-us/research/blog/gigapath-whole-slide-foundation-model-for-digital-pathology/",
+  "repository": "https://github.com/prov-gigapath/prov-gigapath",
+  "license": "Apache-2.0",
+  "maintainers": [
+    { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
+  ],
+  "version": "Prov-GigaPath (Nature 2024)",
+  "keywords": ["digital-pathology", "whole-slide-imaging", "cancer", "histopathology", "foundation-model"],
+  "category": "medical-imaging",
+  "safety_classification": [],
+  "certification_tier": "unsigned",
+  "developed_by": "Microsoft Research, Providence Health System, University of Washington",
+  "hosting_location": "huggingface",
+  "access_uri": "https://huggingface.co/prov-gigapath/prov-gigapath",
+  "model_card_uri": "https://huggingface.co/prov-gigapath/prov-gigapath",
+  "last_synced": "2026-09-08T00:00:00.000Z",
+  "record": {
+    "created": "2026-09-08T00:00:00.000Z",
+    "updated": "2026-09-08T00:00:00.000Z",
+    "last_verified": "2026-09-08T00:00:00.000Z"
+  }
+}
