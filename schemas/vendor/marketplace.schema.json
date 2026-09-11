@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ga4gh.github.io/ai-registry/schemas/vendor/marketplace.schema.json",
+  "$id": "https://susheel.github.io/ai-registry/schemas/vendor/marketplace.schema.json",
   "$comment": "Generated on 2026-04-23T05:09:42.045Z",
   "x-ga4gh-original-id": "https://json.schemastore.org/claude-code-marketplace.json",
   "x-ga4gh-vendor-note": "Vendored verbatim (content unchanged, only $id rebased from x-ga4gh-original-id to this file's own published location so relative $refs from bundle-entry.v1.schema.json resolve locally) from https://www.schemastore.org/claude-code-marketplace.json on 2026-09-07 for ai-registry TECH.md Section 3.1/3.5.6 (Phase 10, internal project documentation). This is SchemaStore's published schema for .claude-plugin/marketplace.json (see https://code.claude.com/docs/en/plugin-marketplaces); it is not published by Anthropic as a first-party JSON Schema artefact. A bundle entry's embedded `marketplace` sub-document MUST validate against this vendored copy and MUST remain a valid, unmodified marketplace.json when the ga4gh sibling object is stripped. Bump deliberately: re-fetch from the source URL, re-run scripts/validate.ts against every existing bundle entry, and commit as a reviewed change, not silently.",

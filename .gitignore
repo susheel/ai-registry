@@ -9,3 +9,4 @@ scripts/.tmp-zod-test-*/
 site/src/generated/
 site/.astro/
 .playwright-mcp/
+.serena/

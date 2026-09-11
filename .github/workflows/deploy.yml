@@ -1,21 +1,21 @@
 name: Deploy
 
-# Workflow 4 (internal project documentation Section 5, Section 6): builds the site and every
-# machine-readable projection on push to main, and deploys the combined
-# output to GitHub Pages. `concurrency` matches GitHub's own documented
-# pattern for Pages deployments: a second push while one deploy is still
-# running queues rather than races it.
+# Builds the site and every machine-readable projection on push to main, and
+# deploys the combined output to GitHub Pages (internal project documentation Section 5,
+# Section 6). `concurrency` matches GitHub's own documented pattern for
+# Pages deployments: a second push while one deploy is still running queues
+# rather than races it.
 #
-# **Not yet fully actionable** (internal project documentation Phase 5, Phase 9): this
-# workflow is written now, per internal project documentation Phase 4's checklist, but two
-# things it depends on are Phase 5/Phase 9 decisions, not Phase 4 ones:
-# (1) GitHub Pages must be enabled on the eventual GitHub remote (this
-# repository has none yet); (2) `site/astro.config.mjs`'s `site`/`base`
-# options are deliberately left unset as of Phase 3, so a first real
-# deployment will serve every asset path as if the site were at the domain
-# root -- set both once the actual Pages URL (a custom domain, or
-# `<org>.github.io/<repo>`) is decided, before relying on this workflow's
-# output being correctly linked.
+# History (2026-09-08 to 2026-09-11, internal project documentation Phase 12 addendum): this
+# workflow briefly ran as a build/validate-only CI check while this
+# repository's GitHub remote was private (GitHub Pages requires a public
+# repository on the Free plan) and GitLab Pages carried the live site
+# instead. The person running that session decided to make this GitHub
+# repository public and use GitHub Pages as the canonical deploy target
+# after all, with GitLab kept as a private full-content mirror of this
+# repository's local `main` branch (not the published one) -- see
+# internal project documentation for the current split. This workflow's `deploy` job is
+# restored accordingly.
 
 on:
   push:
@@ -53,8 +53,20 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # --skip-network (2026-09-08, internal project documentation Phase 12 addendum): the
+      # 18 pre-existing ga4gh-* entries per type (skills/mcp-servers/plugins,
+      # 54 checks total) reference github.com/susheel/ga4gh-plugins, kept
+      # deliberately private (internal project documentation Phase 9) -- GitHub returns 404 to
+      # an unauthenticated reachability check against a private repo,
+      # permanently, not transiently. Without this flag the deploy gate would
+      # fail on every single run forever, for a reason unrelated to entry
+      # correctness. Schema, licence, category, and slug-collision checks
+      # still run and still fail the deploy; only live URL reachability is
+      # skipped here. `pnpm run check-bundle-freshness` and this repository's
+      # `bundle-freshness.yml` still exercise the network checks that matter
+      # (bundle source drift) on their own schedule.
       - name: Validate every entry (fail the deploy, not just warn, on a bad entry)
-        run: pnpm run validate
+        run: pnpm run validate -- --skip-network
 
       - name: Build the site (Astro + Pagefind)
         run: pnpm --filter site build

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ga4gh.github.io/ai-registry/schemas/bundle-entry.v1.schema.json",
+  "$id": "https://susheel.github.io/ai-registry/schemas/bundle-entry.v1.schema.json",
   "title": "GA4GH AI Registry: bundle entry (v1)",
   "description": "The common entry core plus an embedded, verbatim Claude Code marketplace.json document, validated against schemas/vendor/marketplace.schema.json, plus a ga4gh sibling object recording provenance and any cross-references to entries already catalogued elsewhere in this registry. A bundle entry catalogues a vendor-curated collection (a marketplace) of plugins/skills as a single registry entry, rather than requiring every member of that collection to be submitted individually (internal project documentation Phase 10, internal research notes D47 Option B). The vendored marketplace.schema.json places no additionalProperties restriction at its root, so the ga4gh object sits alongside marketplace's own fields without invalidating it; stripping ga4gh, source_uri, and last_synced MUST leave a valid, unmodified marketplace.json.",
   "allOf": [
