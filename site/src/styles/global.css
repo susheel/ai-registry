@@ -86,6 +86,15 @@ a:visited {
   font-size: 1.1rem;
   color: var(--color-text);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-header__logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
 }
 
 .site-nav {
