@@ -19,7 +19,7 @@ Six content types, each schema-validated against `schemas/`:
 
 ## Using the registry
 
-The published site (browse, filter, full-text search, and copy-to-clipboard install snippets for every entry) is built from this repository's `data/` directory and served as a static site -- no account or backend required. It also publishes machine-readable projections consumable directly by tooling: a compact `index.json`, an AAIF AI Catalog-conformant `.well-known/ai-catalog.json`, a per-server `mcp/<slug>/server.json` for cross-listing to the official MCP server registry, and a Claude Code `.claude-plugin/marketplace.json`.
+The published site (browse, filter, full-text search, and copy-to-clipboard install snippets for every entry) is built from this repository's `data/` directory and served as a static site, requiring no account or backend. It also publishes machine-readable projections consumable directly by tooling: a compact `index.json`, an AAIF AI Catalog-conformant `.well-known/ai-catalog.json`, a per-server `mcp/<slug>/server.json` for cross-listing to the official MCP server registry, and a Claude Code `.claude-plugin/marketplace.json`.
 
 ## Submitting an entry
 
@@ -42,8 +42,8 @@ pnpm --filter site dev       # run the site locally
 
 ## Governance
 
-Every entry is a restatement of a claim made elsewhere (a licence, a certification, a safety classification) -- the registry validates that a submission is well-formed and well-sourced, not that every claim it carries is true. Review routing, promotion criteria, and the sourcing/vetting checklist maintainers apply when seeding content directly are documented for maintainers separately from this file.
+Every entry is a restatement of a claim made elsewhere (a licence, a certification, a safety classification): the registry validates that a submission is well-formed and well-sourced, not that every claim it carries is true. Review routing, promotion criteria, and the sourcing/vetting checklist maintainers apply when seeding content directly are documented for maintainers separately from this file.
 
 ## Licence
 
-This repository does not yet carry its own top-level licence. Each catalogued entry records its own project's licence in its `license`/`license_url` fields -- that licence governs the project being catalogued, not this repository's own code or schemas.
+This repository's own code, schemas, and documentation are licensed under Apache License 2.0 (see `LICENSE`). Each catalogued entry separately records its own project's licence in its `license`/`license_url` fields: that licence governs the project being catalogued, not this repository's own code or schemas.
