@@ -23,7 +23,16 @@ const { title, description } = Astro.props;
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header" data-pagefind-ignore>
       <div class="site-header__inner">
-        <a class="site-header__brand" href={withBase("/")}>GA4GH AI Registry</a>
+        <a class="site-header__brand" href={withBase("/")}>
+          <img
+            class="site-header__logo"
+            src={withBase("/ga4gh-ai-workstream-logo.png")}
+            width="32"
+            height="32"
+            alt="GA4GH AI Workstream logo"
+          />
+          GA4GH AI Registry
+        </a>
         <nav aria-label="Primary">
           <ul class="site-nav">
             {
