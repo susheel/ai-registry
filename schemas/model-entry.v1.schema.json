@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://susheel.github.io/ai-registry/schemas/model-entry.v1.schema.json",
+  "$id": "https://registry.biocommons.ai/schemas/model-entry.v1.schema.json",
   "title": "GA4GH AI Registry: model entry (v1)",
   "description": "The common entry core (entry-core.v1.schema.json) plus a required pointer to a full GA4GH Genomic AI Model Card and a small index projection mirrored from the Model Card and from Hugging Face's own listing conventions (internal project documentation Section 3.5.1). Models are referenced, never embedded: the Model Card remains the single authoritative document. hosting_location + access_uri are the fields that let this entry point at a model hosted anywhere: Hugging Face, GitHub, a container registry, a self-hosted endpoint, or a gated-request-only source.",
   "allOf": [
