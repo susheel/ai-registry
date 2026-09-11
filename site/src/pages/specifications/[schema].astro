@@ -1,0 +1,114 @@
+---
+import Base from "../../layouts/Base.astro";
+import { withBase } from "../../lib/url.js";
+import { repoBlobUrl } from "../../lib/repo.js";
+import SchemaField from "../../components/SchemaField.astro";
+import RawSchemaJson from "../../components/RawSchemaJson.astro";
+import { SCHEMA_SLUGS, getSchemaDoc, type SchemaDoc } from "../../lib/schema-docs.js";
+
+export async function getStaticPaths() {
+  return SCHEMA_SLUGS.map((slug) => {
+    const doc = getSchemaDoc(slug);
+    if (!doc) throw new Error(`No schema doc for slug "${slug}"`);
+    return { params: { schema: slug }, props: { doc } };
+  });
+}
+
+interface Props {
+  doc: SchemaDoc;
+}
+
+const { doc } = Astro.props;
+const closedRoot = !doc.isCore && doc.raw.unevaluatedProperties === false;
+const displayTitle = doc.title.replace(/^GA4GH AI Registry:\s*/, "");
+---
+
+<Base title={displayTitle} description={doc.description}>
+  <article>
+    <header class="detail-header">
+      <div>
+        <p class="page-intro" style="margin:0 0 0.35rem;">
+          <a href={withBase("/specifications/")}>Specifications</a>
+        </p>
+        <h1 class="detail-header__title">{displayTitle}</h1>
+        <p class="page-intro">{doc.file}</p>
+      </div>
+    </header>
+
+    <section class="detail-section">
+      <h2>Overview</h2>
+      <p>{doc.description}</p>
+      {doc.comment && <p class="cache-note">{doc.comment}</p>}
+
+      {
+        doc.isCore ? (
+          <p class="schema-note">
+            This is the common entry core. Every content-type schema in this registry composes it via{" "}
+            <code>allOf</code>, so every field documented below is carried by every entry in the registry,
+            regardless of type.
+          </p>
+        ) : (
+          <p class="schema-note">
+            This schema extends <a href={withBase("/specifications/entry-core/")}>entry-core.v1.schema.json</a>{" "}
+            via <code>allOf</code>: every entry-core field is also required or available on this entry type, in
+            addition to the fields below.
+            {doc.requiredTopLevel.length > 0 && (
+              <>
+                {" "}
+                This entry type additionally requires:{" "}
+                {doc.requiredTopLevel.map((r, i) => (
+                  <>
+                    {i > 0 ? ", " : ""}
+                    <code>{r}</code>
+                  </>
+                ))}
+                .
+              </>
+            )}
+            {doc.inheritedRequiredOverrides.length > 0 && (
+              <>
+                {" "}
+                Of those, {doc.inheritedRequiredOverrides.map((r, i) => (
+                  <>
+                    {i > 0 ? ", " : ""}
+                    <a href={`${withBase("/specifications/entry-core/")}#field-${r}`}>
+                      <code>{r}</code>
+                    </a>
+                  </>
+                ))}{" "}
+                {doc.inheritedRequiredOverrides.length === 1 ? "is" : "are"} an entry-core field promoted from
+                optional to required for this entry type, without redeclaring its shape.
+              </>
+            )}
+            {closedRoot && " No properties beyond entry-core's and those listed below are permitted on this entry type."}
+          </p>
+        )
+      }
+    </section>
+
+    <section class="detail-section">
+      <h2>Properties</h2>
+      <SchemaField fields={doc.fields} topLevel />
+    </section>
+
+    {
+      doc.defs.length > 0 && (
+        <section class="detail-section">
+          <h2>Shared definitions</h2>
+          {doc.defs.map((d) => (
+            <div id={d.anchor} class="schema-def">
+              <h3>{d.name}</h3>
+              {d.description && <p>{d.description}</p>}
+              <SchemaField fields={d.fields} />
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    <section class="detail-section">
+      <h2>Raw schema</h2>
+      <RawSchemaJson json={doc.raw} fileHref={repoBlobUrl(`schemas/${doc.file}`)} />
+    </section>
+  </article>
+</Base>

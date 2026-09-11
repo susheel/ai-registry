@@ -1,0 +1,18 @@
+---
+/** Collapsible raw-JSON viewer plus a link to the file on the repository, used by every `/specifications/<slug>/` page. */
+interface Props {
+  json: unknown;
+  fileHref: string;
+}
+
+const { json, fileHref } = Astro.props;
+const pretty = JSON.stringify(json, null, 2);
+---
+
+<details class="raw-schema">
+  <summary>View raw schema JSON</summary>
+  <p class="raw-schema__link">
+    <a href={fileHref}>View this file on the repository ↗</a>
+  </p>
+  <pre class="raw-schema__body"><code>{pretty}</code></pre>
+</details>
