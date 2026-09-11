@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ga4gh.github.io/ai-registry/schemas/skill-entry.v1.schema.json",
+  "$id": "https://susheel.github.io/ai-registry/schemas/skill-entry.v1.schema.json",
   "title": "GA4GH AI Registry: skill entry (v1)",
   "description": "The common entry core plus an embedded SKILL.md-style frontmatter object and the fields Project #24 specifies as required for a certifiable skill: defined inputs, outputs, provenance logging, human oversight requirements, and evaluation criteria (internal project documentation Section 3.5.3, internal project documentation Section 6.4). source.repository is shaped to match agentregistry's Skill kind so a future integration is a mapping exercise, not a schema rework; its url is any externally hosted git repository, not limited to a GA4GH-controlled host.",
   "allOf": [

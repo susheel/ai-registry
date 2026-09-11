@@ -12,7 +12,7 @@ import { SCHEMAS_DIR } from "./schemas.js";
  * codegen must not depend on network access), so this resolver redirects
  * any $ref under this base back to the corresponding file in schemas/.
  */
-const GA4GH_SCHEMA_BASE = "https://ga4gh.github.io/ai-registry/schemas/";
+const GA4GH_SCHEMA_BASE = "https://susheel.github.io/ai-registry/schemas/";
 
 /**
  * Dereferences and flattens a JSON Schema for Zod codegen (scripts/generate-zod-schemas.ts).

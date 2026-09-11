@@ -1,0 +1,48 @@
+name: Bundle freshness
+
+# Scheduled counterpart to the freshness check `deploy.yml` already runs on
+# every push to main (internal project documentation Phase 11, internal project documentation Section 7).
+# A bundle's `marketplace` field is a cached mirror of a vendor-maintained
+# document that can drift indefinitely with nobody obligated to tell this
+# registry (internal project documentation Section 3.5.6) -- this workflow closes that gap for
+# a repository that may go weeks between merges to main, by running the same
+# `checkBundleFreshness` logic on a schedule independent of push activity.
+# Explicitly the CI/CD decision internal project documentation Phase 11 and
+# internal project documentation Section 7 left open, now made: weekly, not on every
+# push (bundle marketplaces do not change that often, and a push-triggered
+# run already covers the push case via deploy.yml).
+#
+# Deliberately minimal, matching scripts/check-bundle-freshness.ts's own
+# restraint: this workflow only runs the check and fails the job on a real
+# error (an unreachable or invalid source_uri, exit code 1) -- mere staleness
+# is logged but does not fail the run, and nothing here writes to
+# data/bundles/ or opens an issue automatically. A maintainer reviewing a
+# failed run, or periodically checking this workflow's own run history, is
+# the intended notification path; adding automatic issue-filing on
+# staleness would be a separate, larger decision, not made here.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # every Monday, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Check bundle source_uri freshness (fails only on unreachable/invalid, never on mere drift)
+        run: pnpm run check-bundle-freshness
