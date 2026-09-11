@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://susheel.github.io/ai-registry/schemas/vendor/plugin.schema.json",
+  "$id": "https://registry.biocommons.ai/schemas/vendor/plugin.schema.json",
   "$comment": "Generated on 2026-04-23T05:09:41.810Z",
   "x-ga4gh-original-id": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "x-ga4gh-vendor-note": "Vendored verbatim (content unchanged, only $id rebased from x-ga4gh-original-id to this file's own published location so relative $refs from plugin-entry.v1.schema.json resolve locally) from https://www.schemastore.org/claude-code-plugin-manifest.json on 2026-09-02 for ai-registry TECH.md Section 3.1/3.5.5. This is SchemaStore's published schema for .claude-plugin/plugin.json (see https://code.claude.com/docs/en/plugins-reference); it is not published by Anthropic as a first-party JSON Schema artefact. A plugin entry's embedded `plugin` sub-document MUST validate against this vendored copy and MUST remain a valid, unmodified plugin.json when the ga4gh sibling object (TECH.md Section 3.5.5) is stripped. Bump deliberately: re-fetch from the source URL, re-run scripts/validate.ts against every existing plugin entry, and commit as a reviewed change, not silently.",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://susheel.github.io/ai-registry/schemas/agent-entry.v1.schema.json",
+  "$id": "https://registry.biocommons.ai/schemas/agent-entry.v1.schema.json",
   "title": "GA4GH AI Registry: agent entry (v1)",
   "description": "The common entry core plus a pointer to the agent's live agent-info endpoint and a cached snapshot of its registry-relevant fields, mirrored verbatim under the endpoint's own field names (internal project documentation Section 3.5.2). An agent's source code location is external and covered by the common core's `repository` field (any git host, including GitHub); its live runtime location is external and covered by `agent_info_uri`, which may point at any publicly reachable {agent_base_url}/service-info endpoint regardless of where the agent is actually deployed. Nothing about this entry requires GA4GH to host the agent's code or runtime.",
   "allOf": [

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://susheel.github.io/ai-registry/schemas/vendor/server.schema.json",
+  "$id": "https://registry.biocommons.ai/schemas/vendor/server.schema.json",
   "title": "MCP Server Detail",
   "$ref": "#/definitions/ServerDetail",
   "x-ga4gh-original-id": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",

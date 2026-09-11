@@ -1,7 +1,10 @@
 /**
  * Prefixes an absolute, root-relative path with this deployment's base path
- * (internal project documentation Section 5: GitHub Pages serves this site at
- * `https://susheel.github.io/ai-registry/`, a subpath, not an origin root).
+ * (GitHub Pages serves this site at `https://registry.biocommons.ai/`, an
+ * origin root, not a subpath -- the base is `/`, so this function's
+ * fallback-to-plain-root-relative-paths behaviour is what's actually in
+ * effect. See astro.config.mjs's own comment for why: a subpath base broke
+ * every internal link except the homepage once this custom domain went live).
  *
  * Astro does NOT retroactively rewrite a literal string href for you --
  * confirmed directly against Astro's own documentation, not assumed: "If you
