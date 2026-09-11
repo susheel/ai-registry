@@ -1,7 +1,7 @@
 /**
  * Prefixes an absolute, root-relative path with this deployment's base path
  * (internal project documentation Section 5: GitHub Pages serves this site at
- * `https://ga4gh.github.io/ai-registry/`, a subpath, not an origin root).
+ * `https://susheel.github.io/ai-registry/`, a subpath, not an origin root).
  *
  * Astro does NOT retroactively rewrite a literal string href for you --
  * confirmed directly against Astro's own documentation, not assumed: "If you

@@ -1,0 +1,68 @@
+# GitLab Pages deployment (internal project documentation Section 5, Section 6).
+#
+# Canonical deploy pipeline as of 2026-09-08 (internal project documentation Phase 12
+# addendum): GitHub Pages requires a public repository on the Free plan;
+# GitLab Pages supports a private source repository with a fully public
+# Pages site on its Free tier (Settings > General > Visibility > Pages,
+# set to "Everyone"), which is what this repository needs -- the source
+# (issues, git history) stays private while the published site remains
+# public with no account required, matching internal project documentation's own design goal.
+# `.github/workflows/deploy.yml` on the GitHub mirror is now a build/
+# validate-only CI check; it no longer deploys anywhere.
+
+image: node:22-slim
+
+stages:
+  - build
+  - pages
+
+variables:
+  PNPM_HOME: "$CI_PROJECT_DIR/.pnpm-store"
+
+.pnpm-setup:
+  before_script:
+    - corepack enable
+    # No explicit pnpm version pin here: corepack reads it from package.json's
+    # own `packageManager` field, matching the same discipline
+    # `.github/workflows/deploy.yml`'s comment records (a hard-coded version
+    # elsewhere previously conflicted with that field and broke CI outright).
+    - corepack prepare --activate
+    - pnpm config set store-dir $PNPM_HOME
+    - pnpm install --frozen-lockfile
+
+build:
+  extends: .pnpm-setup
+  stage: build
+  script:
+    # --skip-network: the 18 pre-existing ga4gh-* entries per type
+    # (skills/mcp-servers/plugins) reference github.com/susheel/ga4gh-plugins,
+    # kept deliberately private (internal project documentation Phase 9) -- an unauthenticated
+    # reachability check against a private repo 404s permanently, not
+    # transiently. Schema, licence, category, and slug-collision checks still
+    # run and still fail this job; only live URL reachability is skipped.
+    - pnpm run validate -- --skip-network
+    - pnpm --filter site build
+    - pnpm run build:index -- --out-dir site/dist
+    - pnpm run build:ai-catalog -- --out-dir site/dist
+    - pnpm run build:mcp-docs -- --out-dir site/dist
+    - pnpm run build:marketplace -- --out-dir site/dist
+  artifacts:
+    paths:
+      - site/dist
+    expire_in: 1 hour
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+pages:
+  stage: pages
+  needs:
+    - build
+  script:
+    - mv site/dist public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

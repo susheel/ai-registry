@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ga4gh.github.io/ai-registry/schemas/mcp-server-entry.v1.schema.json",
+  "$id": "https://susheel.github.io/ai-registry/schemas/mcp-server-entry.v1.schema.json",
   "title": "GA4GH AI Registry: MCP server entry (v1)",
   "description": "The common entry core plus an embedded, verbatim, valid server.json document, validated against schemas/vendor/server.schema.json (internal project documentation Section 3.5.4). All GA4GH additions live inside server._meta['org.ga4gh/ai-registry'], the upstream schema's own sanctioned extension point, so the embedded server document remains lift-out-able: stripping that one key MUST leave a valid, unmodified server.json publishable to registry.modelcontextprotocol.io. server.packages[] and server.remotes[] already cover any externally hosted distribution mechanism (an npm/PyPI/OCI/NuGet registry package, a direct-download URL, or a remote streamable-http/SSE endpoint), so this schema adds no separate hosting field.",
   "allOf": [

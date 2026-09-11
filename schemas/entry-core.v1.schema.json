@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ga4gh.github.io/ai-registry/schemas/entry-core.v1.schema.json",
+  "$id": "https://susheel.github.io/ai-registry/schemas/entry-core.v1.schema.json",
   "title": "GA4GH AI Registry: common entry core (v1)",
   "description": "Fields carried by every entry regardless of type (internal project documentation Section 3.2). Composed via allOf by each of the five per-type schemas (model-entry, agent-entry, skill-entry, mcp-server-entry, plugin-entry). This schema deliberately does not set unevaluatedProperties or additionalProperties: false, so it can be safely allOf-composed; each per-type schema closes the composed shape itself.",
   "type": "object",
