@@ -1,0 +1,68 @@
+---
+/**
+ * Recursively renders a list of `FieldDoc` nodes (site/src/lib/schema-docs.ts)
+ * as a nested field reference: name, type, required/optional, description,
+ * constraints, and -- for object/array-of-object fields -- the same rendering
+ * applied to its children. Uses Astro's built-in `Astro.self` recursion
+ * rather than a self-import, since the recursion depth here is small and
+ * fixed by the schema shape (at most a few levels).
+ */
+import type { FieldDoc } from "../lib/schema-docs.js";
+
+interface Props {
+  fields: FieldDoc[];
+  /** Only the outermost call sets this, so nested fields with the same name at a different depth (e.g. `name` on both an entry and its maintainers) never collide on id. */
+  topLevel?: boolean;
+}
+
+const { fields, topLevel = false } = Astro.props;
+---
+
+<ul class="schema-fields">
+  {
+    fields.map((f) => (
+      <li class="schema-field" id={topLevel ? `field-${f.name}` : undefined}>
+        <div class="schema-field__head">
+          <code class="schema-field__name">{f.name}</code>
+          <span class="badge badge--keyword">{f.typeLabel}</span>
+          {f.required ? (
+            <span class="badge badge--tier-platform_verified">required</span>
+          ) : (
+            <span class="badge badge--tier-unsigned">optional</span>
+          )}
+        </div>
+        {f.description && <p class="schema-field__desc">{f.description}</p>}
+        {f.constraints.length > 0 && (
+          <ul class="schema-field__constraints">
+            {f.constraints.map((c) => (
+              <li>{c}</li>
+            ))}
+          </ul>
+        )}
+        {f.externalRef && (
+          <p class="cache-note">
+            {f.externalRef.note} <a href={f.externalRef.href}>View {f.externalRef.label} on the repository ↗</a>
+          </p>
+        )}
+        {f.internalDefRef && !f.children && (
+          <p class="cache-note">
+            Same shape as <a href={f.internalDefRef.href}>{f.internalDefRef.label}</a>.
+          </p>
+        )}
+        {f.internalDefRef && f.children && (
+          <p class="schema-field__ref-note">
+            Same shape as <a href={f.internalDefRef.href}>{f.internalDefRef.label}</a>, shown inline below.
+          </p>
+        )}
+        {f.openObject && f.children && (
+          <p class="schema-field__open-note">Additional fields beyond those listed here are permitted.</p>
+        )}
+        {f.children && f.children.length > 0 && (
+          <div class="schema-field__nested">
+            <Astro.self fields={f.children} />
+          </div>
+        )}
+      </li>
+    ))
+  }
+</ul>

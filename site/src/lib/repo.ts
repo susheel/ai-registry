@@ -19,3 +19,15 @@ export const SUBMIT_REPO_URL = "https://github.com/susheel/ai-registry";
 export function submitIssueUrl(type: string): string {
   return `${SUBMIT_REPO_URL}/issues/new?template=submit-${type}.yml`;
 }
+
+/**
+ * Deep-links to a specific file's `blob` view on the default branch (`main`,
+ * matching this repository's actual default branch). Used by the
+ * specification pages (`/specifications/`) to link from a rendered schema
+ * back to its raw JSON source, and from a per-type schema page's embedded
+ * vendor reference (e.g. `schemas/vendor/server.schema.json`) to that
+ * vendored file.
+ */
+export function repoBlobUrl(relativePath: string): string {
+  return `${SUBMIT_REPO_URL}/blob/main/${relativePath}`;
+}

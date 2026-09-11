@@ -1,0 +1,33 @@
+---
+import Base from "../../layouts/Base.astro";
+import { withBase } from "../../lib/url.js";
+import { getAllSchemaDocs, firstSentence } from "../../lib/schema-docs.js";
+
+const docs = getAllSchemaDocs();
+---
+
+<Base
+  title="Specifications"
+  description="Human-readable reference for the JSON Schema documents this registry defines: the common entry core and each of the six content-type schemas."
+>
+  <h1>Specifications</h1>
+  <p class="page-intro">
+    Every entry in this registry validates against one of the JSON Schema documents below.
+    entry-core.v1.schema.json defines the fields every entry carries regardless of type; each content-type schema
+    then extends it, via <code>allOf</code>, with fields specific to that type. These pages describe the schemas as
+    they exist; each page links to the raw schema file on the repository as the authoritative source.
+  </p>
+
+  <ul class="type-grid">
+    {
+      docs.map((doc) => (
+        <li>
+          <a class="type-card" href={withBase(`/specifications/${doc.slug}/`)}>
+            <p class="type-card__label">{doc.title.replace(/^GA4GH AI Registry:\s*/, "")}</p>
+            <p class="type-card__description">{firstSentence(doc.description)}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
