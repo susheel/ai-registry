@@ -1,0 +1,45 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { withBase } from "../../lib/url.js";
+import { repoBlobUrl } from "../../lib/repo.js";
+import { schemaSlugForSpec, purposeSummary } from "../../lib/spec-docs.js";
+
+export async function getStaticPaths() {
+  // The glob loader lowercases generated ids, so README.md's id is "readme".
+  const entries = await getCollection("specs", (entry) => entry.id !== "readme");
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<"specs">;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const displayTitle = headings.find((h) => h.depth === 1)?.text.replace(/^GA4GH AI Registry:\s*/, "") ?? entry.id;
+const schemaSlug = schemaSlugForSpec(entry.id);
+---
+
+<Base title={displayTitle} description={purposeSummary(entry.body ?? "")}>
+  <p class="page-intro" style="margin:0 0 0.35rem;">
+    <a href={withBase("/spec/")}>Specifications</a>
+  </p>
+
+  {
+    schemaSlug && (
+      <p class="schema-note">
+        Normative schema:{" "}
+        <a href={withBase(`/specifications/${schemaSlug}/`)}>{schemaSlug}.v1.schema.json</a>
+      </p>
+    )
+  }
+
+  <article class="spec-body">
+    <Content />
+  </article>
+
+  <p class="raw-schema__link">
+    <a href={repoBlobUrl(`spec/${entry.id}.md`)}>View source on GitHub</a>
+  </p>
+</Base>

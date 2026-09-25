@@ -43,6 +43,14 @@ const bundles = defineCollection({
   schema: BundleEntrySchema,
 });
 
+// Prose companion specifications (spec/*.md), rendered at /spec/. Plain
+// Markdown with no frontmatter, so no schema is declared here; the loader's
+// `base` resolves relative to this same Astro project root, per the comment
+// above, so `../spec` is `site/../spec`, i.e. the top-level `spec/` directory.
+const specs = defineCollection({
+  loader: glob({ pattern: "*.md", base: "../spec" }),
+});
+
 export const collections = {
   models,
   agents,
@@ -50,4 +58,5 @@ export const collections = {
   "mcp-servers": mcpServers,
   plugins,
   bundles,
+  specs,
 };
