@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { withBase } from "../../lib/url.js";
+import { specOrderIndex, purposeSummary } from "../../lib/spec-docs.js";
+
+const entries = (await getCollection("specs", (entry) => entry.id !== "readme")).sort(
+  (a, b) => specOrderIndex(a.id) - specOrderIndex(b.id),
+);
+
+const docs = await Promise.all(
+  entries.map(async (entry) => {
+    const { headings } = await render(entry);
+    const title = headings.find((h) => h.depth === 1)?.text.replace(/^GA4GH AI Registry:\s*/, "") ?? entry.id;
+    return { slug: entry.id, title, summary: purposeSummary(entry.body ?? "") };
+  }),
+);
+---
+
+<Base
+  title="Specification Documents"
+  description="Prose companion specifications for the GA4GH AI Registry's entry types: the normative what, in full sentences, alongside each JSON Schema."
+>
+  <h1>Specification Documents</h1>
+  <p class="page-intro">
+    This directory holds the normative specification of each registry entry type: the fields it MUST, SHOULD, or MAY
+    carry, its relationship to any upstream standard it profiles, its validation rules, and a worked example. Every
+    specification here is a prose statement of what a <code>schemas/*.v1.schema.json</code> file already enforces
+    mechanically; none of them defines a field the corresponding schema does not already have. See the
+    <a href={withBase("/specifications/")}>Specifications</a> section for the schemas themselves.
+  </p>
+
+  <ul class="type-grid">
+    {
+      docs.map((doc) => (
+        <li>
+          <a class="type-card" href={withBase(`/spec/${doc.slug}/`)}>
+            <p class="type-card__label">{doc.title}</p>
+            <p class="type-card__description">{doc.summary}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

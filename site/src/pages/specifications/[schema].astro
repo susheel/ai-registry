@@ -5,6 +5,7 @@ import { repoBlobUrl } from "../../lib/repo.js";
 import SchemaField from "../../components/SchemaField.astro";
 import RawSchemaJson from "../../components/RawSchemaJson.astro";
 import { SCHEMA_SLUGS, getSchemaDoc, type SchemaDoc } from "../../lib/schema-docs.js";
+import { specSlugForSchema } from "../../lib/spec-docs.js";
 
 export async function getStaticPaths() {
   return SCHEMA_SLUGS.map((slug) => {
@@ -21,6 +22,7 @@ interface Props {
 const { doc } = Astro.props;
 const closedRoot = !doc.isCore && doc.raw.unevaluatedProperties === false;
 const displayTitle = doc.title.replace(/^GA4GH AI Registry:\s*/, "");
+const specSlug = specSlugForSchema(doc.slug);
 ---
 
 <Base title={displayTitle} description={doc.description}>
@@ -39,6 +41,13 @@ const displayTitle = doc.title.replace(/^GA4GH AI Registry:\s*/, "");
       <h2>Overview</h2>
       <p>{doc.description}</p>
       {doc.comment && <p class="cache-note">{doc.comment}</p>}
+      {
+        specSlug && (
+          <p class="schema-note">
+            Full specification: <a href={withBase(`/spec/${specSlug}/`)}>spec/{specSlug}.md</a>
+          </p>
+        )
+      }
 
       {
         doc.isCore ? (
