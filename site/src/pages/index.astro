@@ -21,9 +21,10 @@ const populatedTypes = COLLECTION_KEYS.filter((key) => counts[key] > 0).length;
     <div class="hero__inner">
       <h1 id="hero-title">AI tools for genomics and health research, catalogued in the open</h1>
       <p class="hero__lede">
-        A community-submitted, human-reviewed catalogue of AI models, agents, skills, MCP servers, and coding-harness
-        plugins relevant to genomics and health research, published by the GA4GH AI Workstream. Every entry is a
-        schema-validated record pointing at the real upstream project.
+        A draft prototype catalogue of AI models, agents, skills, MCP servers, and coding-harness plugins relevant to
+        genomics and health research, proposed to the GA4GH AI Work Stream. It is not a GA4GH-approved product or
+        standard. Every entry is a schema-validated record pointing at the real upstream project; current entries were
+        seeded by a maintainer, and new submissions are reviewed by a named maintainer before they are merged.
       </p>
       <form class="hero__search" role="search" action={withBase("/search/")} method="get">
         <label for="hero-search" class="visually-hidden">Search the registry</label>

@@ -29,7 +29,7 @@ export const TYPE_META: Record<CollectionKey, TypeMeta> = {
     type: "model",
     label: "Models",
     singularLabel: "Model",
-    description: "Genomic and health AI models, each pointing at a full GA4GH Genomic AI Model Card.",
+    description: "Genomic and health AI models, each pointing at its upstream model card.",
   },
   agents: {
     key: "agents",
