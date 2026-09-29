@@ -4,8 +4,12 @@
  * `navigator.clipboard.writeText` with a toggled copied-state, following the
  * Ollama/shadcn-ui pattern TECH.md cites. The action and copied-state are
  * exposed to assistive technology via an `aria-live="polite"` status region,
- * not a purely visual icon toggle (internal project documentation Section 10).
+ * not a purely visual icon toggle (internal project documentation Section 10). The button's
+ * visible text is short ("Copy" / "Copied"); the full, specific action name
+ * ("Copy Claude Code snippet") is its accessible name via aria-label.
  */
+import Icon from "./Icon.astro";
+
 interface Props {
   targetId: string;
   label?: string;
@@ -15,13 +19,22 @@ const { targetId, label = "Copy" } = Astro.props;
 ---
 
 <span class="copy-button-wrap">
-  <button type="button" class="copy-button" data-copy-button data-copy-target={targetId}>
-    {label}
+  <button type="button" class="copy-button" data-copy-button data-copy-target={targetId} aria-label={label} title={label}>
+    <span class="copy-button__idle"><Icon name="copy" size={15} /> Copy</span>
+    <span class="copy-button__done"><Icon name="check" size={15} /> Copied</span>
   </button>
   <span class="visually-hidden" role="status" aria-live="polite" data-copy-status></span>
 </span>
 
 <script>
+  function selectContents(node: HTMLElement) {
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  }
+
   function initCopyButtons() {
     document.addEventListener("click", (event) => {
       const target = event.target;
@@ -33,16 +46,30 @@ const { targetId, label = "Copy" } = Astro.props;
       const source = targetId ? document.getElementById(targetId) : null;
       if (!source) return;
 
+      const status = button.parentElement?.querySelector<HTMLElement>("[data-copy-status]");
       const text = source.textContent ?? "";
-      navigator.clipboard.writeText(text).then(() => {
-        button.dataset.copied = "true";
-        const status = button.parentElement?.querySelector<HTMLElement>("[data-copy-status]");
-        if (status) status.textContent = "Copied to clipboard";
-        window.setTimeout(() => {
-          button.dataset.copied = "false";
-          if (status) status.textContent = "";
-        }, 2000);
-      });
+      const reset = () => {
+        button.dataset.copied = "false";
+        if (status) status.textContent = "";
+      };
+
+      // Clipboard API is unavailable on insecure origins and some embedded
+      // browsers; fall back to selecting the snippet so Cmd/Ctrl+C works.
+      const write = navigator.clipboard?.writeText
+        ? navigator.clipboard.writeText(text)
+        : Promise.reject(new Error("Clipboard API unavailable"));
+
+      write
+        .then(() => {
+          button.dataset.copied = "true";
+          if (status) status.textContent = "Copied to clipboard";
+        })
+        .catch(() => {
+          selectContents(source);
+          button.dataset.copied = "error";
+          if (status) status.textContent = "Could not copy automatically; the snippet is selected, press Ctrl+C or Cmd+C";
+        })
+        .finally(() => window.setTimeout(reset, 2000));
     });
   }
 

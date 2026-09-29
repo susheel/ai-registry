@@ -6,12 +6,14 @@
  * navigation, since native HTML has no tab semantics of its own.
  */
 import CopyButton from "./CopyButton.astro";
+import Icon from "./Icon.astro";
 
 interface Panel {
   id: string;
   label: string;
   content: string;
   deeplink?: string;
+  hint?: string;
 }
 
 interface Props {
@@ -51,13 +53,14 @@ const groupId = heading.toLowerCase().replace(/[^a-z0-9]+/g, "-");
           aria-labelledby={`tab-${groupId}-${p.id}`}
           hidden={i !== 0}
         >
+          {p.hint && <p class="install-hint">{p.hint}</p>}
           <div class="install-snippet-row">
             <pre id={`snippet-${groupId}-${p.id}`}>{p.content}</pre>
             <CopyButton targetId={`snippet-${groupId}-${p.id}`} label={`Copy ${p.label} snippet`} />
           </div>
           {p.deeplink && (
             <a class="deeplink" href={p.deeplink}>
-              Open in {p.label}
+              Open in {p.label} <Icon name="arrow-right" size={16} />
             </a>
           )}
         </div>

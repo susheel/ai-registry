@@ -5,6 +5,7 @@ import CertificationBadge from "../../components/CertificationBadge.astro";
 import SafetyBadges from "../../components/SafetyBadges.astro";
 import InstallTabs from "../../components/InstallTabs.astro";
 import CopyButton from "../../components/CopyButton.astro";
+import Icon from "../../components/Icon.astro";
 import { COLLECTION_KEYS, TYPE_META, type CollectionKey } from "../../lib/registry-types.js";
 import { categoryLabel, harnessLabel } from "../../lib/vocab.js";
 import { withBase } from "../../lib/url.js";
@@ -35,7 +36,29 @@ const CLIENT_LABELS: Record<string, string> = {
   "claude-code": "Claude Code",
   cursor: "Cursor",
   vscode: "VS Code",
+  windsurf: "Windsurf",
+  kiro: "Kiro",
+  opencode: "opencode",
 };
+
+// `description` is documented as Markdown; render its inline-code spans as
+// <code> so backticked identifiers stop showing literal backticks. Only
+// applied when a paragraph's backticks are balanced; anything else renders
+// verbatim, exactly as before.
+function inlineCodeSegments(text: string): string[] {
+  const parts = text.split("`");
+  return parts.length % 2 === 1 ? parts : [text];
+}
+
+// Provenance timestamps are recorded at date precision (midnight UTC);
+// show them as a readable date, keeping the machine value on <time>.
+function formatDate(value: unknown): { iso: string; label: string } {
+  const date = value instanceof Date ? value : new Date(String(value));
+  if (Number.isNaN(date.getTime())) return { iso: String(value), label: String(value) };
+  const iso = date.toISOString();
+  const label = date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  return { iso, label };
+}
 
 function paragraphs(text: string): string[] {
   return text
@@ -50,7 +73,7 @@ const record = (data.record as { created?: string; updated?: string; last_verifi
 const standards = (data.ga4gh_standards as string[] | undefined) ?? [];
 const keywords = (data.keywords as string[] | undefined) ?? [];
 
-let mcpPanels: { id: string; label: string; content: string; deeplink?: string }[] = [];
+let mcpPanels: { id: string; label: string; content: string; deeplink?: string; hint?: string }[] = [];
 if (type === "mcp-servers" && data.server) {
   const server = data.server as { name?: string; packages?: unknown; remotes?: unknown };
   const snippets = deriveAllInstallSnippets({
@@ -63,13 +86,14 @@ if (type === "mcp-servers" && data.server) {
     label: CLIENT_LABELS[s.client] ?? s.client,
     content: s.configJson,
     deeplink: s.deeplink,
+    hint: `Add this to your ${CLIENT_LABELS[s.client] ?? s.client} MCP server configuration.`,
   }));
 }
 
-let pluginPanels: { id: string; label: string; content: string }[] = [];
+let pluginPanels: { id: string; label: string; content: string; hint?: string }[] = [];
 if (type === "plugins") {
   const ga4gh = (data.ga4gh as { harnesses?: Array<{ harness: string; installCommand: string }> }) ?? {};
-  pluginPanels = (ga4gh.harnesses ?? []).map((h) => ({ id: h.harness, label: harnessLabel(h.harness), content: h.installCommand }));
+  pluginPanels = (ga4gh.harnesses ?? []).map((h) => ({ id: h.harness, label: harnessLabel(h.harness), content: h.installCommand, hint: `Run in ${harnessLabel(h.harness)}:` }));
 }
 ---
 
@@ -77,8 +101,8 @@ if (type === "plugins") {
   <article data-pagefind-body data-pagefind-filter={`type:${meta.type}`}>
     <header class="detail-header">
       <div>
-        <p class="page-intro" style="margin:0 0 0.35rem;">
-          <a href={withBase(`/${type}/`)}>{meta.label}</a>
+        <p class="breadcrumb">
+          <a href={withBase(`/${type}/`)}><Icon name={type} size={16} />{meta.label}</a>
         </p>
         <h1 class="detail-header__title">{String(data.name)}</h1>
         <p class="page-intro">{String(data.summary)}</p>
@@ -90,7 +114,9 @@ if (type === "plugins") {
 
     <section class="detail-section">
       <h2>Overview</h2>
-      {paragraphs(String(data.description ?? "")).map((p) => <p>{p}</p>)}
+      {paragraphs(String(data.description ?? "")).map((p) => (
+        <p>{inlineCodeSegments(p).map((seg, i) => (i % 2 === 1 ? <code>{seg}</code> : seg))}</p>
+      ))}
     </section>
 
     <section class="detail-section">
@@ -465,19 +491,19 @@ if (type === "plugins") {
         {record.created && (
           <>
             <dt>Created</dt>
-            <dd>{record.created}</dd>
+            <dd><time datetime={formatDate(record.created).iso}>{formatDate(record.created).label}</time></dd>
           </>
         )}
         {record.updated && (
           <>
             <dt>Updated</dt>
-            <dd>{record.updated}</dd>
+            <dd><time datetime={formatDate(record.updated).iso}>{formatDate(record.updated).label}</time></dd>
           </>
         )}
         {record.last_verified && (
           <>
             <dt>Last verified</dt>
-            <dd>{record.last_verified}</dd>
+            <dd><time datetime={formatDate(record.last_verified).iso}>{formatDate(record.last_verified).label}</time></dd>
           </>
         )}
         {record.source_issue !== undefined && (
