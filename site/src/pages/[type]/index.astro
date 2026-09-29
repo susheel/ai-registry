@@ -3,7 +3,8 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import CertificationBadge from "../../components/CertificationBadge.astro";
 import SafetyBadges from "../../components/SafetyBadges.astro";
-import { COLLECTION_KEYS, TYPE_META, type CollectionKey } from "../../lib/registry-types.js";
+import Icon from "../../components/Icon.astro";
+import { COLLECTION_KEYS, TYPE_META, singularPhrase, type CollectionKey } from "../../lib/registry-types.js";
 import { categoriesForCollection, categoryLabel, harnessLabel, HARNESSES, SAFETY_SCHEMES } from "../../lib/vocab.js";
 import { withBase } from "../../lib/url.js";
 import { submitIssueUrl } from "../../lib/repo.js";
@@ -34,18 +35,45 @@ const standardsInUse = Array.from(new Set(entries.flatMap((e) => (e.data.ga4gh_s
 const keywordsInUse = Array.from(new Set(entries.flatMap((e) => (e.data.keywords as string[] | undefined) ?? []))).sort();
 const harnessesInUse = type === "plugins" ? Array.from(new Set(entries.flatMap((e) => harnessesFor(e)))).sort() : [];
 const categories = categoriesForCollection(type);
+const submitLabel = `Submit ${singularPhrase(meta).replace(/^an? /, "a new ")}`;
+const TIER_LABELS: Record<string, string> = {
+  platform_verified: "Platform verified",
+  community_signed: "Community signed",
+  unsigned: "Unsigned",
+};
 ---
 
 <Base title={meta.label} description={meta.description}>
-  <h1>{meta.label}</h1>
-  <p class="page-intro">{meta.description}</p>
-  <p class="browse-actions">
-    <a class="button button--primary" href={submitIssueUrl(meta.type)}>Submit a new {meta.singularLabel.toLowerCase()}</a>
-  </p>
-  <p class="entry-count" id="visible-count" aria-live="polite">{entries.length} of {entries.length} entries shown</p>
+  <header class="browse-header">
+    <div>
+      <h1><Icon name={type} size={30} />{meta.label}</h1>
+      <p class="page-intro">{meta.description}</p>
+    </div>
+    {entries.length > 0 && (
+      <p class="browse-actions">
+        <a class="button button--primary" href={submitIssueUrl(meta.type)}>{submitLabel}</a>
+      </p>
+    )}
+  </header>
 
+  {entries.length === 0 ? (
+    <div class="empty-state">
+      <Icon name={type} size={36} />
+      <p class="empty-state__title">No {meta.label.toLowerCase()} catalogued yet</p>
+      <p>
+        The registry is accepting submissions. If you maintain or know of one relevant to genomics or health research,
+        open a submission issue and a maintainer will review it.
+      </p>
+      <a class="button button--primary" href={submitIssueUrl(meta.type)}>{submitLabel}</a>
+    </div>
+  ) : (
   <div class="browse-layout" data-browse-root>
-    <form class="facet-panel" aria-label={`Filter ${meta.label.toLowerCase()}`} data-facet-form data-pagefind-ignore>
+    <details class="facet-disclosure" open data-facet-disclosure data-pagefind-ignore>
+      <summary>
+        Filters
+        <span class="facet-summary__count" data-facet-active-count hidden></span>
+      </summary>
+    <form class="facet-panel" aria-label={`Filter ${meta.label.toLowerCase()}`} data-facet-form>
       {
         categories.length > 0 && (
           <fieldset class="facet-group">
@@ -76,14 +104,17 @@ const categories = categoriesForCollection(type);
 
       {
         keywordsInUse.length > 0 && (
-          <fieldset class="facet-group">
-            <legend>Keyword</legend>
-            {keywordsInUse.map((k) => (
-              <label class="facet-option">
-                <input type="checkbox" name="keyword" value={k} />
-                {k}
-              </label>
-            ))}
+          <fieldset class="facet-group facet-group--collapsible">
+            <legend class="visually-hidden">Keyword</legend>
+            <details>
+              <summary>Keyword <span>({keywordsInUse.length})</span></summary>
+              {keywordsInUse.map((k) => (
+                <label class="facet-option">
+                  <input type="checkbox" name="keyword" value={k} />
+                  {k}
+                </label>
+              ))}
+            </details>
           </fieldset>
         )
       }
@@ -94,7 +125,7 @@ const categories = categoriesForCollection(type);
           ["platform_verified", "community_signed", "unsigned"].map((tier) => (
             <label class="facet-option">
               <input type="checkbox" name="tier" value={tier} />
-              {tier.replace("_", " ")}
+              {TIER_LABELS[tier] ?? tier}
             </label>
           ))
         }
@@ -130,8 +161,14 @@ const categories = categoriesForCollection(type);
 
       <button type="button" class="facet-panel__reset" data-facet-reset>Clear filters</button>
     </form>
+    </details>
 
     <div>
+      <div class="browse-toolbar">
+        <p class="entry-count" id="visible-count" aria-live="polite">
+          Showing <strong>{entries.length}</strong> of {entries.length} {entries.length === 1 ? "entry" : "entries"}
+        </p>
+      </div>
       <ul class="entry-list" data-entry-list data-pagefind-ignore>
         {
           entries.map((entry) => {
@@ -165,11 +202,14 @@ const categories = categoriesForCollection(type);
           })
         }
       </ul>
-      <p class="empty-state" data-empty-state hidden data-pagefind-ignore>
-        No {meta.label.toLowerCase()} match the selected filters.
-      </p>
+      <div class="empty-state" data-empty-state hidden data-pagefind-ignore>
+        <p class="empty-state__title">No {meta.label.toLowerCase()} match these filters</p>
+        <p>Filters within a group match any selected value; filters across groups must all match. Try removing one.</p>
+        <button type="button" class="button" data-facet-reset>Clear all filters</button>
+      </div>
     </div>
   </div>
+  )}
 
   <script>
     const root = document.querySelector<HTMLElement>("[data-browse-root]");
@@ -177,7 +217,13 @@ const categories = categoriesForCollection(type);
     const list = root?.querySelector<HTMLElement>("[data-entry-list]");
     const emptyState = document.querySelector<HTMLElement>("[data-empty-state]");
     const countEl = document.getElementById("visible-count");
-    const resetButton = root?.querySelector<HTMLButtonElement>("[data-facet-reset]");
+    const resetButtons = Array.from(root?.querySelectorAll<HTMLButtonElement>("[data-facet-reset]") ?? []);
+    const disclosure = root?.querySelector<HTMLDetailsElement>("[data-facet-disclosure]");
+    const activeCountEl = root?.querySelector<HTMLElement>("[data-facet-active-count]");
+
+    // Filters start collapsed on narrow screens so results come first; the
+    // server-rendered default is open so the panel works without JavaScript.
+    if (disclosure && window.matchMedia("(max-width: 52rem)").matches) disclosure.open = false;
     if (!form || !list || !countEl) {
       // no filters or no entries rendered for this type; nothing to wire up.
     } else {
@@ -238,15 +284,22 @@ const categories = categoriesForCollection(type);
           card.hidden = !show;
           if (show) visible += 1;
         }
-        countEl!.textContent = `${visible} of ${total} entries shown`;
+        countEl!.innerHTML = `Showing <strong>${visible}</strong> of ${total} ${total === 1 ? "entry" : "entries"}`;
         if (emptyState) emptyState.hidden = visible > 0;
+        const active = form!.querySelectorAll("input:checked").length;
+        if (activeCountEl) {
+          activeCountEl.hidden = active === 0;
+          activeCountEl.textContent = `${active} active`;
+        }
       }
 
       form.addEventListener("change", applyFilters);
-      resetButton?.addEventListener("click", () => {
-        form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((i) => (i.checked = false));
-        applyFilters();
-      });
+      resetButtons.forEach((button) =>
+        button.addEventListener("click", () => {
+          form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((i) => (i.checked = false));
+          applyFilters();
+        }),
+      );
 
       applyFilters();
     }

@@ -7,10 +7,10 @@ const docs = getAllSchemaDocs();
 ---
 
 <Base
-  title="Specifications"
+  title="Schema reference"
   description="Human-readable reference for the JSON Schema documents this registry defines: the common entry core and each of the six content-type schemas."
 >
-  <h1>Specifications</h1>
+  <h1>Schema reference</h1>
   <p class="page-intro">
     Every entry in this registry validates against one of the JSON Schema documents below.
     entry-core.v1.schema.json defines the fields every entry carries regardless of type; each content-type schema
@@ -18,7 +18,7 @@ const docs = getAllSchemaDocs();
     they exist; each page links to the raw schema file on the repository as the authoritative source.
   </p>
 
-  <ul class="type-grid">
+  <ul class="type-grid type-grid--docs">
     {
       docs.map((doc) => (
         <li>

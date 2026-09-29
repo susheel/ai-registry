@@ -27,10 +27,10 @@ const docs = await Promise.all(
     carry, its relationship to any upstream standard it profiles, its validation rules, and a worked example. Every
     specification here is a prose statement of what a <code>schemas/*.v1.schema.json</code> file already enforces
     mechanically; none of them defines a field the corresponding schema does not already have. See the
-    <a href={withBase("/specifications/")}>Specifications</a> section for the schemas themselves.
+    <a href={withBase("/specifications/")}>Schema reference</a> for the schemas themselves.
   </p>
 
-  <ul class="type-grid">
+  <ul class="type-grid type-grid--docs">
     {
       docs.map((doc) => (
         <li>

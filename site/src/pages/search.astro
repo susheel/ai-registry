@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { withBase } from "../lib/url.js";
+import Icon from "../components/Icon.astro";
 
 const pagefindUrl = withBase("/pagefind/pagefind.js");
 ---
@@ -17,14 +18,20 @@ const pagefindUrl = withBase("/pagefind/pagefind.js");
 
   <form class="search-form" role="search" data-search-form>
     <label for="search-input" class="visually-hidden">Search the registry</label>
-    <input id="search-input" name="q" type="search" placeholder="Search by name, summary, description, or keyword" autocomplete="off" />
+    <span class="search-field">
+      <Icon name="search" size={18} />
+      <input id="search-input" name="q" type="search" placeholder="Search by name, summary, description, or keyword" autocomplete="off" />
+    </span>
     <button type="submit">Search</button>
   </form>
 
   <p class="search-status" role="status" aria-live="polite" data-search-status>Loading search index…</p>
 
   <div class="browse-layout" data-search-layout hidden>
-    <div class="facet-panel" aria-label="Filter search results" data-facet-container></div>
+    <details class="facet-disclosure" open data-facet-disclosure>
+      <summary>Filters</summary>
+      <div class="facet-panel" role="group" aria-label="Filter search results" data-facet-container></div>
+    </details>
     <ul class="search-results" data-search-results></ul>
   </div>
 
@@ -49,6 +56,15 @@ const pagefindUrl = withBase("/pagefind/pagefind.js");
         keyword: "Keyword",
         ga4gh_standards: "GA4GH standard",
         certification_tier: "Certification tier",
+      };
+
+      var TYPE_LABELS = {
+        model: "Model",
+        agent: "Agent",
+        skill: "Skill",
+        "mcp-server": "MCP server",
+        plugin: "Plugin",
+        bundle: "Bundle",
       };
 
       function friendlyGroupLabel(group) {
@@ -80,6 +96,13 @@ const pagefindUrl = withBase("/pagefind/pagefind.js");
         statusEl.textContent = "";
         layout.hidden = false;
 
+        // Honour ?q= so the home-page search box and shared links land on
+        // results, and collapse filters on narrow screens (results first).
+        var initialQuery = new URLSearchParams(window.location.search).get("q");
+        if (initialQuery) input.value = initialQuery;
+        var disclosure = document.querySelector("[data-facet-disclosure]");
+        if (disclosure && window.matchMedia("(max-width: 52rem)").matches) disclosure.open = false;
+
         var filters = await pagefind.filters();
         for (var group in filters) {
           var fieldset = document.createElement("fieldset");
@@ -97,7 +120,11 @@ const pagefindUrl = withBase("/pagefind/pagefind.js");
             checkbox.name = group;
             checkbox.value = value;
             label.appendChild(checkbox);
-            label.append(" " + value + " (" + count + ")");
+            label.append(value);
+            var countSpan = document.createElement("span");
+            countSpan.className = "facet-option__count";
+            countSpan.textContent = String(count);
+            label.appendChild(countSpan);
             fieldset.appendChild(label);
           }
           facetContainer.appendChild(fieldset);
@@ -121,14 +148,20 @@ const pagefindUrl = withBase("/pagefind/pagefind.js");
           var response = await pagefind.search(query.length > 0 ? query : null, { filters: selectedFilters() });
           var results = response.results;
           resultsEl.innerHTML = "";
-          statusEl.textContent = results.length + " result" + (results.length === 1 ? "" : "s");
+          var shown = Math.min(results.length, 40);
+          statusEl.textContent =
+            results.length === 0
+              ? (query ? 'No results for "' + query + '". Try a broader term or clear some filters.' : "No entries match these filters.")
+              : results.length + " result" + (results.length === 1 ? "" : "s") + (query ? ' for "' + query + '"' : "") +
+                (shown < results.length ? " (showing the first " + shown + ")" : "");
           for (var i = 0; i < Math.min(results.length, 40); i++) {
             var data = await results[i].data();
             var li = document.createElement("li");
             li.className = "entry-card";
-            var typeValue = (data.filters.type && data.filters.type[0]) || "";
+            var typeRaw = (data.filters.type && data.filters.type[0]) || "";
+            var typeValue = TYPE_LABELS[typeRaw] || typeRaw;
             li.innerHTML =
-              '<p class="entry-card__meta"><span class="badge badge--keyword">' +
+              '<p class="entry-card__meta"><span class="badge badge--type">' +
               typeValue +
               '</span></p><h2 class="entry-card__title"><a href="' +
               data.url +
@@ -143,6 +176,11 @@ const pagefindUrl = withBase("/pagefind/pagefind.js");
 
         form.addEventListener("submit", function (event) {
           event.preventDefault();
+          var url = new URL(window.location.href);
+          var q = input.value.trim();
+          if (q) url.searchParams.set("q", q);
+          else url.searchParams.delete("q");
+          history.replaceState(null, "", url);
           runSearch();
         });
 
