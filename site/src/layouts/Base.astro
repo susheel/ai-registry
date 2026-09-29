@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { TYPE_META, COLLECTION_KEYS } from "../lib/registry-types.js";
 import { withBase } from "../lib/url.js";
+import { SUBMIT_REPO_URL } from "../lib/repo.js";
 
 interface Props {
   title: string;
@@ -9,13 +10,29 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Current-section detection for aria-current on the primary nav: a nav item
+// is "current" when the request path sits under its href.
+const path = Astro.url.pathname;
+function isCurrent(href: string): boolean {
+  return href !== withBase("/") && path.startsWith(href);
+}
+
+const typeLinks = COLLECTION_KEYS.map((key) => ({ href: withBase(`/${key}/`), label: TYPE_META[key].label }));
+const docLinks = [
+  { href: withBase("/specifications/"), label: "Schemas" },
+  { href: withBase("/spec/"), label: "Spec docs" },
+];
+const searchHref = withBase("/search/");
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b3a66" />
+    <link rel="icon" type="image/png" href={withBase("/ga4gh-ai-workstream-logo.png")} />
     <title>{title} · GA4GH AI Registry</title>
     {description && <meta name="description" content={description} />}
   </head>
@@ -27,35 +44,64 @@ const { title, description } = Astro.props;
           <img
             class="site-header__logo"
             src={withBase("/ga4gh-ai-workstream-logo.png")}
-            width="32"
-            height="32"
-            alt="GA4GH AI Workstream logo"
+            width="36"
+            height="36"
+            alt=""
           />
-          GA4GH AI Registry
+          <span class="site-header__wordmark">
+            <span class="site-header__name">GA4GH AI Registry</span>
+            <span class="site-header__org">AI Workstream</span>
+          </span>
         </a>
-        <nav aria-label="Primary">
+        <nav class="site-nav-wrap" aria-label="Primary">
           <ul class="site-nav">
             {
-              COLLECTION_KEYS.map((key) => (
+              typeLinks.map((link) => (
                 <li>
-                  <a href={withBase(`/${key}/`)}>{TYPE_META[key].label}</a>
+                  <a href={link.href} aria-current={isCurrent(link.href) ? "page" : undefined}>
+                    {link.label}
+                  </a>
                 </li>
               ))
             }
-            <li><a href={withBase("/specifications/")}>Specifications</a></li>
-            <li><a href={withBase("/spec/")}>Spec</a></li>
-            <li><a href={withBase("/search/")}>Search</a></li>
+            <li class="site-nav__divider" aria-hidden="true"></li>
+            {
+              docLinks.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={isCurrent(link.href) ? "page" : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a class="site-nav__search" href={searchHref} aria-current={isCurrent(searchHref) ? "page" : undefined}>
+                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                Search
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
     <main id="main-content">
-      <slot />
+      <slot name="hero" />
+      <div class="page">
+        <slot />
+      </div>
     </main>
     <footer class="site-footer" data-pagefind-ignore>
       <div class="site-footer__inner">
-        A catalogue maintained by the GA4GH AI Workstream. Entries are community-submitted and reviewed;
-        see each entry's certification tier and safety classification before relying on it.
+        <p class="site-footer__lede">
+          A catalogue maintained by the GA4GH AI Workstream. Entries are community-submitted and reviewed; check each
+          entry's certification tier and safety classification before relying on it.
+        </p>
+        <ul class="site-footer__links">
+          <li><a href={SUBMIT_REPO_URL}>Source on GitHub</a></li>
+          <li><a href={withBase("/specifications/")}>Schemas</a></li>
+          <li><a href={withBase("/spec/")}>Spec docs</a></li>
+          <li><a href={withBase("/.well-known/ai-catalog.json")}>AI Catalog (JSON)</a></li>
+        </ul>
       </div>
     </footer>
   </body>

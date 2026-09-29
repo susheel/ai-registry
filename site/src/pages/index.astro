@@ -1,43 +1,80 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
-import { COLLECTION_KEYS, TYPE_META } from "../lib/registry-types.js";
+import Icon from "../components/Icon.astro";
+import { COLLECTION_KEYS, TYPE_META, singularPhrase } from "../lib/registry-types.js";
 import { withBase } from "../lib/url.js";
 import { submitIssueUrl } from "../lib/repo.js";
 
 const counts = Object.fromEntries(
   await Promise.all(COLLECTION_KEYS.map(async (key) => [key, (await getCollection(key)).length] as const)),
 );
+const total = Object.values(counts).reduce((sum, n) => sum + n, 0);
+const populatedTypes = COLLECTION_KEYS.filter((key) => counts[key] > 0).length;
 ---
 
 <Base
   title="Home"
   description="A catalogue of GA4GH-relevant AI models, agents, skills, MCP servers, and coding-harness plugins for genomics and health research."
 >
-  <h1>GA4GH AI Registry</h1>
-  <p class="page-intro">
-    A community-submitted, human-reviewed catalogue of AI models, agents, skills, MCP servers, and coding-harness
-    plugins relevant to genomics and health research, published by the GA4GH AI Workstream.
-  </p>
+  <section class="hero" slot="hero" aria-labelledby="hero-title">
+    <div class="hero__inner">
+      <h1 id="hero-title">AI tools for genomics and health research, catalogued in the open</h1>
+      <p class="hero__lede">
+        A community-submitted, human-reviewed catalogue of AI models, agents, skills, MCP servers, and coding-harness
+        plugins relevant to genomics and health research, published by the GA4GH AI Workstream. Every entry is a
+        schema-validated record pointing at the real upstream project.
+      </p>
+      <form class="hero__search" role="search" action={withBase("/search/")} method="get">
+        <label for="hero-search" class="visually-hidden">Search the registry</label>
+        <span class="search-field">
+          <Icon name="search" size={18} />
+          <input id="hero-search" name="q" type="search" placeholder="Search entries, e.g. variant, FHIR, Beacon" />
+        </span>
+        <button type="submit">Search</button>
+      </form>
+      <ul class="hero__stats">
+        <li><strong>{total}</strong> entries</li>
+        <li><strong>{populatedTypes}</strong> of {COLLECTION_KEYS.length} content types populated</li>
+        <li>Open data, <a href={withBase("/specifications/")}>open schemas</a></li>
+      </ul>
+    </div>
+  </section>
 
+  <h2 class="section-heading">Browse by content type</h2>
   <ul class="type-grid">
     {
       COLLECTION_KEYS.map((key) => {
         const meta = TYPE_META[key];
+        const count = counts[key];
         return (
           <li>
             <a class="type-card" href={withBase(`/${key}/`)}>
-              <span class="type-card__count" aria-hidden="true">
-                {counts[key]}
+              <span class="type-card__head">
+                <span class="type-card__icon">
+                  <Icon name={key} size={22} />
+                </span>
+                {count > 0 ? (
+                  <span class="type-card__count" aria-hidden="true">
+                    {count}
+                  </span>
+                ) : (
+                  <span class="type-card__count type-card__count--zero" aria-hidden="true">
+                    None yet
+                  </span>
+                )}
               </span>
-              <p class="type-card__label">
-                {meta.label}{" "}
-                <span class="visually-hidden">({counts[key]} {counts[key] === 1 ? "entry" : "entries"})</span>
-              </p>
+              <span class="type-card__label">
+                {meta.label}
+                <Icon name="arrow-right" size={16} />
+                <span class="visually-hidden">
+                  ({count} {count === 1 ? "entry" : "entries"})
+                </span>
+              </span>
               <p class="type-card__description">{meta.description}</p>
             </a>
             <a class="type-card__submit" href={submitIssueUrl(meta.type)}>
-              Submit a {meta.singularLabel.toLowerCase()}
+              {count > 0 ? `Submit ${singularPhrase(meta)}` : `Be the first: submit ${singularPhrase(meta)}`}
             </a>
           </li>
         );

@@ -71,3 +71,15 @@ export const TYPE_META: Record<CollectionKey, TypeMeta> = {
 export function typeMetaForKey(key: string): TypeMeta | undefined {
   return TYPE_META[key as CollectionKey];
 }
+
+/**
+ * Singular noun phrase with the correct indefinite article, for copy such as
+ * "Submit an MCP server". Acronyms keep their capitals; the rest is
+ * lower-cased. Trigger: naive `singularLabel.toLowerCase()` produced
+ * "Submit a agent" and "Submit a mcp server". Outcome: grammatical, acronym-safe copy.
+ */
+export function singularPhrase(meta: TypeMeta): string {
+  const noun = meta.singularLabel.replace(/\b([A-Z][a-z]+)\b/g, (w) => w.toLowerCase());
+  const article = /^(?:[aeiou]|MCP\b)/i.test(noun) ? "an" : "a";
+  return `${article} ${noun}`;
+}
