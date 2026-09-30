@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import Icon from "../../components/Icon.astro";
+import { loadPublisherGroups } from "../../lib/publishers.js";
+import { TYPE_META, COLLECTION_KEYS, type CollectionKey } from "../../lib/registry-types.js";
+import { withBase } from "../../lib/url.js";
+import type { PublisherGroup } from "../../../../scripts/lib/publishers.js";
+
+export async function getStaticPaths() {
+  const publishers = await loadPublisherGroups();
+  return publishers.map((publisher) => ({ params: { publisher: publisher.id }, props: { publisher } }));
+}
+
+interface Props {
+  publisher: PublisherGroup;
+}
+
+const { publisher } = Astro.props;
+const byCollection = COLLECTION_KEYS.map((key) => ({
+  key,
+  entries: publisher.entries.filter((e) => e.collection === key),
+})).filter((g) => g.entries.length > 0);
+const count = publisher.entries.length;
+---
+
+<Base title={publisher.name} description={`Registry entries published by ${publisher.name}.`}>
+  <header class="detail-header">
+    <div>
+      <p class="breadcrumb">
+        <a href={withBase("/publishers/")}>Publishers</a>
+      </p>
+      <h1 class="detail-header__title">{publisher.name}</h1>
+      <p class="page-intro">
+        {count} {count === 1 ? "entry" : "entries"} in this registry published by {publisher.name}
+        {publisher.url && (
+          <>
+            {" "}
+            (<a href={publisher.url}>{publisher.url.replace(/^https?:\/\//, "")} ↗</a>)
+          </>
+        )}.
+      </p>
+    </div>
+  </header>
+
+  {
+    byCollection.map(({ key, entries }) => (
+      <section class="detail-section" aria-labelledby={`publisher-${key}`}>
+        <h2 id={`publisher-${key}`}>
+          <Icon name={key as CollectionKey} size={18} /> {TYPE_META[key as CollectionKey].label}
+        </h2>
+        <ul class="publisher-entries">
+          {entries.map((e) => (
+            <li>
+              <a href={withBase(`/${e.collection}/${e.id}/`)}>{e.name}</a> <code class="field-note">{e.qualifiedId}</code>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</Base>

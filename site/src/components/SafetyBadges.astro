@@ -7,7 +7,8 @@
  * (`safety-<scheme>:<level>`), never a single cross-scheme facet, matching
  * the within-scheme-only filtering rule (internal project documentation Section 4.2).
  */
-import { safetySchemeLabel } from "../lib/vocab.js";
+import { safetyDisplayLabel, safetyLevelAnchor, safetySchemeLabel } from "../lib/vocab.js";
+import { withBase } from "../lib/url.js";
 
 interface SafetyClassification {
   scheme: string;
@@ -23,6 +24,13 @@ interface Props {
 }
 
 const { classifications, compact = false } = Astro.props;
+
+// Each badge reads "<label>: <level>" (e.g. "Safety level: GASL-2"). On the
+// detail page it links to that level's plain-English explanation; compact
+// badges on browse cards stay plain text, because the card's title link is
+// the card's only interactive element.
+const href = (c: SafetyClassification) => withBase(`/safety-levels/#${safetyLevelAnchor(c.scheme, c.level)}`);
+const describe = (c: SafetyClassification) => `${safetyDisplayLabel(c.scheme)} ${c.level} (${safetySchemeLabel(c.scheme)}). What this level means.`;
 ---
 
 {
@@ -34,9 +42,9 @@ const { classifications, compact = false } = Astro.props;
         <span
           class="badge badge--safety"
           data-pagefind-filter={`safety-${c.scheme}:${c.level}`}
-          title={`${safetySchemeLabel(c.scheme)}, level ${c.level}`}
+          title={`${safetyDisplayLabel(c.scheme)} ${c.level} (${safetySchemeLabel(c.scheme)})`}
         >
-          {safetySchemeLabel(c.scheme)}: {c.level}
+          {safetyDisplayLabel(c.scheme)}: {c.level}
         </span>
       ))}
     </span>
@@ -44,12 +52,14 @@ const { classifications, compact = false } = Astro.props;
     <ul class="safety-list">
       {classifications.map((c) => (
         <li>
-          <span
+          <a
             class="badge badge--safety"
+            href={href(c)}
             data-pagefind-filter={`safety-${c.scheme}:${c.level}`}
+            title={describe(c)}
           >
-            {safetySchemeLabel(c.scheme)}: {c.level}
-          </span>
+            {safetyDisplayLabel(c.scheme)}: {c.level}
+          </a>
           <span class="page-intro" style="display:block;margin-top:0.25rem;">
             Source: {c.source}
             {c.certifying_body ? ` · Certifying body: ${c.certifying_body}` : ""}

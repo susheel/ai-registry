@@ -252,6 +252,14 @@ function mergeAllOfBranches(schema: JSONSchema): {
 }
 
 function walkSchemaNode(schema: JSONSchema, currentFile: string): WalkedNode {
+  // A bare "#/$defs/X" inside a type schema points at that schema's own
+  // $defs (e.g. model-entry's ModelDetails), not entry-core's: inline it.
+  if (typeof schema.$ref === "string" && schema.$ref.startsWith("#/$defs/") && currentFile !== ENTRY_CORE_FILE) {
+    const localDef = (loadRaw(currentFile).$defs as JSONSchema | undefined)?.[schema.$ref.slice("#/$defs/".length)] as
+      | JSONSchema
+      | undefined;
+    if (localDef) return walkSchemaNode(localDef, currentFile);
+  }
   if (typeof schema.$ref === "string") {
     const info = classifyRef(schema.$ref);
     if (info.kind === "vendor") {
@@ -297,7 +305,14 @@ function walkSchemaNode(schema: JSONSchema, currentFile: string): WalkedNode {
     };
   }
 
-  const typeLabel = typeof schema.type === "string" ? schema.type : schema.const !== undefined ? typeof schema.const : "object";
+  const typeLabel =
+    typeof schema.type === "string"
+      ? schema.type
+      : Array.isArray(schema.type)
+        ? (schema.type as string[]).join(" or ")
+        : schema.const !== undefined
+          ? typeof schema.const
+          : "object";
   return { typeLabel, constraints: constraintsFor(schema) };
 }
 

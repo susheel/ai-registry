@@ -1,0 +1,62 @@
+---
+import Base from "../../layouts/Base.astro";
+import { loadPublisherGroups } from "../../lib/publishers.js";
+import { withBase } from "../../lib/url.js";
+
+const publishers = await loadPublisherGroups();
+const covered = publishers.reduce((sum, p) => sum + p.entries.length, 0);
+const TYPE_LABELS: Record<string, string> = {
+  "github-org": "GitHub organisation",
+  "github-user": "GitHub user",
+  "huggingface-org": "Hugging Face organisation",
+  "huggingface-user": "Hugging Face user",
+  npm: "npm scope",
+  organisation: "Organisation",
+  other: "Other",
+};
+---
+
+<Base title="Publishers" description="Organisations and accounts that publish the upstream projects catalogued in this registry.">
+  <header class="browse-header">
+    <div>
+      <h1>Publishers</h1>
+      <p class="page-intro">
+        The organisations and accounts that publish the upstream projects this registry catalogues, taken from each
+        entry's upstream metadata. {covered} {covered === 1 ? "entry records" : "entries record"} a publisher so far;
+        entries without upstream metadata are not listed here yet.
+      </p>
+    </div>
+  </header>
+
+  {
+    publishers.length === 0 ? (
+      <div class="empty-state">
+        <p class="empty-state__title">No publishers recorded yet</p>
+      </div>
+    ) : (
+      <div class="table-scroll" role="region" aria-labelledby="publishers-caption" tabindex="0">
+        <table class="data-table">
+          <caption id="publishers-caption">Publishers, with the number of registry entries each publishes</caption>
+          <thead>
+            <tr>
+              <th scope="col">Publisher</th>
+              <th scope="col">Account type</th>
+              <th scope="col" class="data-table__num">Entries</th>
+            </tr>
+          </thead>
+          <tbody>
+            {publishers.map((p) => (
+              <tr>
+                <th scope="row">
+                  <a href={withBase(`/publishers/${p.id}/`)}>{p.name}</a> <code class="field-note">{p.id}</code>
+                </th>
+                <td>{TYPE_LABELS[p.type] ?? p.type}</td>
+                <td class="data-table__num">{p.entries.length}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+</Base>

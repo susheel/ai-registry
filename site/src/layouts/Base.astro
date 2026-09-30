@@ -20,6 +20,7 @@ function isCurrent(href: string): boolean {
 
 const typeLinks = COLLECTION_KEYS.map((key) => ({ href: withBase(`/${key}/`), label: TYPE_META[key].label }));
 const docLinks = [
+  { href: withBase("/publishers/"), label: "Publishers" },
   { href: withBase("/specifications/"), label: "Schemas" },
   { href: withBase("/spec/"), label: "Spec docs" },
 ];
@@ -99,6 +100,8 @@ const searchHref = withBase("/search/");
         </p>
         <ul class="site-footer__links">
           <li><a href={SUBMIT_REPO_URL}>Source on GitHub</a></li>
+          <li><a href={withBase("/publishers/")}>Publishers</a></li>
+          <li><a href={withBase("/safety-levels/")}>Safety levels</a></li>
           <li><a href={withBase("/specifications/")}>Schemas</a></li>
           <li><a href={withBase("/spec/")}>Spec docs</a></li>
           <li><a href={withBase("/.well-known/ai-catalog.json")}>AI Catalog (JSON)</a></li>

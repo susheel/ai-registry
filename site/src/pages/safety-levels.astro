@@ -1,0 +1,203 @@
+---
+/**
+ * Plain-English explanation of the two safety scales entries can carry.
+ * Paraphrased from the draft specifications behind each scheme, not quoted.
+ * Scheme titles are read from schemas/vocab/safety-schemes.json so this page
+ * always uses the same scheme naming as the rest of the site.
+ */
+import Base from "../layouts/Base.astro";
+import { safetySchemeLabel, safetyLevelAnchor, SAFETY_DISPLAY } from "../lib/vocab.js";
+import { withBase } from "../lib/url.js";
+
+const SAFETY = "ga4gh-gase";
+const RUNTIME = "ga4gh-agent-runtime-risk";
+const safetyLabel = SAFETY_DISPLAY[SAFETY]?.label ?? "Safety level";
+const runtimeLabel = SAFETY_DISPLAY[RUNTIME]?.label ?? "Runtime risk tier";
+
+interface LevelDoc {
+  level: string;
+  title: string;
+  means: string;
+  evidence: string[];
+  expect: string[];
+}
+
+const safetyLevels: LevelDoc[] = [
+  {
+    level: "GASL-1",
+    title: "Research use",
+    means:
+      "The system works only with aggregate, published or synthetic genomic data, and its outputs are used for research alone. Nothing it produces feeds into decisions about a patient.",
+    evidence: [
+      "A self-assessment by the developer, written up as an evaluation report. At a minimum it covers consent and data-use compliance and whether the system stays within its declared purpose; the other evaluation areas are recommended.",
+      "A signed statement from named people at the developer vouching that the evaluation is complete and accurate.",
+      "Valid for up to 24 months, or until a change that requires re-evaluation.",
+    ],
+    expect: [
+      "A documented safety baseline you can read, but no one outside the developer has checked it.",
+      "An annual self-review is recommended, not required.",
+    ],
+  },
+  {
+    level: "GASL-2",
+    title: "Clinical decision support",
+    means:
+      "The system uses aggregate data, or individual-level data protected by differential privacy, and its outputs may influence clinical decisions indirectly: for example research that later shapes practice, or recommendations a clinician reviews.",
+    evidence: [
+      "The developer's evaluation across all six evaluation areas: re-identification risk, consent boundaries, fairness across ancestry groups, clinical safety, staying within declared scope, and robustness to attack.",
+      "A review by a qualified reviewer who is independent of the development team and has no conflict of interest, with a written review report and the developer's response to it.",
+      "Valid for up to 18 months, or until a change that requires re-evaluation.",
+    ],
+    expect: [
+      "Safety claims that someone independent has examined, though not re-run.",
+      "Runtime monitoring and a post-deployment review every quarter are required.",
+    ],
+  },
+  {
+    level: "GASL-3",
+    title: "Autonomous clinical action",
+    means:
+      "The system uses individual-level genomic data (for example VCF files or individual genotypes) and its outputs directly drive diagnosis, treatment choice or risk stratification, or it acts without a clinician reviewing each output.",
+    evidence: [
+      "An audit by an independent, accredited third-party organisation that re-runs the evaluation across all six areas, with a machine-readable audit trail.",
+      "Clinical validation by an accredited clinical laboratory (for example under CLIA or ISO 15189).",
+      "Fault-injection testing showing that safety controls fail safely when the services they depend on go down.",
+      "A post-deployment monitoring plan and an incident response plan. Valid for up to 12 months, or until a change that requires re-evaluation.",
+    ],
+    expect: [
+      "The strongest independent evidence this scale offers, with continuous monitoring and monthly surveillance required.",
+      "It is not a regulatory approval: it can support, but does not replace, a medical-device or AI Act conformity assessment.",
+    ],
+  },
+  {
+    level: "GASL-3E",
+    title: "Clinical AI inside an electronic health record",
+    means:
+      "A GASL-3 system that is also built into an electronic health record, for example through CDS Hooks, FHIR or HL7 v2, so its outputs reach clinicians inside their everyday workflow.",
+    evidence: [
+      "Everything required for GASL-3.",
+      "A medical-device-grade software lifecycle (IEC 62304 Class C), and clinical validation on prospective or gold-standard clinical data.",
+      "Integration testing for slow responses, missing or malformed record data and many simultaneous users, plus tested behaviour when the model or the record system is unavailable.",
+      "A usability study with clinicians, an assessment of alert fatigue where the system raises alerts, and a post-market surveillance plan.",
+    ],
+    expect: [
+      "The same assurance as GASL-3, extended to the risks that come from living inside a clinical record system.",
+      "A GASL-3 system that is later connected to a health record has to be re-evaluated at this level first.",
+    ],
+  },
+];
+
+const runtimeTiers = [
+  { level: "0", title: "Informational", isolation: "standard container isolation; outbound network access is not restricted." },
+  { level: "1", title: "Research", isolation: "containers with reduced privileges; network access only to declared endpoints; a read-only system image." },
+  { level: "2", title: "Diagnostic support", isolation: "containers with kernel security profiles; network access only to approved services, all of it logged." },
+  { level: "3", title: "Clinical-adjacent", isolation: "a lightweight virtual machine or equivalent sandbox; no direct internet access; nothing kept between runs." },
+  { level: "4", title: "Clinical-direct", isolation: "hardware-backed isolation, including a trusted execution environment for memory; an air-gapped or strictly allow-listed network." },
+];
+---
+
+<Base title="Safety levels" description="What each safety level and runtime risk tier shown in this registry means, what evidence it needs, and what to expect.">
+  <article class="prose-page">
+    <header>
+      <h1 id="top">Safety levels</h1>
+      <p class="page-intro">
+        Entries can show two different safety scales. Each badge names its scale, and the two scales are never
+        converted into each other: a {safetyLabel.toLowerCase()} and a {runtimeLabel.toLowerCase()} answer different
+        questions.
+      </p>
+    </header>
+
+    <section class="detail-section" aria-labelledby="safety-level">
+      <h2 id="safety-level">{safetyLabel}</h2>
+      <p>
+        A {safetyLabel.toLowerCase()} says how much independent evidence stands behind a genomic AI system's safety
+        claims. The more directly a system can affect patients, the higher its level and the more demanding the evidence.
+        Levels are defined by the <em>{safetySchemeLabel(SAFETY)}</em> scheme, a GA4GH AI Work Stream draft (version
+        0.10.0) that may still change.
+      </p>
+      <p>
+        A system takes the level of its riskiest characteristic: one that reads individual-level data is GASL-3 even if its
+        outputs are research-only. When in doubt the higher level applies, and the level has to be reassessed when the system
+        is used in a new setting. The scale has four levels, GASL-1 to GASL-3 plus GASL-3E; there is no GASL-0 or GASL-4 on
+        it (those numbers belong to the separate <a href={`#${safetyLevelAnchor(RUNTIME)}`}>{runtimeLabel.toLowerCase()}</a>).
+      </p>
+
+      {
+        safetyLevels.map((doc) => (
+          <section class="level-card" aria-labelledby={safetyLevelAnchor(SAFETY, doc.level)}>
+            <h3 id={safetyLevelAnchor(SAFETY, doc.level)}>
+              <span class="badge badge--safety">{doc.level}</span> {doc.title}
+            </h3>
+            <p>
+              <strong>What it means.</strong> {doc.means}
+            </p>
+            <p>
+              <strong>Evidence required.</strong>
+            </p>
+            <ul>
+              {doc.evidence.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <p>
+              <strong>What to expect.</strong>
+            </p>
+            <ul>
+              {doc.expect.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+
+      <h3 id="reading-a-level">Reading a level in this registry</h3>
+      <ul>
+        <li>
+          The registry records a level; it does not award one. Each badge says where the level came from (reported by the
+          submitter, checked by a maintainer, or read from the system's own endpoint). No GA4GH body currently runs a
+          certification service for these levels, so check the evaluation documents themselves before relying on one.
+        </li>
+        <li>
+          A level applies to the exact artefact that was evaluated. A quantised, converted or fine-tuned version is a
+          different artefact, so evidence about the original does not carry over to it.
+        </li>
+        <li>An entry with no badge simply has no level recorded. That is not the same as a low level.</li>
+      </ul>
+    </section>
+
+    <section class="detail-section" aria-labelledby="runtime-risk-tier">
+      <h2 id="runtime-risk-tier">{runtimeLabel}</h2>
+      <p>
+        A {runtimeLabel.toLowerCase()} describes how tightly an agent has to be isolated while it runs, on a scale from 0
+        to 4, and is reported live by the agent's own endpoint. It is an operational setting, not an assessment of
+        evidence, and it has no fixed relationship to the {safetyLabel.toLowerCase()} above. Scheme:
+        <em>{safetySchemeLabel(RUNTIME)}</em> (draft).
+      </p>
+      <div class="table-scroll" role="region" aria-labelledby="runtime-caption" tabindex="0">
+        <table class="data-table">
+          <caption id="runtime-caption">{runtimeLabel}s and their minimum runtime isolation</caption>
+          <thead>
+            <tr>
+              <th scope="col">Tier</th>
+              <th scope="col">Used for</th>
+              <th scope="col">Minimum isolation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {runtimeTiers.map((t) => (
+              <tr id={safetyLevelAnchor(RUNTIME, t.level)}>
+                <th scope="row">{t.level}</th>
+                <td>{t.title}</td>
+                <td>{t.isolation.charAt(0).toUpperCase() + t.isolation.slice(1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="field-note">Tiers 3 and 4 may be relaxed in documented development and test settings, but a relaxed agent must not touch production clinical data.</p>
+    </section>
+
+    <p><a href={withBase("/")}>Back to the registry</a></p>
+  </article>
+</Base>

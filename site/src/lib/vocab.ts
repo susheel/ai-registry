@@ -50,3 +50,26 @@ export const SAFETY_SCHEMES: SafetyScheme[] = safetySchemesVocab.schemes;
 export function safetySchemeLabel(schemeId: string): string {
   return SAFETY_SCHEMES.find((s) => s.id === schemeId)?.name ?? schemeId;
 }
+
+/**
+ * Reader-facing labels for the two safety schemes. The scheme `name` in
+ * schemas/vocab/safety-schemes.json is the formal title of the scheme; the
+ * interface shows these shorter labels instead and links each one to its
+ * explanation on /safety-levels/. Scheme ids and level codes are unchanged.
+ */
+export const SAFETY_DISPLAY: Record<string, { label: string; anchor: string }> = {
+  "ga4gh-gase": { label: "Safety level", anchor: "safety-level" },
+  "ga4gh-agent-runtime-risk": { label: "Runtime risk tier", anchor: "runtime-risk-tier" },
+};
+
+export function safetyDisplayLabel(schemeId: string): string {
+  return SAFETY_DISPLAY[schemeId]?.label ?? safetySchemeLabel(schemeId);
+}
+
+/** Fragment on /safety-levels/ explaining one scheme, or one level within it. */
+export function safetyLevelAnchor(schemeId: string, level?: string): string {
+  const base = SAFETY_DISPLAY[schemeId]?.anchor ?? "top";
+  if (!level) return base;
+  const slug = level.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  return schemeId === "ga4gh-gase" ? slug : `${base}-${slug}`;
+}

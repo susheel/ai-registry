@@ -13,6 +13,8 @@ import { withBase } from "../../lib/url.js";
 import { deriveAllInstallSnippets, type InstallableServer } from "../../../../scripts/install-snippets.js";
 import { renderMarkdown, markdownToPlainText } from "../../../../scripts/lib/markdown.js";
 import { deriveEntryActions } from "../../../../scripts/lib/entry-actions.js";
+import { deriveQualifiedId, normaliseSegment, readUpstream } from "../../../../scripts/lib/upstream.js";
+import { SAFETY_DISPLAY, safetyLevelAnchor } from "../../lib/vocab.js";
 
 export async function getStaticPaths() {
   const paths = [];
@@ -88,6 +90,72 @@ if (type === "plugins") {
 // escapes any raw HTML and drops unsafe link protocols.
 const descriptionHtml = renderMarkdown(String(data.description ?? ""));
 const summaryText = markdownToPlainText(String(data.summary ?? ""));
+// Upstream ownership and version. The qualified id is derived here from the
+// upstream fields, never read from a stored value.
+const upstream = readUpstream(data);
+const qualifiedId = upstream ? deriveQualifiedId(upstream) : undefined;
+const publisherId = upstream ? normaliseSegment(upstream.publisher.id) : undefined;
+const VERSION_SOURCE_LABELS: Record<string, string> = {
+  "github-release": "GitHub release",
+  "git-tag": "Git tag",
+  pypi: "PyPI",
+  npm: "npm",
+  "huggingface-revision": "Hugging Face revision",
+  "model-card": "Model card",
+  commit: "Commit",
+};
+const PUBLISHER_TYPE_LABELS: Record<string, string> = {
+  "github-org": "GitHub organisation",
+  "github-user": "GitHub user",
+  "huggingface-org": "Hugging Face organisation",
+  "huggingface-user": "Hugging Face user",
+  npm: "npm scope",
+  organisation: "Organisation",
+  other: "Other",
+};
+// A 40-character revision hash is unreadable in prose; show a short form and
+// keep the full value in the qualified id and the title attribute.
+function displayVersion(version: string): string {
+  return /^[0-9a-f]{40}$/.test(version) ? version.slice(0, 12) : version;
+}
+
+interface Quantisation {
+  format: string;
+  bits: number;
+  publisher: string;
+  url: string;
+  size_bytes?: number;
+}
+const modelDetails = type === "models"
+  ? (data.model_details as
+      | { parameters?: number | string; reference_precision?: string; weights_availability?: string; licence?: string; quantisations?: Quantisation[] }
+      | undefined)
+  : undefined;
+const WEIGHTS_LABELS: Record<string, string> = {
+  open: "Open (downloadable without approval)",
+  gated: "Gated (download after an access request or licence acceptance)",
+  "api-only": "API only (hosted service, no weights download)",
+  unreleased: "Unreleased",
+};
+function formatParameters(value: number | string): string {
+  if (typeof value === "string") return value;
+  const units: Array<[number, string]> = [[1e12, "T"], [1e9, "B"], [1e6, "M"], [1e3, "K"]];
+  for (const [size, unit] of units) {
+    if (value >= size) return `${Number((value / size).toFixed(1))}${unit} (${value.toLocaleString("en-GB")})`;
+  }
+  return value.toLocaleString("en-GB");
+}
+function formatBytes(bytes: number): string {
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  let value = bytes;
+  let unit = 0;
+  while (value >= 1000 && unit < units.length - 1) {
+    value /= 1000;
+    unit += 1;
+  }
+  return `${Number(value.toFixed(value >= 10 || unit === 0 ? 0 : 1))} ${units[unit]}`;
+}
+
 const actions = deriveEntryActions(type, data, {
   hasInstallPanels: (type === "mcp-servers" ? mcpPanels : pluginPanels).length > 0,
 });
@@ -101,6 +169,13 @@ const actions = deriveEntryActions(type, data, {
           <a href={withBase(`/${type}/`)}><Icon name={type} size={16} />{meta.label}</a>
         </p>
         <h1 class="detail-header__title">{String(data.name)}</h1>
+        {qualifiedId && (
+          <div class="qualified-id">
+            <span class="qualified-id__label">Qualified id</span>
+            <code id="qualified-id">{qualifiedId}</code>
+            <CopyButton targetId="qualified-id" label="Copy qualified id" />
+          </div>
+        )}
         <p class="page-intro">{summaryText}</p>
       </div>
       <div class="detail-header__aside">
@@ -180,9 +255,55 @@ const actions = deriveEntryActions(type, data, {
       </dl>
     </section>
 
-    <section class="detail-section">
-      <h2>Safety classification</h2>
+    {
+      upstream && publisherId && (
+        <section class="detail-section" aria-labelledby="publisher-heading">
+          <h2 id="publisher-heading">Publisher</h2>
+          <dl class="field-list">
+            <dt>Published by</dt>
+            <dd data-pagefind-filter={`publisher:${upstream.publisher.name}`}>
+              <a href={withBase(`/publishers/${publisherId}/`)}>{upstream.publisher.name}</a>
+              {" "}
+              <span class="field-note">({PUBLISHER_TYPE_LABELS[upstream.publisher.type] ?? upstream.publisher.type})</span>
+              {upstream.publisher.url && (
+                <>
+                  {" "}
+                  <a href={upstream.publisher.url}>profile ↗</a>
+                </>
+              )}
+            </dd>
+            <dt>Upstream name</dt>
+            <dd>{upstream.name}</dd>
+            <dt>Upstream version</dt>
+            <dd>
+              {upstream.version ? (
+                <>
+                  <code title={upstream.version}>{displayVersion(upstream.version)}</code>
+                  {upstream.version_source && (
+                    <span class="field-note"> ({VERSION_SOURCE_LABELS[upstream.version_source] ?? upstream.version_source})</span>
+                  )}
+                </>
+              ) : (
+                "No version published upstream"
+              )}
+            </dd>
+            {upstream.version_date && (
+              <>
+                <dt>Version date</dt>
+                <dd><time datetime={formatDate(upstream.version_date).iso}>{formatDate(upstream.version_date).label}</time></dd>
+              </>
+            )}
+          </dl>
+        </section>
+      )
+    }
+
+    <section class="detail-section" aria-labelledby="safety-heading">
+      <h2 id="safety-heading">Safety classification</h2>
       <SafetyBadges classifications={safety} />
+      <p class="field-note">
+        <a href={withBase("/safety-levels/")}>What the safety levels mean</a>
+      </p>
     </section>
 
     {
@@ -225,6 +346,64 @@ const actions = deriveEntryActions(type, data, {
               </>
             )}
           </dl>
+          {modelDetails && (
+            <>
+              <h3 id="model-details-heading">Model details</h3>
+              <dl class="field-list" aria-labelledby="model-details-heading">
+                {modelDetails.parameters !== undefined && (
+                  <>
+                    <dt>Parameters</dt>
+                    <dd>{formatParameters(modelDetails.parameters)}</dd>
+                  </>
+                )}
+                {modelDetails.reference_precision && (
+                  <>
+                    <dt>Reference precision</dt>
+                    <dd><code>{modelDetails.reference_precision}</code></dd>
+                  </>
+                )}
+                {modelDetails.weights_availability && (
+                  <>
+                    <dt>Weights</dt>
+                    <dd>{WEIGHTS_LABELS[modelDetails.weights_availability] ?? modelDetails.weights_availability}</dd>
+                  </>
+                )}
+                {modelDetails.licence && (
+                  <>
+                    <dt>Weights licence</dt>
+                    <dd>{modelDetails.licence === "other" ? "Custom terms (see the licence link above)" : modelDetails.licence}</dd>
+                  </>
+                )}
+              </dl>
+              {modelDetails.quantisations && modelDetails.quantisations.length > 0 && (
+                <div class="table-scroll" role="region" aria-labelledby="quantisations-caption" tabindex="0">
+                  <table class="data-table">
+                    <caption id="quantisations-caption">Quantised variants</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Format</th>
+                        <th scope="col">Bits</th>
+                        <th scope="col">Publisher</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {modelDetails.quantisations.map((q) => (
+                        <tr>
+                          <td><code>{q.format}</code></td>
+                          <td>{q.bits}</td>
+                          <td>{q.publisher === "official" ? "Official" : q.publisher}</td>
+                          <td>{q.size_bytes !== undefined ? formatBytes(q.size_bytes) : "Not stated"}</td>
+                          <td><a href={q.url}>Download page<span class="visually-hidden"> for the {q.format} {q.bits}-bit variant</span> ↗</a></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </>
+          )}
           {data.last_synced && (
             <p class="cache-note">
               Mirrored data last synced from the Model Card at {String(data.last_synced)}. See the linked card for
@@ -280,8 +459,12 @@ const actions = deriveEntryActions(type, data, {
                   )}
                   {enrichment.gasl_level !== undefined && (
                     <>
-                      <dt>GASL level (live sync)</dt>
-                      <dd>{String(enrichment.gasl_level)}</dd>
+                      <dt>{SAFETY_DISPLAY["ga4gh-agent-runtime-risk"]?.label ?? "Runtime risk tier"} (live sync)</dt>
+                      <dd>
+                        <a href={withBase(`/safety-levels/#${safetyLevelAnchor("ga4gh-agent-runtime-risk", String(enrichment.gasl_level))}`)}>
+                          {String(enrichment.gasl_level)}
+                        </a>
+                      </dd>
                     </>
                   )}
                   {data.alignment_card_uri && (
