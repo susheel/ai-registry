@@ -19,7 +19,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # Full history so the binary-file check below can diff base.sha
           # against head.sha directly; this repository is small enough
@@ -28,13 +28,13 @@ jobs:
           fetch-depth: 0
 
       # No explicit `version:` input: see deploy.yml's identical comment --
-      # pnpm/action-setup@v4 reads the pinned version from package.json's
+      # pnpm/action-setup@v6 reads the pinned version from package.json's
       # `packageManager` field, and a hard-coded version here previously
       # conflicted with it (confirmed as a real CI failure, internal project documentation
       # Phase 9).
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
