@@ -11,11 +11,28 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "evo2_7b",
+  "upstream": {
+    "publisher": {
+      "id": "arcinstitute",
+      "name": "Arc Institute",
+      "type": "huggingface-org",
+      "url": "https://huggingface.co/arcinstitute"
+    },
+    "name": "evo2_7b",
+    "version": "bda0089f92582d5baabf0f22d9fc85f3588f6b58",
+    "version_source": "huggingface-revision",
+    "version_date": "2026-02-06"
+  },
   "keywords": ["dna", "rna", "protein", "genomics", "foundation-model", "genome-design"],
   "category": "genomic-foundation-model",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "Arc Institute",
+  "model_details": {
+    "parameters": "7B",
+    "weights_availability": "open",
+    "licence": "Apache-2.0"
+  },
   "hosting_location": "huggingface",
   "access_uri": "https://huggingface.co/arcinstitute/evo2_7b",
   "model_card_uri": "https://huggingface.co/arcinstitute/evo2_7b",

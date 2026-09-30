@@ -11,11 +11,29 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "esm2_t36_3B_UR50D",
+  "upstream": {
+    "publisher": {
+      "id": "facebook",
+      "name": "AI at Meta",
+      "type": "huggingface-org",
+      "url": "https://huggingface.co/facebook"
+    },
+    "name": "esm2_t36_3B_UR50D",
+    "version": "476b639933c8baad5ad09a60ac1a87f987b656fc",
+    "version_source": "huggingface-revision",
+    "version_date": "2022-12-01"
+  },
   "keywords": ["protein", "protein-language-model", "structure-prediction", "esmfold"],
   "category": "protein-structure",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "Meta AI (FAIR)",
+  "model_details": {
+    "parameters": "3B",
+    "reference_precision": "fp32",
+    "weights_availability": "open",
+    "licence": "MIT"
+  },
   "hosting_location": "huggingface",
   "access_uri": "https://huggingface.co/facebook/esm2_t36_3B_UR50D",
   "model_card_uri": "https://huggingface.co/facebook/esm2_t36_3B_UR50D",

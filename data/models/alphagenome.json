@@ -12,11 +12,27 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "AlphaGenome (2025/2026 Nature release)",
+  "upstream": {
+    "publisher": {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "type": "github-org",
+      "url": "https://github.com/google-deepmind"
+    },
+    "name": "alphagenome",
+    "version": "0.9.0",
+    "version_source": "github-release",
+    "version_date": "2026-09-08"
+  },
   "keywords": ["dna", "regulatory-variant", "variant-effect", "gene-expression", "splicing", "chromatin-accessibility", "genomics"],
   "category": "variant-effect-prediction",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "Google DeepMind",
+  "model_details": {
+    "weights_availability": "gated",
+    "licence": "other"
+  },
   "hosting_location": "github",
   "access_uri": "https://github.com/google-deepmind/alphagenome",
   "install_command": "pip install ./alphagenome  # after: git clone https://github.com/google-deepmind/alphagenome.git",
