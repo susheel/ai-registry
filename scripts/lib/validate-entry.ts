@@ -11,6 +11,7 @@ import {
   checkUrlReachable,
   type FetchImpl,
 } from "./fetch-checks.js";
+import { checkUpstream } from "./upstream.js";
 import type { AnyEntry, EntryType, ValidationIssue } from "./types.js";
 
 export function validateSchema(entry: unknown, type: EntryType): ValidationIssue[] {
@@ -182,6 +183,27 @@ export function checkHiddenUnicode(entry: AnyEntry): ValidationIssue[] {
   return issues;
 }
 
+/**
+ * model_details.licence, when given, follows the same allow-list rule as the
+ * entry's own license field. A warning rather than an error while the field
+ * is being backfilled from upstream research.
+ */
+export function checkModelDetails(entry: AnyEntry, type: EntryType): ValidationIssue[] {
+  if (type !== "model") return [];
+  const details = entry.model_details as { licence?: unknown } | undefined;
+  const licence = details?.licence;
+  if (typeof licence !== "string" || licence === "other") return [];
+  if (getAllowedLicenseIds().has(licence)) return [];
+  return [
+    {
+      severity: "warning",
+      code: "model-details-licence-not-allowed",
+      message: `model_details.licence "${licence}" is not on the SPDX allow-list (schemas/vocab/licenses.json) and is not "other"`,
+      path: "model_details.licence",
+    },
+  ];
+}
+
 export interface NetworkCheckOptions {
   skipNetwork: boolean;
   fetchImpl?: FetchImpl;
@@ -247,5 +269,7 @@ export function validateEntryOffline(entry: AnyEntry, type: EntryType): Validati
     ...checkGa4ghStandardsSubset(entry, type),
     ...checkHostRuntimes(entry, type),
     ...checkHiddenUnicode(entry),
+    ...checkUpstream(entry),
+    ...checkModelDetails(entry, type),
   ];
 }

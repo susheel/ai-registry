@@ -34,9 +34,12 @@ import {
   runNetworkChecks,
 } from "./lib/validate-entry.js";
 import { DATA_DIR_FOR_TYPE, ENTRY_TYPES, type EntryType, type AnyEntry, type EntryValidationResult, type ValidationIssue } from "./lib/types.js";
+import { normaliseSegment, readUpstream } from "./lib/upstream.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const REPO_ROOT = path.resolve(__dirname, "..");
+
 const DATA_ROOT = path.join(REPO_ROOT, "data");
 
 export interface CliOptions {
@@ -153,6 +156,41 @@ function checkMemberReferences(
   return issuesByFile;
 }
 
+/**
+ * One publisher id should carry one display name and one publisher type
+ * across every entry, since /publishers/<id>/ shows a single name. A
+ * disagreement is a warning on each entry involved, naming the first-seen
+ * value, so the backfill can be corrected without blocking a build.
+ */
+function checkPublisherConsistency(
+  entriesByType: Map<EntryType, Array<{ file: string; entry: AnyEntry }>>,
+): Map<string, ValidationIssue[]> {
+  const issuesByFile = new Map<string, ValidationIssue[]>();
+  const firstSeen = new Map<string, { name: string; type: string; file: string }>();
+  for (const [, entries] of entriesByType) {
+    for (const { file, entry } of entries) {
+      const upstream = readUpstream(entry);
+      if (!upstream) continue;
+      const id = normaliseSegment(upstream.publisher.id);
+      const seen = firstSeen.get(id);
+      if (!seen) {
+        firstSeen.set(id, { name: upstream.publisher.name, type: upstream.publisher.type, file });
+        continue;
+      }
+      if (seen.name === upstream.publisher.name && seen.type === upstream.publisher.type) continue;
+      const issues = issuesByFile.get(file) ?? [];
+      issues.push({
+        severity: "warning",
+        code: "upstream-publisher-inconsistent",
+        message: `publisher "${id}" is recorded as "${upstream.publisher.name}" (${upstream.publisher.type}) here but as "${seen.name}" (${seen.type}) in ${path.relative(REPO_ROOT, seen.file)}`,
+        path: "upstream.publisher",
+      });
+      issuesByFile.set(file, issues);
+    }
+  }
+  return issuesByFile;
+}
+
 export async function validateFiles(
   filesToValidate: string[],
   options: CliOptions,
@@ -181,6 +219,7 @@ export async function validateFiles(
   }
   const duplicateIssuesByFile = checkSlugUniqueness(allEntriesByType);
   const memberIssuesByFile = checkMemberReferences(allEntriesByType);
+  const publisherIssuesByFile = checkPublisherConsistency(allEntriesByType);
 
   const results: EntryValidationResult[] = [];
   for (const file of filesToValidate) {
@@ -211,6 +250,7 @@ export async function validateFiles(
     issues.push(...validateEntryOffline(entry, declaredType));
     issues.push(...(duplicateIssuesByFile.get(file) ?? []));
     issues.push(...(memberIssuesByFile.get(file) ?? []));
+    issues.push(...(publisherIssuesByFile.get(file) ?? []));
     issues.push(...(await runNetworkChecks(entry, declaredType, { skipNetwork: options.skipNetwork })));
 
     results.push({

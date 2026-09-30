@@ -1,5 +1,6 @@
 import { deriveAllInstallSnippets, type InstallableServer, type InstallSnippet } from "../install-snippets.js";
 import type { AnyEntry, EntryType } from "./types.js";
+import { deriveQualifiedId, readUpstream, type Upstream } from "./upstream.js";
 
 /**
  * The compact per-entry shape published in index.json and index/<type>.json
@@ -40,6 +41,8 @@ export interface IndexEntrySummary {
   harnesses?: string[];
   install?: InstallSnippet[];
   pluginCount?: number;
+  /** The entry's upstream block with qualified_id always derived here, never copied from the data file. */
+  upstream?: Upstream & { qualified_id: string };
 }
 
 export function toIndexEntrySummary(entry: AnyEntry, type: EntryType): IndexEntrySummary {
@@ -59,6 +62,11 @@ export function toIndexEntrySummary(entry: AnyEntry, type: EntryType): IndexEntr
     version: String(entry.version ?? ""),
     record: entry.record ?? {},
   };
+
+  const upstream = readUpstream(entry);
+  if (upstream) {
+    summary.upstream = { ...upstream, qualified_id: deriveQualifiedId(upstream) };
+  }
 
   if (type === "plugin") {
     const ga4gh = entry.ga4gh as { harnesses?: Array<{ harness?: string }> } | undefined;

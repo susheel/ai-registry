@@ -73,6 +73,11 @@ describe("runSubmissionCheck", () => {
     assert.equal(result.parseErrors.length, 0);
     assert.equal(result.record?.id, "example-model");
     assert.equal(result.ok, true);
-    assert.deepEqual(result.validation?.issues, []);
+    // The issue forms do not collect upstream metadata yet, so its absence is
+    // the one (non-blocking) warning a valid submission carries.
+    assert.deepEqual(
+      result.validation?.issues.map((i) => [i.severity, i.code]),
+      [["warning", "upstream-missing"]],
+    );
   });
 });
