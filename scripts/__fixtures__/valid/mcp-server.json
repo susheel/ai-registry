@@ -9,6 +9,18 @@
   "license": "Apache-2.0",
   "maintainers": [{ "name": "Thomas Conner", "github": "thomas-conner" }],
   "version": "1.0.0",
+  "upstream": {
+    "publisher": {
+      "id": "example-org",
+      "name": "Example Org",
+      "type": "npm",
+      "url": "https://www.npmjs.com/org/example-org"
+    },
+    "name": "example-mcp-server",
+    "version": "2.0.0",
+    "version_source": "npm",
+    "version_date": "2026-03-10"
+  },
   "keywords": ["trs", "tool-registry"],
   "category": "trs",
   "ga4gh_standards": ["trs"],

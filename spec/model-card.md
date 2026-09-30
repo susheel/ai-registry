@@ -1,8 +1,8 @@
 # GA4GH AI Registry: Model Entry Specification
 
 **Status**: Draft
-**Version**: 0.1.0
-**Date**: 2026-09-25
+**Version**: 0.2.0
+**Date**: 2026-09-30
 **Schema**: `schemas/entry-core.v1.schema.json` (composed with) `schemas/model-entry.v1.schema.json`
 **Applies to**: entries at `data/models/<id>.json` with `"type": "model"`
 
@@ -56,6 +56,7 @@ Model Card Section 5 (the YAML frontmatter specification, including its pipeline
 | `recommended_version` | MAY | string | MLflow-alias-shaped pointer to the version a visitor should use by default, when this entry tracks more than one published version. |
 | `last_synced` | MAY | string (date-time) | Timestamp of the last mirror refresh of any field on this entry sourced from an external listing (e.g. Hugging Face Hub metadata). SHOULD be present, and rendered on the detail page, whenever any field above is populated from a live external source, so a reader is never left assuming a mirrored field is live data. |
 | `registry_enrichment` | MAY | object | Mirrored verbatim from Model Card Section 6.8b. See 3.3. |
+| `model_details` | MAY | object | Size, reference precision, weights availability and licence of the model artefact, plus known quantised variants. See 3.4. Added in schema revision 1.1.0. |
 
 ### 3.3 `registry_enrichment` object
 
@@ -66,7 +67,17 @@ Model Card Section 5 (the YAML frontmatter specification, including its pipeline
 | `compliance_indicators` | MAY | string[] | Compliance indicators derived from Model Card fields, e.g. `duo-aligned`, `ancestry-assessed`, `clinically-validated`, `gasl-classified`, `brep-governed`. |
 | `last_validated` | MAY | string (date-time) | Date the enrichment scores were last computed. |
 
-No entry-core or model-entry field beyond those listed in 3.1-3.3 is permitted: the composed schema sets `unevaluatedProperties: false`, so a model entry MUST NOT carry any additional top-level property.
+### 3.4 `model_details` object
+
+| Field | Requirement | Type | Description |
+|---|---|---|---|
+| `parameters` | MAY | number, or string matching `^[0-9]+(\.[0-9]+)?[KMBT]$` | Parameter count, as a number or as the upstream states it (e.g. `"7B"`). |
+| `reference_precision` | MAY | string, one of `fp64`, `fp32`, `tf32`, `fp16`, `bf16`, `fp8`, `int8`, `int4`, `mixed`, `other` | Precision of the reference (unquantised) weights as published. MUST NOT be inferred from file sizes alone. |
+| `weights_availability` | MAY | string, one of `open`, `gated`, `api-only`, `unreleased` | `open`: downloadable without approval; `gated`: downloadable after an access request or licence acceptance; `api-only`: usable only through a hosted service; `unreleased`: not available. |
+| `licence` | MAY | string | Licence of the weights, when it differs from or refines the entry's `license`: an SPDX identifier from `schemas/vocab/licenses.json`, or `"other"`. |
+| `quantisations` | MAY | object[] | Known quantised variants, each with `format` (one of `gguf`, `gptq`, `awq`, `bnb-8bit`, `bnb-4bit`, `onnx-int8`, `mlx`, `other`), `bits` (number, greater than 0, at most 32), `publisher` (`"official"` or the third party's name), `url` (URI), and optionally `size_bytes` (integer). A quantised variant is a different artefact from the reference weights: evaluation evidence about one is not evidence about the other. |
+
+No entry-core or model-entry field beyond those listed in 3.1-3.4 is permitted: the composed schema sets `unevaluatedProperties: false`, so a model entry MUST NOT carry any additional top-level property.
 
 ## 4. Validation rules
 

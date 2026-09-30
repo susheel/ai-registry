@@ -9,6 +9,16 @@
   "license": "MIT",
   "maintainers": [{ "name": "Thomas Conner", "github": "thomas-conner" }],
   "version": "1.0.0",
+  "upstream": {
+    "publisher": {
+      "id": "example-org",
+      "name": "Example Org",
+      "type": "github-org",
+      "url": "https://github.com/example-org"
+    },
+    "name": "example-marketplace",
+    "version": null
+  },
   "keywords": ["life-sciences", "marketplace"],
   "category": "life-sciences",
   "safety_classification": [],

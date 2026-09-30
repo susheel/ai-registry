@@ -11,6 +11,18 @@
     { "name": "Ada Researcher", "github": "ada-researcher", "affiliation": "Example Genomics Institute" }
   ],
   "version": "1.2.0",
+  "upstream": {
+    "publisher": {
+      "id": "example-org",
+      "name": "Example Org",
+      "type": "github-org",
+      "url": "https://github.com/example-org"
+    },
+    "name": "example-model",
+    "version": "1.2.0",
+    "version_source": "github-release",
+    "version_date": "2026-01-15"
+  },
   "keywords": ["variant-effect-prediction", "pathogenicity", "genomics"],
   "category": "variant-effect-prediction",
   "ga4gh_standards": [],
@@ -30,6 +42,21 @@
   },
   "model_card_uri": "https://example.org/genomic-variant-classifier/model-card.json",
   "pipeline_tag": "variant-effect-prediction",
+  "model_details": {
+    "parameters": "7B",
+    "reference_precision": "bf16",
+    "weights_availability": "open",
+    "licence": "Apache-2.0",
+    "quantisations": [
+      {
+        "format": "gguf",
+        "bits": 4,
+        "publisher": "official",
+        "url": "https://huggingface.co/example-org/example-model-GGUF",
+        "size_bytes": 4368439296
+      }
+    ]
+  },
   "hosting_location": "huggingface",
   "access_uri": "https://huggingface.co/example-org/genomic-variant-classifier"
 }

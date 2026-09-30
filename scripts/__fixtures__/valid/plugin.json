@@ -9,6 +9,18 @@
   "license": "MIT",
   "maintainers": [{ "name": "Thomas Conner", "github": "thomas-conner" }],
   "version": "2.1.0",
+  "upstream": {
+    "publisher": {
+      "id": "example-org",
+      "name": "Example Org",
+      "type": "github-org",
+      "url": "https://github.com/example-org"
+    },
+    "name": "example-plugin",
+    "version": "1.0.0",
+    "version_source": "github-release",
+    "version_date": "2026-04-01"
+  },
   "keywords": ["variant-review", "clinical-genomics"],
   "category": "variant-interpretation",
   "safety_classification": [],

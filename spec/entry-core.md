@@ -1,9 +1,9 @@
 # GA4GH AI Registry: Common Entry Core Specification
 
 **Status**: Draft
-**Version**: 0.1.0
-**Date**: 2026-09-25
-**Schema**: `schemas/entry-core.v1.schema.json`
+**Version**: 0.2.0
+**Date**: 2026-09-30
+**Schema**: `schemas/entry-core.v1.schema.json` (schema revision 1.1.0)
 **Applies to**: every entry in `data/`, regardless of `type`
 
 ## 1. Purpose
@@ -29,6 +29,7 @@ This specification defines no fields that are not already present in `schemas/en
 | `license_url` | conditional | string (URI) | MUST be present when `license` is `"other"`. |
 | `maintainers` | MUST | array of objects, minItems 1 | At least one maintainer. See 2.1. |
 | `version` | MUST | string, non-empty | The version of the underlying model, agent, skill, server, or plugin that this entry indexes. |
+| `upstream` | SHOULD | object | Upstream ownership and version metadata. See 2.4. Optional in schema revision 1.1.0 (validators warn when it is absent); expected to become required. |
 | `keywords` | MUST | string[], unique | Free-text search facet terms. MAY be empty. |
 | `category` | MUST | string, non-empty | A single value from the per-type category vocabulary (`schemas/vocab/categories/<type>.json`), except for `plugin` and `bundle` entries, which use free text in v1 (see `spec/plugin-card.md` and `spec/bundle.md`). |
 | `ga4gh_standards` | MAY (MUST for `mcp-server`) | string[], unique, pattern `^[a-z][a-z0-9-]*$` per item | The coarse, version-free browse and search facet for which GA4GH API specification(s) this entry touches, e.g. `trs`, `drs`, `beacon`, `htsget`. Values MUST NOT carry a version suffix; a version-qualified implementation claim belongs in a type-specific block instead (for `mcp-server` entries, `server._meta["org.ga4gh/ai-registry"].ga4gh_standards[]`, see `spec/mcp-server-card.md`). Open-ended in v1: no closed vocabulary file backs this field. |
@@ -78,6 +79,30 @@ No property beyond those listed above is permitted per classification item.
 
 No property beyond `created`/`updated`/`last_verified`/`source_issue` is permitted in `record`.
 
+### 2.4 `upstream` object
+
+| Field | Requirement | Type | Description |
+|---|---|---|---|
+| `publisher` | MUST | object | Who publishes the upstream project. See below. |
+| `name` | MUST | string, non-empty | The upstream repository, package or model name, as published (e.g. `alphagenome`, `esm2_t36_3B_UR50D`). |
+| `version` | MAY | string or null | The upstream version this entry was checked against, as published: a release tag without its leading `v`, a package version, or a Hugging Face revision hash. `null` when the upstream publishes no version. |
+| `version_source` | MAY | string or null, one of `github-release`, `git-tag`, `pypi`, `npm`, `huggingface-revision`, `model-card`, `commit` | Where `version` was read from. MUST be `null` or absent when `version` is `null`, and SHOULD be present when `version` is set. |
+| `version_date` | MAY | string (date) or null | Publication date of that upstream version. MUST be `null` or absent when `version` is `null`. |
+| `qualified_id` | MAY | string | Derived, not authored. See below. |
+
+`publisher` object:
+
+| Field | Requirement | Type | Description |
+|---|---|---|---|
+| `id` | MUST | string, lower-case slug matching `^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?$` | Normally the publisher's GitHub, Hugging Face or npm account name, lower-cased (e.g. `google-deepmind`). One `id` MUST carry one `name` and one `type` across every entry. |
+| `name` | MUST | string, non-empty | Display name, as the publisher gives it. |
+| `type` | MUST | string, one of `github-org`, `github-user`, `huggingface-org`, `huggingface-user`, `npm`, `organisation`, `other` | Where the publisher identity lives. |
+| `url` | MAY | string (URI) | The publisher's profile or home page. |
+
+**Qualified identifier.** Every consumer derives an entry's qualified identifier from `upstream`, as `<publisher.id>/<name>@<version>`, where `publisher.id` and `name` are trimmed, lower-cased, and have runs of whitespace, `/` and `@` replaced by a single hyphen, and `version` is trimmed but otherwise kept as published. The `@<version>` part is omitted when `version` is `null`, absent or blank. Examples: `google-deepmind/alphagenome@0.9.0`; `facebook/esm2_t36_3b_ur50d@476b639933c8baad5ad09a60ac1a87f987b656fc`. The derivation is the single source of truth: data files SHOULD NOT carry `qualified_id`, and when one does, it MUST equal the derived value.
+
+No property beyond those listed above is permitted in `upstream` or `upstream.publisher`.
+
 ## 3. `certification_tier`: submission and promotion rules
 
 `certification_tier` reuses ADR-003's three-tier certification model verbatim:
@@ -100,6 +125,7 @@ These rules apply to every entry, regardless of type, in addition to whatever a 
 6. Every declared URL (`homepage`, `repository`, `license_url`, and any type-specific URI field) SHOULD resolve; automated validation checks this on every submission and re-checks it on every edit, unless explicitly skipped (`scripts/validate.ts --skip-network`).
 7. `certification_tier` MUST NOT be set to anything other than `unsigned` by a submitter; see Section 3.
 8. No entry may carry a top-level or nested property that neither this document nor its own per-type specification defines.
+9. `upstream.qualified_id`, when present, MUST equal the value derived from the rest of `upstream` (Section 2.4); a mismatch is a validation error. An entry without `upstream` produces a validation warning, not an error, in schema revision 1.1.0.
 
 ## 5. See also
 

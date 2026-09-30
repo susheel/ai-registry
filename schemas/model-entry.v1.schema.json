@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://registry.biocommons.ai/schemas/model-entry.v1.schema.json",
+  "x-ga4gh-schema-revision": "1.1.0",
   "title": "GA4GH AI Registry: model entry (v1)",
   "description": "The common entry core (entry-core.v1.schema.json) plus a required pointer to a full GA4GH Genomic AI Model Card and a small index projection mirrored from the Model Card and from Hugging Face's own listing conventions (internal project documentation Section 3.5.1). Models are referenced, never embedded: the Model Card remains the single authoritative document. hosting_location + access_uri are the fields that let this entry point at a model hosted anywhere: Hugging Face, GitHub, a container registry, a self-hosted endpoint, or a gated-request-only source.",
   "allOf": [
@@ -73,6 +74,10 @@
           "format": "date-time",
           "description": "Timestamp of the last mirror refresh of any fields on this entry sourced from an external listing (e.g. Hugging Face Hub metadata)."
         },
+        "model_details": {
+          "$ref": "#/$defs/ModelDetails",
+          "description": "Optional (added in schema revision 1.1). Size, reference precision, weights availability and licence of the model artefact itself, plus known quantised variants."
+        },
         "registry_enrichment": {
           "type": "object",
           "description": "Mirrored verbatim from Model Card Section 6.8b. Documentation-completeness oriented; MUST NOT be merged with an agent entry's trust-and-behaviour-oriented agent_info_snapshot.enrichment (internal project documentation Section 3.5.1).",
@@ -91,5 +96,63 @@
       "required": ["model_card_uri"]
     }
   ],
+  "$defs": {
+    "ModelDetails": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": ["number", "string"],
+          "description": "Parameter count: a number (e.g. 345000000) or a short string with a K, M, B or T suffix, as the upstream states it (e.g. \"7B\", \"2.5B\").",
+          "minimum": 0,
+          "pattern": "^[0-9]+(?:\\.[0-9]+)?[KMBT]$"
+        },
+        "reference_precision": {
+          "type": "string",
+          "description": "Numeric precision of the reference (unquantised) weights as published.",
+          "enum": ["fp64", "fp32", "tf32", "fp16", "bf16", "fp8", "int8", "int4", "mixed", "other"]
+        },
+        "weights_availability": {
+          "type": "string",
+          "description": "open: downloadable without approval; gated: downloadable after an access request or licence acceptance; api-only: usable only through a hosted service; unreleased: not available.",
+          "enum": ["open", "gated", "api-only", "unreleased"]
+        },
+        "licence": {
+          "type": "string",
+          "description": "Licence of the weights, when it differs from or refines the entry's license field: an SPDX identifier from schemas/vocab/licenses.json, or \"other\".",
+          "minLength": 1
+        },
+        "quantisations": {
+          "type": "array",
+          "description": "Known quantised variants of the model.",
+          "items": { "$ref": "#/$defs/Quantisation" }
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "Quantisation": {
+      "type": "object",
+      "required": ["format", "bits", "publisher", "url"],
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["gguf", "gptq", "awq", "bnb-8bit", "bnb-4bit", "onnx-int8", "mlx", "other"]
+        },
+        "bits": {
+          "type": "number",
+          "description": "Bits per weight (may be fractional for mixed schemes, e.g. 4.5).",
+          "exclusiveMinimum": 0,
+          "maximum": 32
+        },
+        "publisher": {
+          "type": "string",
+          "description": "\"official\" when released by the model's own publisher, otherwise the third-party publisher's name or account.",
+          "minLength": 1
+        },
+        "url": { "type": "string", "format": "uri" },
+        "size_bytes": { "type": "integer", "minimum": 0 }
+      },
+      "unevaluatedProperties": false
+    }
+  },
   "unevaluatedProperties": false
 }

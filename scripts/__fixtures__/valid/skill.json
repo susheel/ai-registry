@@ -9,6 +9,18 @@
   "license": "MIT",
   "maintainers": [{ "name": "Megan Tsao", "github": "megan-tsao" }],
   "version": "1.0.0",
+  "upstream": {
+    "publisher": {
+      "id": "example-org",
+      "name": "Example Org",
+      "type": "github-org",
+      "url": "https://github.com/example-org"
+    },
+    "name": "example-skills",
+    "version": null,
+    "version_source": null,
+    "version_date": null
+  },
   "keywords": ["consent", "duo", "governance"],
   "category": "consent-review",
   "safety_classification": [],

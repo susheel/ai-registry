@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://registry.biocommons.ai/schemas/entry-core.v1.schema.json",
+  "x-ga4gh-schema-revision": "1.1.0",
   "title": "GA4GH AI Registry: common entry core (v1)",
   "description": "Fields carried by every entry regardless of type (internal project documentation Section 3.2). Composed via allOf by each of the five per-type schemas (model-entry, agent-entry, skill-entry, mcp-server-entry, plugin-entry). This schema deliberately does not set unevaluatedProperties or additionalProperties: false, so it can be safely allOf-composed; each per-type schema closes the composed shape itself.",
   "type": "object",
@@ -101,6 +102,10 @@
       "description": "The version of the underlying model, agent, skill, server, or plugin that this entry indexes.",
       "minLength": 1
     },
+    "upstream": {
+      "$ref": "#/$defs/Upstream",
+      "description": "Optional (added in schema revision 1.1; the validator warns when absent and it is expected to become required). Who publishes the upstream project this entry catalogues, the upstream repository, package or model name, and the upstream version this entry was checked against. Its qualified identifier (publisher/name@version) is derived from these fields at build time."
+    },
     "keywords": {
       "type": "array",
       "description": "Free-text search facet terms. May be empty.",
@@ -162,6 +167,71 @@
     }
   },
   "$defs": {
+    "UpstreamPublisher": {
+      "type": "object",
+      "description": "The organisation or account that publishes the upstream project.",
+      "required": ["id", "name", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Lower-case slug for the publisher, normally its GitHub, Hugging Face or npm account name, lower-cased (e.g. \"google-deepmind\"). Used as the publisher page URL segment and as the first part of the qualified identifier.",
+          "pattern": "^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?$",
+          "maxLength": 100
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the publisher, as the publisher itself gives it.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "type": {
+          "type": "string",
+          "description": "Where the publisher identity lives.",
+          "enum": ["github-org", "github-user", "huggingface-org", "huggingface-user", "npm", "organisation", "other"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The publisher's profile or home page."
+        }
+      },
+      "unevaluatedProperties": false
+    },
+    "Upstream": {
+      "type": "object",
+      "description": "Upstream ownership and version metadata.",
+      "required": ["publisher", "name"],
+      "properties": {
+        "publisher": { "$ref": "#/$defs/UpstreamPublisher" },
+        "name": {
+          "type": "string",
+          "description": "The upstream repository, package or model name, as published (e.g. \"alphagenome\", \"esm2_t36_3B_UR50D\"). Lower-cased only in the derived qualified identifier.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "version": {
+          "type": ["string", "null"],
+          "description": "The upstream version this entry was checked against, as published (e.g. a release tag without its leading \"v\", or a Hugging Face revision hash). null when the upstream publishes no version.",
+          "minLength": 1
+        },
+        "version_source": {
+          "type": ["string", "null"],
+          "description": "Where version was read from. null exactly when version is null.",
+          "enum": ["github-release", "git-tag", "pypi", "npm", "huggingface-revision", "model-card", "commit", null]
+        },
+        "version_date": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Publication date of that upstream version, if known."
+        },
+        "qualified_id": {
+          "type": "string",
+          "description": "Derived, not authored: publisher.id/name@version, lower-cased apart from the version, with \"@version\" omitted when version is null (e.g. \"google-deepmind/alphagenome@0.9.0\"). Normally absent from data files; when present the validator requires it to equal the derived value.",
+          "pattern": "^[a-z0-9][a-z0-9._-]*/[^/@\\s]+(?:@\\S+)?$"
+        }
+      },
+      "unevaluatedProperties": false
+    },
     "SafetyClassification": {
       "type": "object",
       "description": "One safety or certification claim, scheme-qualified per internal project documentation Section 3.3. The registry represents the source scale; it does not adjudicate between different schemes' scales.",
