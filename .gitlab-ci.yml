@@ -1,14 +1,28 @@
-# GitLab Pages deployment (internal project documentation Section 5, Section 6).
+# GitLab CI build and non-canonical GitLab Pages copy (internal project documentation).
 #
-# Canonical deploy pipeline as of 2026-09-08 (internal project documentation Phase 12
-# addendum): GitHub Pages requires a public repository on the Free plan;
-# GitLab Pages supports a private source repository with a fully public
-# Pages site on its Free tier (Settings > General > Visibility > Pages,
-# set to "Everyone"), which is what this repository needs -- the source
-# (issues, git history) stays private while the published site remains
-# public with no account required, matching internal project documentation's own design goal.
-# `.github/workflows/deploy.yml` on the GitHub mirror is now a build/
-# validate-only CI check; it no longer deploys anywhere.
+# NOT the live deploy path. The canonical site, https://registry.biocommons.ai,
+# is served by GitHub Pages from github.com/susheel/ai-registry, built and
+# deployed by `.github/workflows/deploy.yml` on every push to `main`
+# (verified 2026-09-30: DNS CNAME registry.biocommons.ai -> susheel.github.io;
+# the GitHub Pages API reports cname registry.biocommons.ai, build_type
+# "workflow", HTTPS enforced; the Deploy run for f0f26cf succeeded and the
+# site returns 200).
+#
+# This GitLab project (gitlab.com/susheel/ai-registry, private) is the
+# full-content mirror, pushed by hand; GitHub carries a filtered public
+# history (internal project documentation). The jobs below
+# are kept as a secondary CI signal: `build` runs the same validate and build
+# steps as deploy.yml, and `pages` publishes a non-canonical copy at GitLab's
+# unique Pages domain (https://ai-registry-c331e8.gitlab.io as of 2026-09-30).
+# No custom domain points at it. Kept because it is harmless and gives an
+# independent build check; delete the `pages` job if the extra public copy
+# ever causes confusion.
+#
+# History: from 2026-09-08 to 2026-09-11 (internal project documentation Phase 12 addendum)
+# GitLab Pages briefly was the live target while the GitHub repository was
+# private. That arrangement ended on 2026-09-11 when the GitHub repository was
+# made public and GitHub Pages took over; this header said otherwise until
+# the 2026-09-30 correction.
 
 image: node:22-slim
 

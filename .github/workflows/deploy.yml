@@ -6,16 +6,19 @@ name: Deploy
 # Pages deployments: a second push while one deploy is still running queues
 # rather than races it.
 #
+# This is the canonical deploy path: GitHub Pages serves
+# https://registry.biocommons.ai (custom domain, build_type "workflow",
+# verified 2026-09-30). GitLab (gitlab.com/susheel/ai-registry) is a private
+# full-content mirror; its `.gitlab-ci.yml` `pages` job builds only a
+# non-canonical copy on GitLab's own Pages domain. See internal project documentation,
+# "Current deploy target".
+#
 # History (2026-09-08 to 2026-09-11, internal project documentation Phase 12 addendum): this
 # workflow briefly ran as a build/validate-only CI check while this
 # repository's GitHub remote was private (GitHub Pages requires a public
 # repository on the Free plan) and GitLab Pages carried the live site
-# instead. The person running that session decided to make this GitHub
-# repository public and use GitHub Pages as the canonical deploy target
-# after all, with GitLab kept as a private full-content mirror of this
-# repository's local `main` branch (not the published one) -- see
-# internal project documentation for the current split. This workflow's `deploy` job is
-# restored accordingly.
+# instead. The GitHub repository was then made public and this workflow's
+# `deploy` job restored.
 
 on:
   push:
