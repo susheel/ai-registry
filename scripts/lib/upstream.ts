@@ -27,6 +27,7 @@ export const VERSION_SOURCES = [
   "huggingface-revision",
   "model-card",
   "commit",
+  "manifest",
 ] as const;
 
 export interface UpstreamPublisher {
@@ -42,6 +43,8 @@ export interface Upstream {
   version?: string | null;
   version_source?: (typeof VERSION_SOURCES)[number] | null;
   version_date?: string | null;
+  /** true when the upstream source repository is archived (read-only). */
+  archived?: boolean;
   qualified_id?: string;
 }
 

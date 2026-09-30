@@ -233,6 +233,18 @@ describe("apply-upstream-metadata", () => {
     assert.equal(parsed.model_details.weights_availability, "open");
   });
 
+  test("carries the optional archived flag and the manifest version source (revision 1.1.1)", () => {
+    const patch = toEntryPatch({ ...INPUT, version_source: "manifest", archived: true, model_details: undefined });
+    const parsed = JSON.parse(applyPatchToText(ORIGINAL, "model", patch).text);
+    assert.equal(parsed.upstream.archived, true);
+    assert.equal(parsed.upstream.version_source, "manifest");
+    const { upstream: _u, ...base } = validModel();
+    const ok = { ...base, upstream: { ...parsed.upstream } } as AnyEntry;
+    assert.deepEqual(validateSchema(ok, "model"), []);
+    const bad = { ...base, upstream: { ...parsed.upstream, archived: "yes" } } as unknown as AnyEntry;
+    assert.ok(validateSchema(bad, "model").length > 0, "archived must be a boolean");
+  });
+
   test("refuses model_details on a non-model entry", () => {
     assert.throws(() => applyPatchToText(ORIGINAL.replace('"model"', '"skill"'), "skill", toEntryPatch({ model_details: { parameters: "1B" } })));
   });

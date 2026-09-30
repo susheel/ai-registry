@@ -3,7 +3,7 @@
 **Status**: Draft
 **Version**: 0.2.0
 **Date**: 2026-09-30
-**Schema**: `schemas/entry-core.v1.schema.json` (schema revision 1.1.0)
+**Schema**: `schemas/entry-core.v1.schema.json` (schema revision 1.1.1)
 **Applies to**: every entry in `data/`, regardless of `type`
 
 ## 1. Purpose
@@ -86,8 +86,9 @@ No property beyond `created`/`updated`/`last_verified`/`source_issue` is permitt
 | `publisher` | MUST | object | Who publishes the upstream project. See below. |
 | `name` | MUST | string, non-empty | The upstream repository, package or model name, as published (e.g. `alphagenome`, `esm2_t36_3B_UR50D`). |
 | `version` | MAY | string or null | The upstream version this entry was checked against, as published: a release tag without its leading `v`, a package version, or a Hugging Face revision hash. `null` when the upstream publishes no version. |
-| `version_source` | MAY | string or null, one of `github-release`, `git-tag`, `pypi`, `npm`, `huggingface-revision`, `model-card`, `commit` | Where `version` was read from. MUST be `null` or absent when `version` is `null`, and SHOULD be present when `version` is set. |
+| `version_source` | MAY | string or null, one of `github-release`, `git-tag`, `pypi`, `npm`, `huggingface-revision`, `model-card`, `commit`, `manifest` | Where `version` was read from. MUST be `null` or absent when `version` is `null`, and SHOULD be present when `version` is set. `manifest` (added in schema revision 1.1.1) is the version an item declares in its own manifest (`plugin.json`, `SKILL.md` front matter, `marketplace.json`) inside a repository that versions several items together. |
 | `version_date` | MAY | string (date) or null | Publication date of that upstream version. MUST be `null` or absent when `version` is `null`. |
+| `archived` | MAY | boolean | `true` when the upstream source repository has been archived (made read-only) by its owner. Absent means not known to be archived. Added in schema revision 1.1.1. |
 | `qualified_id` | MAY | string | Derived, not authored. See below. |
 
 `publisher` object:
@@ -125,7 +126,7 @@ These rules apply to every entry, regardless of type, in addition to whatever a 
 6. Every declared URL (`homepage`, `repository`, `license_url`, and any type-specific URI field) SHOULD resolve; automated validation checks this on every submission and re-checks it on every edit, unless explicitly skipped (`scripts/validate.ts --skip-network`).
 7. `certification_tier` MUST NOT be set to anything other than `unsigned` by a submitter; see Section 3.
 8. No entry may carry a top-level or nested property that neither this document nor its own per-type specification defines.
-9. `upstream.qualified_id`, when present, MUST equal the value derived from the rest of `upstream` (Section 2.4); a mismatch is a validation error. An entry without `upstream` produces a validation warning, not an error, in schema revision 1.1.0.
+9. `upstream.qualified_id`, when present, MUST equal the value derived from the rest of `upstream` (Section 2.4); a mismatch is a validation error. An entry without `upstream` produces a validation warning, not an error, in schema revisions 1.1.0 and 1.1.1.
 
 ## 5. See also
 

@@ -10,7 +10,7 @@
  * "data/models/alphagenome.json", "models/alphagenome.json" or
  * "models/alphagenome"; keys starting with "$" or "_" are ignored. Each value
  * is either
- *   { "upstream": { publisher, name, version, version_source, version_date },
+ *   { "upstream": { publisher, name, version, version_source, version_date, archived },
  *     "model_details": { ... }, "evidence": ..., "notes": ... }
  * or the flat form with the upstream fields at the top level
  *   { "publisher": {...}, "name": ..., "version": ..., "version_source": ...,
@@ -41,7 +41,7 @@ const REPO_ROOT = path.resolve(__dirname, "..");
 type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 type JsonObject = { [key: string]: Json };
 
-const UPSTREAM_KEYS = ["publisher", "name", "version", "version_source", "version_date"] as const;
+const UPSTREAM_KEYS = ["publisher", "name", "version", "version_source", "version_date", "archived"] as const;
 const PUBLISHER_KEYS = ["id", "name", "type", "url"] as const;
 const MODEL_DETAILS_KEYS = ["parameters", "reference_precision", "weights_availability", "licence", "quantisations"] as const;
 const QUANTISATION_KEYS = ["format", "bits", "publisher", "url", "size_bytes"] as const;

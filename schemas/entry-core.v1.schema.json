@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://registry.biocommons.ai/schemas/entry-core.v1.schema.json",
-  "x-ga4gh-schema-revision": "1.1.0",
+  "x-ga4gh-schema-revision": "1.1.1",
   "title": "GA4GH AI Registry: common entry core (v1)",
   "description": "Fields carried by every entry regardless of type (internal project documentation Section 3.2). Composed via allOf by each of the five per-type schemas (model-entry, agent-entry, skill-entry, mcp-server-entry, plugin-entry). This schema deliberately does not set unevaluatedProperties or additionalProperties: false, so it can be safely allOf-composed; each per-type schema closes the composed shape itself.",
   "type": "object",
@@ -216,13 +216,17 @@
         },
         "version_source": {
           "type": ["string", "null"],
-          "description": "Where version was read from. null exactly when version is null.",
-          "enum": ["github-release", "git-tag", "pypi", "npm", "huggingface-revision", "model-card", "commit", null]
+          "description": "Where version was read from. null exactly when version is null. manifest (added in schema revision 1.1.1): the version declared in the item's own manifest (plugin.json, SKILL.md front matter, marketplace.json) inside a repository that versions several items together.",
+          "enum": ["github-release", "git-tag", "pypi", "npm", "huggingface-revision", "model-card", "commit", "manifest", null]
         },
         "version_date": {
           "type": ["string", "null"],
           "format": "date",
           "description": "Publication date of that upstream version, if known."
+        },
+        "archived": {
+          "type": "boolean",
+          "description": "Optional (added in schema revision 1.1.1). true when the upstream source repository has been archived (made read-only) by its owner, so the entry is no longer maintained upstream. Absent means not known to be archived."
         },
         "qualified_id": {
           "type": "string",

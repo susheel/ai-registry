@@ -1006,6 +1006,12 @@ main {
   border-color: #f0cf8e;
 }
 
+.badge--archived {
+  background: #fdecea;
+  color: #7a1f14;
+  border-color: #f0b5ab;
+}
+
 .badge--keyword {
   background: var(--color-bg-subtle);
   color: var(--color-text-muted);

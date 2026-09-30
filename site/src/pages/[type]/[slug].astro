@@ -103,6 +103,7 @@ const VERSION_SOURCE_LABELS: Record<string, string> = {
   "huggingface-revision": "Hugging Face revision",
   "model-card": "Model card",
   commit: "Commit",
+  manifest: "Manifest",
 };
 const PUBLISHER_TYPE_LABELS: Record<string, string> = {
   "github-org": "GitHub organisation",
@@ -181,6 +182,11 @@ const actions = deriveEntryActions(type, data, {
       <div class="detail-header__aside">
         <div class="detail-badges">
           <CertificationBadge tier={String(data.certification_tier ?? "unsigned")} />
+          {upstream?.archived === true && (
+            <span class="badge badge--archived" title="The upstream source repository is archived (read-only) and no longer maintained">
+              Archived upstream
+            </span>
+          )}
         </div>
         <EntryActions actions={actions} />
       </div>
@@ -273,7 +279,10 @@ const actions = deriveEntryActions(type, data, {
               )}
             </dd>
             <dt>Upstream name</dt>
-            <dd>{upstream.name}</dd>
+            <dd>
+              {upstream.name}
+              {upstream.archived === true && <span class="field-note"> (repository archived upstream; read-only, no longer maintained)</span>}
+            </dd>
             <dt>Upstream version</dt>
             <dd>
               {upstream.version ? (
