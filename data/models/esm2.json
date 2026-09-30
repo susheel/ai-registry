@@ -19,9 +19,10 @@
       "url": "https://huggingface.co/facebook"
     },
     "name": "esm2_t36_3B_UR50D",
-    "version": "476b639933c8baad5ad09a60ac1a87f987b656fc",
+    "version": "476b639",
     "version_source": "huggingface-revision",
-    "version_date": "2022-12-01"
+    "version_date": "2022-12-01",
+    "archived": true
   },
   "keywords": ["protein", "protein-language-model", "structure-prediction", "esmfold"],
   "category": "protein-structure",
@@ -40,7 +41,7 @@
   "last_synced": "2026-09-04T11:05:00.000Z",
   "record": {
     "created": "2026-09-04T11:05:00.000Z",
-    "updated": "2026-09-04T11:05:00.000Z",
-    "last_verified": "2026-09-04T11:05:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   }
 }

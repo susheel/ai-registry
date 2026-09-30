@@ -16,6 +16,18 @@
     }
   ],
   "version": "1.0.0",
+  "upstream": {
+    "publisher": {
+      "id": "anthropics",
+      "name": "Anthropic",
+      "type": "github-org",
+      "url": "https://github.com/anthropics"
+    },
+    "name": "10x-genomics",
+    "version": "1.0.0",
+    "version_source": "manifest",
+    "version_date": "2026-01-09"
+  },
   "keywords": [
     "genomics",
     "single-cell",
@@ -27,8 +39,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "genomics-data-access",
   "plugin": {

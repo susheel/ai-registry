@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-service-info skill",
   "summary": "Fetch a GA4GH Service Info document (the standard `/service-info` endpoint) from a configured service and report its id, name, type, organization, and version",
-  "description": "Bundled Claude Code / MCP skill for GA4GH Service Info, shipped alongside the `@deepseek-ai/dsh-ga4gh-service-info` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Fetch a GA4GH Service Info document (the standard `/service-info` endpoint) from a configured service and report its id, name, type, organization, and version. Use when the user asks what a GA4GH service is, wants to check a GA4GH-compliant service's metadata, or needs to verify GA4GH Service Info standard compliance.",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Service Info, shipped alongside the `dsh-ga4gh-service-info` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Fetch a GA4GH Service Info document (the standard `/service-info` endpoint) from a configured service and report its id, name, type, organization, and version. Use when the user asks what a GA4GH service is, wants to check a GA4GH-compliant service's metadata, or needs to verify GA4GH Service Info standard compliance.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-info",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "service-info",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.664Z",
-    "updated": "2026-09-04T11:00:07.664Z",
-    "last_verified": "2026-09-04T11:00:07.664Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-service-info",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/service-info"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/service-info"
     }
   },
   "source": {

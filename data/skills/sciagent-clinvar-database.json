@@ -10,15 +10,27 @@
   "maintainers": [
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
-  "version": "0.1.0",
+  "version": "82c862c",
+  "upstream": {
+    "publisher": {
+      "id": "jaechang-hits",
+      "name": "jaechang-hits",
+      "type": "github-user",
+      "url": "https://github.com/jaechang-hits"
+    },
+    "name": "sciagent-skills",
+    "version": "82c862c",
+    "version_source": "commit",
+    "version_date": "2026-09-29"
+  },
   "keywords": ["clinvar", "e-utilities", "variant-annotation", "sciagent-skills", "bixbench"],
   "category": "variant-interpretation",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "clinvar-database",

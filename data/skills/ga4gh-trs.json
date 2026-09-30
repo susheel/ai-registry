@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-trs skill",
   "summary": "Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, se",
-  "description": "Bundled Claude Code / MCP skill for GA4GH Tool Registry Service (TRS), shipped alongside the `@deepseek-ai/dsh-ga4gh-trs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, secondary descriptor files, test parameter files, file listing, and container build recipes. Use when the user asks to find a registered CWL/WDL/Nextflow tool or workflow, look up a tool's versions or descriptor types, or fetch a registered workflow's source or tests.",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Tool Registry Service (TRS), shipped alongside the `dsh-ga4gh-trs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Read a GA4GH Tool Registry Service (TRS) registry: search registered bioinformatics tools (workflows and command-line tools), inspect one tool and its versions, and retrieve a version's descriptor, secondary descriptor files, test parameter files, file listing, and container build recipes. Use when the user asks to find a registered CWL/WDL/Nextflow tool or workflow, look up a tool's versions or descriptor types, or fetch a registered workflow's source or tests.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/trs",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "trs",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.661Z",
-    "updated": "2026-09-04T11:00:07.661Z",
-    "last_verified": "2026-09-04T11:00:07.661Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-trs",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/trs"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/trs"
     }
   },
   "source": {

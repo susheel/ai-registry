@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-data-connect skill",
   "summary": "Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly",
-  "description": "Bundled Claude Code / MCP skill for GA4GH Data Connect, shipped alongside the `@deepseek-ai/dsh-ga4gh-data-connect` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly. Use when the user asks to search, query, or run SQL against a GA4GH Data Connect service, wants to know what tables it holds, or mentions GA4GH data-connect interoperability.",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Data Connect, shipped alongside the `dsh-ga4gh-data-connect` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Data Connect endpoint (https://github.com/ga4gh-discovery/data-connect) by running a SQL search against its /search API, or list and browse its tables directly. Use when the user asks to search, query, or run SQL against a GA4GH Data Connect service, wants to know what tables it holds, or mentions GA4GH data-connect interoperability.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/data-connect",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "data-connect",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.663Z",
-    "updated": "2026-09-04T11:00:07.663Z",
-    "last_verified": "2026-09-04T11:00:07.663Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-data-connect",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/data-connect"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/data-connect"
     }
   },
   "source": {

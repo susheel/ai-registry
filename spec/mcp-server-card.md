@@ -68,7 +68,7 @@ A conforming MCP server entry MUST satisfy all of the following, in addition to 
 
 ## 5. Worked example
 
-Adapted from the real, currently-catalogued entry `data/mcp-servers/ga4gh-trs.json`:
+Adapted from the real, currently-catalogued entry `data/mcp-servers/ga4gh-trs.json` (its `upstream` block and the build-and-run steps in its `description` are omitted here). Its packages are not published to any package registry, so, like the upstream `server.json` it mirrors, the embedded server carries no `packages[]` and no install snippet is derived for it; an entry distributed through npm, PyPI, OCI or a remote endpoint would declare `packages[]` or `remotes[]` instead:
 
 ```json
 {
@@ -96,7 +96,7 @@ Adapted from the real, currently-catalogued entry `data/mcp-servers/ga4gh-trs.js
   "category": "trs",
   "server": {
     "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
-    "name": "io.github.deepseek-ai/ga4gh-trs",
+    "name": "io.github.susheel/ga4gh-trs",
     "description": "Searches a GA4GH Tool Registry Service (TRS) for registered tools and their versions",
     "version": "0.1.0-rc.5",
     "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/trs",
@@ -105,15 +105,6 @@ Adapted from the real, currently-catalogued entry `data/mcp-servers/ga4gh-trs.js
       "source": "github",
       "subfolder": "packages/trs"
     },
-    "packages": [
-      {
-        "registryType": "npm",
-        "registryBaseUrl": "https://registry.npmjs.org",
-        "identifier": "@deepseek-ai/dsh-ga4gh-trs",
-        "version": "0.1.0-rc.5",
-        "transport": { "type": "stdio" }
-      }
-    ],
     "_meta": {
       "org.ga4gh/ai-registry": {
         "ga4gh_standards": ["trs"]

@@ -14,7 +14,19 @@
       "affiliation": "GA4GH AI Workstream / Sage Bionetworks"
     }
   ],
-  "version": "1.4.0",
+  "version": "1.5.4",
+  "upstream": {
+    "publisher": {
+      "id": "mims-harvard",
+      "name": "mims-harvard (Zitnik Lab, Harvard)",
+      "type": "github-org",
+      "url": "https://github.com/mims-harvard"
+    },
+    "name": "tooluniverse",
+    "version": "1.5.4",
+    "version_source": "github-release",
+    "version_date": "2026-09-27"
+  },
   "keywords": [
     "genomics",
     "bioinformatics",
@@ -28,14 +40,14 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "biomedical-research-tools",
   "plugin": {
     "name": "tooluniverse",
     "description": "1000+ scientific research tools for biology, chemistry, medicine, and data science. Access PubMed, UniProt, PubChem, TCGA, NHANES, GWAS Catalog, and hundreds more databases through a unified MCP interface. Includes 120+ specialized research skills for genomics, drug discovery, clinical analysis, protein variant interpretation, and more.",
-    "version": "1.4.0",
+    "version": "1.5.1",
     "author": {
       "name": "Shanghua Gao",
       "url": "https://shgao.site"

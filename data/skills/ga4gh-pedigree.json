@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-pedigree skill",
   "summary": "Structurally validate a GA4GH pedigree document (a family-structure record of members and their parent relationships)",
-  "description": "Bundled Claude Code / MCP skill for GA4GH pedigree, shipped alongside the `@deepseek-ai/dsh-ga4gh-pedigree` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Structurally validate a GA4GH pedigree document (a family-structure record of members and their parent relationships). Use when the user provides a pedigree/family-structure JSON document and asks whether it is well-formed, or asks for its member count or structural errors (missing ids, duplicate ids, or parent references to members that do not exist in the document).",
+  "description": "Bundled Claude Code / MCP skill for GA4GH pedigree, shipped alongside the `dsh-ga4gh-pedigree` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Structurally validate a GA4GH pedigree document (a family-structure record of members and their parent relationships). Use when the user provides a pedigree/family-structure JSON document and asks whether it is well-formed, or asks for its member count or structural errors (missing ids, duplicate ids, or parent references to members that do not exist in the document).",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/pedigree",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "pedigree",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.665Z",
-    "updated": "2026-09-04T11:00:07.665Z",
-    "last_verified": "2026-09-04T11:00:07.665Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-pedigree",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/pedigree"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/pedigree"
     }
   },
   "source": {

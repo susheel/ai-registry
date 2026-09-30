@@ -11,18 +11,35 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "V2 (Genecorpus-104M)",
+  "upstream": {
+    "publisher": {
+      "id": "ctheodoris",
+      "name": "Christina Theodoris",
+      "type": "huggingface-user",
+      "url": "https://huggingface.co/ctheodoris"
+    },
+    "name": "Geneformer",
+    "version": "1f7fbae",
+    "version_source": "huggingface-revision",
+    "version_date": "2026-09-12"
+  },
   "keywords": ["single-cell", "transcriptomics", "genomics", "foundation-model", "network-biology"],
   "category": "genomic-foundation-model",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "Theodoris lab, Broad Institute",
+  "model_details": {
+    "reference_precision": "fp32",
+    "weights_availability": "open",
+    "licence": "Apache-2.0"
+  },
   "hosting_location": "huggingface",
   "access_uri": "https://huggingface.co/ctheodoris/Geneformer",
   "model_card_uri": "https://huggingface.co/ctheodoris/Geneformer",
   "last_synced": "2026-09-04T11:05:00.000Z",
   "record": {
     "created": "2026-09-04T11:05:00.000Z",
-    "updated": "2026-09-04T11:05:00.000Z",
-    "last_verified": "2026-09-04T11:05:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   }
 }

@@ -3,7 +3,7 @@
   "type": "mcp-server",
   "name": "GA4GH RNAget Server",
   "summary": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrices through policy-enforced ticket requests and anonymous byte fetches",
-  "description": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrix data through policy-enforced ticket requests and anonymous byte fetches.",
+  "description": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrix data through policy-enforced ticket requests and anonymous byte fetches.\n\n**Install**: not published to npm or any other package registry. Clone and build the `ga4gh-plugins` repository, then run this package's standalone stdio MCP server with Node, using an absolute path:\n\n```sh\ngit clone https://github.com/susheel/ga4gh-plugins.git\ncd ga4gh-plugins && pnpm install && pnpm run build\nGA4GH_RNAGET_ALLOW_UNENFORCED_MCP=true GA4GH_RNAGET_BASE_URL=https://your-rnaget-endpoint.example.org \\\n  node /absolute/path/to/ga4gh-plugins/packages/rnaget/lib/bin.js\n```\n\nThe standalone server has no GA4GH policy enforcement point in scope and refuses to start unless `GA4GH_RNAGET_ALLOW_UNENFORCED_MCP=true` is set. Run the Cordis plugin instead where GA4GH Passport/Visa policy enforcement is required.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/rnaget",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "rnaget",
@@ -28,13 +40,13 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-03T19:00:06.080Z",
-    "updated": "2026-09-03T19:00:06.080Z",
-    "last_verified": "2026-09-03T19:00:06.080Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "rnaget",
   "server": {
     "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
-    "name": "io.github.deepseek-ai/ga4gh-rnaget",
+    "name": "io.github.susheel/ga4gh-rnaget",
     "description": "Browses GA4GH RNAget metadata and retrieves expression or continuous matrix data",
     "version": "0.1.0-rc.5",
     "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/rnaget",
@@ -43,17 +55,6 @@
       "source": "github",
       "subfolder": "packages/rnaget"
     },
-    "packages": [
-      {
-        "registryType": "npm",
-        "registryBaseUrl": "https://registry.npmjs.org",
-        "identifier": "@deepseek-ai/dsh-ga4gh-rnaget",
-        "version": "0.1.0-rc.5",
-        "transport": {
-          "type": "stdio"
-        }
-      }
-    ],
     "_meta": {
       "org.ga4gh/ai-registry": {
         "ga4gh_standards": [

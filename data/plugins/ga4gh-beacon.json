@@ -3,7 +3,7 @@
   "type": "plugin",
   "name": "GA4GH Beacon v2 Server",
   "summary": "GA4GH Beacon v2 client: query a Beacon endpoint's g_variants search for variant/dataset existence",
-  "description": "Queries a GA4GH Beacon v2 endpoint's `g_variants` search for variant and dataset existence.",
+  "description": "Queries a GA4GH Beacon v2 endpoint's `g_variants` search for variant and dataset existence.\n\n**Install**: not published to npm or any other package registry. Clone and build the `ga4gh-plugins` repository, then run this package's standalone stdio MCP server with Node, using an absolute path:\n\n```sh\ngit clone https://github.com/susheel/ga4gh-plugins.git\ncd ga4gh-plugins && pnpm install && pnpm run build\nGA4GH_BEACON_ALLOW_UNENFORCED_MCP=true \\\n  node /absolute/path/to/ga4gh-plugins/packages/beacon/lib/bin.js\n```\n\nThe standalone server has no GA4GH policy enforcement point in scope and refuses to start unless `GA4GH_BEACON_ALLOW_UNENFORCED_MCP=true` is set. Run the Cordis plugin instead where GA4GH Passport/Visa policy enforcement is required.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "beacon",
@@ -28,8 +40,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-03T19:00:06.075Z",
-    "updated": "2026-09-03T19:00:06.075Z",
-    "last_verified": "2026-09-03T19:00:06.075Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "beacon",
   "plugin": {
@@ -38,8 +50,8 @@
     "version": "0.1.0-rc.5",
     "description": "GA4GH Beacon v2 client: query a Beacon endpoint's g_variants search for variant/dataset existence",
     "author": {
-      "name": "deepseek-ai",
-      "url": "https://github.com/deepseek-ai"
+      "name": "Susheel Varma (Sage Bionetworks)",
+      "url": "https://github.com/susheel"
     },
     "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
     "repository": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
@@ -52,10 +64,9 @@
     ],
     "mcpServers": {
       "ga4gh-beacon": {
-        "command": "npx",
+        "command": "node",
         "args": [
-          "-y",
-          "@deepseek-ai/dsh-ga4gh-beacon"
+          "${CLAUDE_PLUGIN_ROOT}/lib/bin.js"
         ]
       }
     }
@@ -71,23 +82,19 @@
     "harnesses": [
       {
         "harness": "claude-code",
-        "installCommand": "claude mcp add ga4gh-beacon -- npx -y @deepseek-ai/dsh-ga4gh-beacon"
+        "installCommand": "git clone https://github.com/susheel/ga4gh-plugins.git\ncd ga4gh-plugins && pnpm install && pnpm run build\nclaude mcp add ga4gh-beacon \\\n  --env GA4GH_BEACON_ALLOW_UNENFORCED_MCP=true \\\n  -- node /absolute/path/to/ga4gh-plugins/packages/beacon/lib/bin.js"
       },
       {
         "harness": "codex",
-        "installCommand": "codex mcp add ga4gh-beacon -- npx -y @deepseek-ai/dsh-ga4gh-beacon"
-      },
-      {
-        "harness": "gemini-cli",
-        "installCommand": "gemini mcp add ga4gh-beacon npx -y @deepseek-ai/dsh-ga4gh-beacon"
+        "installCommand": "git clone https://github.com/susheel/ga4gh-plugins.git\ncd ga4gh-plugins && pnpm install && pnpm run build\ncodex mcp add ga4gh-beacon \\\n  --env GA4GH_BEACON_ALLOW_UNENFORCED_MCP=true \\\n  -- node /absolute/path/to/ga4gh-plugins/packages/beacon/lib/bin.js"
       },
       {
         "harness": "opencode",
-        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-beacon\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"npx\",\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-beacon\"\n      ],\n      \"enabled\": true\n    }\n  }\n}"
+        "installCommand": "{\n  \"mcp\": {\n    \"ga4gh-beacon\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"node\",\n        \"/absolute/path/to/ga4gh-plugins/packages/beacon/lib/bin.js\"\n      ],\n      \"enabled\": true,\n      \"environment\": {\n        \"GA4GH_BEACON_ALLOW_UNENFORCED_MCP\": \"true\"\n      }\n    }\n  }\n}"
       },
       {
         "harness": "mcp-generic",
-        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-beacon\": {\n      \"command\": \"npx\",\n      \"args\": [\n        \"-y\",\n        \"@deepseek-ai/dsh-ga4gh-beacon\"\n      ]\n    }\n  }\n}"
+        "installCommand": "{\n  \"mcpServers\": {\n    \"ga4gh-beacon\": {\n      \"command\": \"node\",\n      \"args\": [\n        \"/absolute/path/to/ga4gh-plugins/packages/beacon/lib/bin.js\"\n      ],\n      \"env\": {\n        \"GA4GH_BEACON_ALLOW_UNENFORCED_MCP\": \"true\"\n      }\n    }\n  }\n}"
       }
     ]
   }

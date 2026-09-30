@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-beacon skill",
   "summary": "Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary",
-  "description": "Bundled Claude Code / MCP skill for GA4GH Beacon v2, shipped alongside the `@deepseek-ai/dsh-ga4gh-beacon` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary. Use when the user asks about GA4GH Beacon queries, variant-presence lookups against a Beacon v2 service, federated genomic discovery, or GA4GH Beacon interoperability.",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Beacon v2, shipped alongside the `dsh-ga4gh-beacon` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Query a GA4GH Beacon v2 endpoint for genomic variants, individuals, biosamples, analyses, runs, cohorts, and datasets, follow its cross-entity links, and read its metadata and filtering vocabulary. Use when the user asks about GA4GH Beacon queries, variant-presence lookups against a Beacon v2 service, federated genomic discovery, or GA4GH Beacon interoperability.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "beacon",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.662Z",
-    "updated": "2026-09-04T11:00:07.662Z",
-    "last_verified": "2026-09-04T11:00:07.662Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-beacon",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/beacon"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/beacon"
     }
   },
   "source": {

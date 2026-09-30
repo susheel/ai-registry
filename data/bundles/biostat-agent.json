@@ -11,14 +11,26 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "1.0.0",
+  "upstream": {
+    "publisher": {
+      "id": "choxos",
+      "name": "Ahmad Sofi-Mahmudi (choxos)",
+      "type": "github-user",
+      "url": "https://github.com/choxos"
+    },
+    "name": "biostatagent",
+    "version": "a55c059",
+    "version_source": "commit",
+    "version_date": "2026-05-28"
+  },
   "keywords": ["biostatistics", "clinical-trials", "bayesian-modeling", "claude-code-marketplace"],
   "category": "biostatistics",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "marketplace": {
     "name": "biostat-agent",

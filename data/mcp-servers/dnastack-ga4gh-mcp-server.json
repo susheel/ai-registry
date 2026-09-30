@@ -11,14 +11,26 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "0.1.0",
+  "upstream": {
+    "publisher": {
+      "id": "dnastack",
+      "name": "DNAstack",
+      "type": "github-org",
+      "url": "https://github.com/DNAstack"
+    },
+    "name": "ga4gh-mcp-server",
+    "version": null,
+    "version_source": null,
+    "version_date": null
+  },
   "keywords": ["ga4gh", "trs", "drs", "beacon", "htsget", "refget", "data-connect", "wes", "tes", "mcp-server"],
   "ga4gh_standards": ["trs", "drs", "beacon", "htsget", "refget", "data-connect", "wes", "tes", "service-info", "service-registry"],
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "other",
   "server": {

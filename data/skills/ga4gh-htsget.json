@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-htsget skill",
   "summary": "Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server",
-  "description": "Bundled Claude Code / MCP skill for GA4GH htsget, shipped alongside the `@deepseek-ai/dsh-ga4gh-htsget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server. Use when the user asks to fetch or stream genomic reads/variants over htsget, wants byte-range URLs for a BAM/CRAM/VCF/BCF object, or is integrating with the GA4GH htsget streaming-retrieval standard.",
+  "description": "Bundled Claude Code / MCP skill for GA4GH htsget, shipped alongside the `dsh-ga4gh-htsget` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Request GA4GH htsget tickets (byte-range URLs) for reads or variants from a configured htsget server. Use when the user asks to fetch or stream genomic reads/variants over htsget, wants byte-range URLs for a BAM/CRAM/VCF/BCF object, or is integrating with the GA4GH htsget streaming-retrieval standard.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/htsget",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "htsget",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.662Z",
-    "updated": "2026-09-04T11:00:07.662Z",
-    "last_verified": "2026-09-04T11:00:07.662Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-htsget",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/htsget"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/htsget"
     }
   },
   "source": {

@@ -15,6 +15,18 @@
     }
   ],
   "version": "1.0.0",
+  "upstream": {
+    "publisher": {
+      "id": "genomoncology",
+      "name": "GenomOncology",
+      "type": "github-org",
+      "url": "https://github.com/genomoncology"
+    },
+    "name": "biomcp",
+    "version": "1.0.0",
+    "version_source": "manifest",
+    "version_date": null
+  },
   "keywords": [
     "biomedical",
     "clinvar",
@@ -27,8 +39,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "clinical-genomics",
   "plugin": {

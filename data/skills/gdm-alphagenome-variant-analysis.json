@@ -10,15 +10,27 @@
   "maintainers": [
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
-  "version": "1.2.0",
+  "version": "1.2.1",
+  "upstream": {
+    "publisher": {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "type": "github-org",
+      "url": "https://github.com/google-deepmind"
+    },
+    "name": "science-skills",
+    "version": "1.2.1",
+    "version_source": "git-tag",
+    "version_date": "2026-09-14"
+  },
   "keywords": ["alphagenome", "variant-effect-prediction", "regulatory-genomics", "google-deepmind", "clinvar", "gnomad"],
   "category": "variant-interpretation",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "alphagenome-single-variant-analysis",

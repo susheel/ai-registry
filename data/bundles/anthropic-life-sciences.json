@@ -11,15 +11,27 @@
   "maintainers": [
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
-  "version": "1.0.0",
+  "version": "1.1.1",
+  "upstream": {
+    "publisher": {
+      "id": "anthropics",
+      "name": "Anthropic",
+      "type": "github-org",
+      "url": "https://github.com/anthropics"
+    },
+    "name": "life-sciences",
+    "version": "1.1.1",
+    "version_source": "github-release",
+    "version_date": "2026-01-09"
+  },
   "keywords": ["life-sciences", "biomedical-research", "claude-code-marketplace"],
   "category": "life-sciences",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-07T00:00:00.000Z",
-    "updated": "2026-09-07T00:00:00.000Z",
-    "last_verified": "2026-09-07T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "marketplace": {
     "name": "life-sciences",

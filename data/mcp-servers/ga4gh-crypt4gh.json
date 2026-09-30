@@ -3,7 +3,7 @@
   "type": "mcp-server",
   "name": "GA4GH Crypt4GH Inspector",
   "summary": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting",
-  "description": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting.",
+  "description": "GA4GH Crypt4GH header inspector: structurally validates a file header's magic bytes, version, and packet accounting.\n\n**Install**: not published to npm or any other package registry. Clone and build the `ga4gh-plugins` repository, then run this package's standalone stdio MCP server with Node, using an absolute path:\n\n```sh\ngit clone https://github.com/susheel/ga4gh-plugins.git\ncd ga4gh-plugins && pnpm install && pnpm run build\nnode /absolute/path/to/ga4gh-plugins/packages/crypt4gh/lib/bin.js\n```",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/crypt4gh",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "crypt4gh",
@@ -28,13 +40,13 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-03T19:00:06.080Z",
-    "updated": "2026-09-03T19:00:06.080Z",
-    "last_verified": "2026-09-03T19:00:06.080Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "crypt4gh",
   "server": {
     "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
-    "name": "io.github.deepseek-ai/ga4gh-crypt4gh",
+    "name": "io.github.susheel/ga4gh-crypt4gh",
     "description": "Validates a GA4GH Crypt4GH file header's magic bytes, version, and packet accounting",
     "version": "0.1.0-rc.5",
     "websiteUrl": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/crypt4gh",
@@ -43,17 +55,6 @@
       "source": "github",
       "subfolder": "packages/crypt4gh"
     },
-    "packages": [
-      {
-        "registryType": "npm",
-        "registryBaseUrl": "https://registry.npmjs.org",
-        "identifier": "@deepseek-ai/dsh-ga4gh-crypt4gh",
-        "version": "0.1.0-rc.5",
-        "transport": {
-          "type": "stdio"
-        }
-      }
-    ],
     "_meta": {
       "org.ga4gh/ai-registry": {
         "ga4gh_standards": [

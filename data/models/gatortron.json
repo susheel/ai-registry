@@ -11,18 +11,35 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "gatortron-base (345M)",
+  "upstream": {
+    "publisher": {
+      "id": "ufnlp",
+      "name": "University of Florida NLP Group",
+      "type": "huggingface-org",
+      "url": "https://huggingface.co/UFNLP"
+    },
+    "name": "gatortron-base",
+    "version": "127a8d5",
+    "version_source": "huggingface-revision",
+    "version_date": "2025-04-28"
+  },
   "keywords": ["clinical-nlp", "clinical-notes", "ehr", "bert", "de-identified-text"],
   "category": "clinical-nlp",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "University of Florida / NVIDIA",
+  "model_details": {
+    "parameters": "345M",
+    "weights_availability": "open",
+    "licence": "Apache-2.0"
+  },
   "hosting_location": "huggingface",
   "access_uri": "https://huggingface.co/UFNLP/gatortron-base",
   "model_card_uri": "https://huggingface.co/UFNLP/gatortron-base",
   "last_synced": "2026-09-08T00:00:00.000Z",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   }
 }

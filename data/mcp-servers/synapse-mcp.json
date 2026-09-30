@@ -10,15 +10,27 @@
   "maintainers": [
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
-  "version": "1.0.0",
+  "version": "0.9.3",
+  "upstream": {
+    "publisher": {
+      "id": "sage-bionetworks",
+      "name": "Sage Bionetworks",
+      "type": "github-org",
+      "url": "https://github.com/Sage-Bionetworks"
+    },
+    "name": "synapse-mcp",
+    "version": "0.9.3",
+    "version_source": "github-release",
+    "version_date": "2026-08-21"
+  },
   "keywords": ["synapse", "provenance", "acl", "access-control", "cancer", "rare-disease", "mcp-server"],
   "ga4gh_standards": ["other"],
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "category": "other",
   "server": {

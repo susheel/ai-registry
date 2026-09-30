@@ -12,18 +12,36 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "2.5b-multi-species",
+  "upstream": {
+    "publisher": {
+      "id": "instadeepai",
+      "name": "InstaDeep Ltd",
+      "type": "huggingface-org",
+      "url": "https://huggingface.co/InstaDeepAI"
+    },
+    "name": "nucleotide-transformer-2.5b-multi-species",
+    "version": "b746b12",
+    "version_source": "huggingface-revision",
+    "version_date": "2024-07-22"
+  },
   "keywords": ["dna", "genomics", "foundation-model", "multi-species", "language-model"],
   "category": "genomic-foundation-model",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "InstaDeep, NVIDIA, Technical University of Munich",
+  "model_details": {
+    "parameters": "2.5B",
+    "reference_precision": "fp32",
+    "weights_availability": "open",
+    "licence": "other"
+  },
   "hosting_location": "huggingface",
   "access_uri": "https://huggingface.co/InstaDeepAI/nucleotide-transformer-2.5b-multi-species",
   "model_card_uri": "https://huggingface.co/InstaDeepAI/nucleotide-transformer-2.5b-multi-species",
   "last_synced": "2026-09-04T11:05:00.000Z",
   "record": {
     "created": "2026-09-04T11:05:00.000Z",
-    "updated": "2026-09-04T11:05:00.000Z",
-    "last_verified": "2026-09-04T11:05:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   }
 }

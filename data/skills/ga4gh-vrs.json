@@ -3,7 +3,7 @@
   "type": "skill",
   "name": "ga4gh-vrs skill",
   "summary": "Normalize a genomic variation expression (HGVS, gnomAD VCF, or free-text) against a configured GA4GH Variation Representation Specification (VRS) normalization service and return the normalized VRS va",
-  "description": "Bundled Claude Code / MCP skill for GA4GH Variation Representation Specification (VRS), shipped alongside the `@deepseek-ai/dsh-ga4gh-vrs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Normalize a genomic variation expression (HGVS, gnomAD VCF, or free-text) against a configured GA4GH Variation Representation Specification (VRS) normalization service and return the normalized VRS variation object. Use when the user asks to normalize a variant description, convert a variant to VRS form, or work with the GA4GH VRS standard for computational variant representation.",
+  "description": "Bundled Claude Code / MCP skill for GA4GH Variation Representation Specification (VRS), shipped alongside the `dsh-ga4gh-vrs` Cordis plugin and standalone MCP server in the `ga4gh-plugins` monorepo. Normalize a genomic variation expression (HGVS, gnomAD VCF, or free-text) against a configured GA4GH Variation Representation Specification (VRS) normalization service and return the normalized VRS variation object. Use when the user asks to normalize a variant description, convert a variant to VRS form, or work with the GA4GH VRS standard for computational variant representation.",
   "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/vrs",
   "repository": "https://github.com/susheel/ga4gh-plugins",
   "license": "MIT",
@@ -15,6 +15,18 @@
     }
   ],
   "version": "0.1.0-rc.5",
+  "upstream": {
+    "publisher": {
+      "id": "susheel",
+      "name": "Susheel Varma",
+      "type": "github-user",
+      "url": "https://github.com/susheel"
+    },
+    "name": "ga4gh-plugins",
+    "version": "0.1.0-rc.5",
+    "version_source": "git-tag",
+    "version_date": "2026-09-15"
+  },
   "keywords": [
     "ga4gh",
     "vrs",
@@ -29,8 +41,8 @@
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-04T11:00:07.663Z",
-    "updated": "2026-09-04T11:00:07.663Z",
-    "last_verified": "2026-09-04T11:00:07.663Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "ga4gh-vrs",
@@ -38,7 +50,7 @@
     "license": "MIT",
     "allowed-tools": [],
     "metadata": {
-      "homepage": "https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/ga4gh/vrs"
+      "homepage": "https://github.com/susheel/ga4gh-plugins/tree/main/packages/vrs"
     }
   },
   "source": {

@@ -11,15 +11,27 @@
   "maintainers": [
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
-  "version": "0.1.0",
+  "version": "1e776e2",
+  "upstream": {
+    "publisher": {
+      "id": "aws-samples",
+      "name": "AWS Samples",
+      "type": "github-org",
+      "url": "https://github.com/aws-samples"
+    },
+    "name": "sample-kiro-power-life-sciences",
+    "version": "1e776e2",
+    "version_source": "commit",
+    "version_date": "2026-09-22"
+  },
   "keywords": ["fhir", "hl7v2", "omop-cdm", "clinical-interoperability", "aws-kiro", "genomics-in-fhir"],
   "category": "data-curation",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   },
   "skill": {
     "name": "clinical-interoperability",

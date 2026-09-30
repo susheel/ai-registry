@@ -11,18 +11,35 @@
     { "name": "Susheel Varma", "github": "susheel", "affiliation": "GA4GH AI Workstream / Sage Bionetworks" }
   ],
   "version": "ESM-1v zero-shot scoring (Meier et al. 2021)",
+  "upstream": {
+    "publisher": {
+      "id": "ntranoslab",
+      "name": "Ntranos Lab",
+      "type": "github-org",
+      "url": "https://github.com/ntranoslab"
+    },
+    "name": "esm-variants",
+    "version": "0c33758",
+    "version_source": "commit",
+    "version_date": "2023-09-20"
+  },
   "keywords": ["missense-variant", "variant-effect", "protein-language-model", "esm-1v", "zero-shot"],
   "category": "variant-effect-prediction",
   "safety_classification": [],
   "certification_tier": "unsigned",
   "developed_by": "Ntranos lab",
+  "model_details": {
+    "parameters": "650M",
+    "reference_precision": "fp32",
+    "weights_availability": "open"
+  },
   "hosting_location": "github",
   "access_uri": "https://huggingface.co/spaces/ntranoslab/esm_variants",
   "model_card_uri": "https://huggingface.co/facebook/esm1v_t33_650M_UR90S_1",
   "last_synced": "2026-09-08T00:00:00.000Z",
   "record": {
     "created": "2026-09-08T00:00:00.000Z",
-    "updated": "2026-09-08T00:00:00.000Z",
-    "last_verified": "2026-09-08T00:00:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   }
 }

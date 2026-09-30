@@ -19,7 +19,7 @@
       "url": "https://huggingface.co/arcinstitute"
     },
     "name": "evo2_7b",
-    "version": "bda0089f92582d5baabf0f22d9fc85f3588f6b58",
+    "version": "bda0089",
     "version_source": "huggingface-revision",
     "version_date": "2026-02-06"
   },
@@ -39,7 +39,7 @@
   "last_synced": "2026-09-04T11:05:00.000Z",
   "record": {
     "created": "2026-09-04T11:05:00.000Z",
-    "updated": "2026-09-04T11:05:00.000Z",
-    "last_verified": "2026-09-04T11:05:00.000Z"
+    "updated": "2026-09-30T00:00:00.000Z",
+    "last_verified": "2026-09-30T00:00:00.000Z"
   }
 }
