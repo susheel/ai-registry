@@ -1,0 +1,233 @@
+---
+/**
+ * Split action button for entry detail pages: a primary action ("Install"
+ * where the page has install information, otherwise "View upstream") plus a
+ * drop-down menu of the entry's other links and a disabled, not-yet-available
+ * "Deploy to refCloud" item.
+ *
+ * Follows the WAI-ARIA menu button pattern: the toggle carries
+ * aria-haspopup/aria-expanded/aria-controls, the menu uses role="menu" with
+ * roving focus (Arrow keys, Home, End, Escape, Tab), and the disabled item
+ * stays reachable by Arrow keys so it is announced as unavailable, but
+ * never activates. Without JavaScript the primary action is a plain link
+ * (to the install section, or out to the upstream page) and the toggle stays
+ * hidden, so nothing inert is shown.
+ */
+import Icon from "./Icon.astro";
+import type { EntryActions } from "../../../scripts/lib/entry-actions.js";
+
+interface Props {
+  actions: EntryActions;
+}
+
+const { actions } = Astro.props;
+const { install, upstream, links } = actions;
+const newTabNote = " (opens in a new tab)";
+---
+
+<div class="entry-actions" data-entry-actions>
+  <div class="entry-actions__group">
+    {
+      actions.primary === "install" && install && (
+        <a class="button button--primary entry-actions__primary" href={`#${install.targetId}`} data-install-target={install.targetId}>
+          <Icon name="download" size={18} />
+          Install
+        </a>
+      )
+    }
+    {
+      actions.primary === "upstream" && upstream && (
+        <a class="button button--primary entry-actions__primary" href={upstream.href} target="_blank" rel="noopener noreferrer">
+          <Icon name="external-link" size={18} />
+          {upstream.label}
+          <span class="visually-hidden">{newTabNote}</span>
+        </a>
+      )
+    }
+    <button
+      type="button"
+      class="button button--primary entry-actions__toggle"
+      id="entry-actions-toggle"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-controls="entry-actions-menu"
+      data-entry-actions-toggle
+      hidden
+    >
+      {actions.primary === "none" && <span>Actions</span>}
+      <Icon name="chevron-down" size={18} />
+      {actions.primary !== "none" && <span class="visually-hidden">More actions</span>}
+    </button>
+  </div>
+  <ul class="entry-actions__menu" role="menu" id="entry-actions-menu" aria-labelledby="entry-actions-toggle" data-entry-actions-menu hidden>
+    {
+      install && (
+        <li role="none">
+          <a role="menuitem" tabindex="-1" class="entry-actions__item" href={`#${install.targetId}`} data-install-target={install.targetId}>
+            <Icon name="download" size={16} />
+            Install
+          </a>
+        </li>
+      )
+    }
+    {
+      upstream && (
+        <li role="none">
+          <a role="menuitem" tabindex="-1" class="entry-actions__item" href={upstream.href} target="_blank" rel="noopener noreferrer">
+            <Icon name="external-link" size={16} />
+            {upstream.label}
+            <span class="visually-hidden">{newTabNote}</span>
+          </a>
+        </li>
+      )
+    }
+    {
+      links.map((link) => (
+        <li role="none">
+          <a role="menuitem" tabindex="-1" class="entry-actions__item" href={link.href} target="_blank" rel="noopener noreferrer" data-link={link.id}>
+            <Icon name="external-link" size={16} />
+            {link.label}
+            <span class="visually-hidden">{newTabNote}</span>
+          </a>
+        </li>
+      ))
+    }
+    <li role="separator" class="entry-actions__separator"></li>
+    <li role="none">
+      <span role="menuitem" tabindex="-1" aria-disabled="true" class="entry-actions__item entry-actions__item--disabled" data-disabled-action="refcloud">
+        <Icon name="cloud" size={16} />
+        Deploy to refCloud
+        <span class="entry-actions__soon"><span class="visually-hidden">(</span>Coming soon<span class="visually-hidden">)</span></span>
+      </span>
+    </li>
+  </ul>
+  {
+    actions.primary === "install" && upstream && (
+      <noscript>
+        <a class="entry-actions__fallback" href={upstream.href} target="_blank" rel="noopener noreferrer">
+          {upstream.label}
+          <span class="visually-hidden">{newTabNote}</span>
+        </a>
+      </noscript>
+    )
+  }
+</div>
+
+<script>
+  function focusInstall(targetId: string): boolean {
+    const target = document.getElementById(targetId);
+    if (!target) return false;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    const focusable =
+      target.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]') ??
+      target.querySelector<HTMLElement>("[data-copy-button]");
+    focusable?.focus({ preventScroll: true });
+    history.replaceState(null, "", `#${targetId}`);
+    return true;
+  }
+
+  function setupMenu(root: HTMLElement) {
+    const toggle = root.querySelector<HTMLButtonElement>("[data-entry-actions-toggle]");
+    const menu = root.querySelector<HTMLElement>("[data-entry-actions-menu]");
+    if (!toggle || !menu) return;
+    const items = Array.from(menu.querySelectorAll<HTMLElement>('[role="menuitem"]'));
+    if (items.length === 0) return;
+
+    root.dataset.enhanced = "true";
+    toggle.hidden = false;
+
+    const isOpen = () => toggle.getAttribute("aria-expanded") === "true";
+
+    function focusItem(index: number) {
+      const i = (index + items.length) % items.length;
+      items[i]?.focus();
+    }
+
+    function open(index: number) {
+      menu!.hidden = false;
+      toggle!.setAttribute("aria-expanded", "true");
+      focusItem(index);
+    }
+
+    function close(returnFocus: boolean) {
+      if (!isOpen()) return;
+      menu!.hidden = true;
+      toggle!.setAttribute("aria-expanded", "false");
+      if (returnFocus) toggle!.focus();
+    }
+
+    toggle.addEventListener("click", () => (isOpen() ? close(true) : open(0)));
+    toggle.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") open(0);
+      else if (event.key === "ArrowUp") open(items.length - 1);
+      else if (event.key === "Escape") close(true);
+      else return;
+      event.preventDefault();
+    });
+
+    menu.addEventListener("keydown", (event) => {
+      const current = items.indexOf(document.activeElement as HTMLElement);
+      switch (event.key) {
+        case "ArrowDown":
+          focusItem(current + 1);
+          break;
+        case "ArrowUp":
+          focusItem(current - 1);
+          break;
+        case "Home":
+          focusItem(0);
+          break;
+        case "End":
+          focusItem(items.length - 1);
+          break;
+        case "Escape":
+          close(true);
+          break;
+        case "Tab":
+          close(false);
+          return;
+        case "Enter":
+        case " ":
+          items[current]?.click();
+          break;
+        default:
+          return;
+      }
+      event.preventDefault();
+    });
+
+    items.forEach((item) => {
+      item.addEventListener("click", (event) => {
+        if (item.getAttribute("aria-disabled") === "true") {
+          event.preventDefault();
+          return;
+        }
+        const targetId = item.dataset.installTarget;
+        if (targetId) {
+          event.preventDefault();
+          close(false);
+          if (!focusInstall(targetId)) toggle.focus();
+          return;
+        }
+        close(false);
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (isOpen() && event.target instanceof Node && !root.contains(event.target)) close(false);
+    });
+    root.addEventListener("focusout", (event) => {
+      const next = event.relatedTarget;
+      if (isOpen() && next instanceof Node && !root.contains(next)) close(false);
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-entry-actions]").forEach((root) => {
+    root.querySelector<HTMLAnchorElement>(".entry-actions__primary[data-install-target]")?.addEventListener("click", (event) => {
+      const targetId = (event.currentTarget as HTMLElement).dataset.installTarget;
+      if (targetId && focusInstall(targetId)) event.preventDefault();
+    });
+    setupMenu(root);
+  });
+</script>

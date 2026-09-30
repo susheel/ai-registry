@@ -6,10 +6,13 @@ import SafetyBadges from "../../components/SafetyBadges.astro";
 import InstallTabs from "../../components/InstallTabs.astro";
 import CopyButton from "../../components/CopyButton.astro";
 import Icon from "../../components/Icon.astro";
+import EntryActions from "../../components/EntryActions.astro";
 import { COLLECTION_KEYS, TYPE_META, type CollectionKey } from "../../lib/registry-types.js";
 import { categoryLabel, harnessLabel } from "../../lib/vocab.js";
 import { withBase } from "../../lib/url.js";
 import { deriveAllInstallSnippets, type InstallableServer } from "../../../../scripts/install-snippets.js";
+import { renderMarkdown, markdownToPlainText } from "../../../../scripts/lib/markdown.js";
+import { deriveEntryActions } from "../../../../scripts/lib/entry-actions.js";
 
 export async function getStaticPaths() {
   const paths = [];
@@ -41,15 +44,6 @@ const CLIENT_LABELS: Record<string, string> = {
   opencode: "opencode",
 };
 
-// `description` is documented as Markdown; render its inline-code spans as
-// <code> so backticked identifiers stop showing literal backticks. Only
-// applied when a paragraph's backticks are balanced; anything else renders
-// verbatim, exactly as before.
-function inlineCodeSegments(text: string): string[] {
-  const parts = text.split("`");
-  return parts.length % 2 === 1 ? parts : [text];
-}
-
 // Provenance timestamps are recorded at date precision (midnight UTC);
 // show them as a readable date, keeping the machine value on <time>.
 function formatDate(value: unknown): { iso: string; label: string } {
@@ -58,13 +52,6 @@ function formatDate(value: unknown): { iso: string; label: string } {
   const iso = date.toISOString();
   const label = date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   return { iso, label };
-}
-
-function paragraphs(text: string): string[] {
-  return text
-    .split(/\n{2,}/)
-    .map((p) => p.trim())
-    .filter(Boolean);
 }
 
 const maintainers = (data.maintainers as Array<{ name: string; github: string; affiliation?: string }>) ?? [];
@@ -95,9 +82,18 @@ if (type === "plugins") {
   const ga4gh = (data.ga4gh as { harnesses?: Array<{ harness: string; installCommand: string }> }) ?? {};
   pluginPanels = (ga4gh.harnesses ?? []).map((h) => ({ id: h.harness, label: harnessLabel(h.harness), content: h.installCommand, hint: `Run in ${harnessLabel(h.harness)}:` }));
 }
+
+// `description` is documented as Markdown and arrives via public
+// submissions: rendered at build time through the allowlist renderer, which
+// escapes any raw HTML and drops unsafe link protocols.
+const descriptionHtml = renderMarkdown(String(data.description ?? ""));
+const summaryText = markdownToPlainText(String(data.summary ?? ""));
+const actions = deriveEntryActions(type, data, {
+  hasInstallPanels: (type === "mcp-servers" ? mcpPanels : pluginPanels).length > 0,
+});
 ---
 
-<Base title={String(data.name)} description={String(data.summary)}>
+<Base title={String(data.name)} description={summaryText}>
   <article data-pagefind-body data-pagefind-filter={`type:${meta.type}`}>
     <header class="detail-header">
       <div>
@@ -105,18 +101,19 @@ if (type === "plugins") {
           <a href={withBase(`/${type}/`)}><Icon name={type} size={16} />{meta.label}</a>
         </p>
         <h1 class="detail-header__title">{String(data.name)}</h1>
-        <p class="page-intro">{String(data.summary)}</p>
+        <p class="page-intro">{summaryText}</p>
       </div>
-      <div class="detail-badges">
-        <CertificationBadge tier={String(data.certification_tier ?? "unsigned")} />
+      <div class="detail-header__aside">
+        <div class="detail-badges">
+          <CertificationBadge tier={String(data.certification_tier ?? "unsigned")} />
+        </div>
+        <EntryActions actions={actions} />
       </div>
     </header>
 
     <section class="detail-section">
       <h2>Overview</h2>
-      {paragraphs(String(data.description ?? "")).map((p) => (
-        <p>{inlineCodeSegments(p).map((seg, i) => (i % 2 === 1 ? <code>{seg}</code> : seg))}</p>
-      ))}
+      <div class="markdown-body" set:html={descriptionHtml} />
     </section>
 
     <section class="detail-section">
@@ -220,7 +217,7 @@ if (type === "plugins") {
               <>
                 <dt>Install</dt>
                 <dd>
-                  <div class="install-snippet-row">
+                  <div class="install-snippet-row" id="model-install">
                     <pre id="model-install-command">{String(data.install_command)}</pre>
                     <CopyButton targetId="model-install-command" label="Copy install command" />
                   </div>
@@ -478,7 +475,7 @@ if (type === "plugins") {
 
     {
       (type === "mcp-servers" || type === "plugins") && (
-        <section class="detail-section">
+        <section class="detail-section" id="install">
           <h2>Install</h2>
           <InstallTabs heading={`Install ${String(data.name)}`} panels={type === "mcp-servers" ? mcpPanels : pluginPanels} />
         </section>

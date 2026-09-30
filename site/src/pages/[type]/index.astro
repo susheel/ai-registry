@@ -8,6 +8,7 @@ import { COLLECTION_KEYS, TYPE_META, singularPhrase, type CollectionKey } from "
 import { categoriesForCollection, categoryLabel, harnessLabel, HARNESSES, SAFETY_SCHEMES } from "../../lib/vocab.js";
 import { withBase } from "../../lib/url.js";
 import { submitIssueUrl } from "../../lib/repo.js";
+import { markdownToPlainText } from "../../../../scripts/lib/markdown.js";
 
 export async function getStaticPaths() {
   return Promise.all(
@@ -189,7 +190,7 @@ const TIER_LABELS: Record<string, string> = {
                 <h2 class="entry-card__title">
                   <a href={withBase(`/${type}/${entry.id}/`)}>{String(data.name)}</a>
                 </h2>
-                <p class="entry-card__summary">{String(data.summary)}</p>
+                <p class="entry-card__summary">{markdownToPlainText(String(data.summary ?? ""))}</p>
                 <div class="entry-card__meta">
                   <CertificationBadge tier={String(data.certification_tier ?? "unsigned")} />
                   <SafetyBadges classifications={safety} compact />
